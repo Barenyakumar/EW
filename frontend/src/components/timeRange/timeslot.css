@@ -1,0 +1,27 @@
+.timeSlotContainer{
+  border: 1px solid grey;
+  background: rgba(186, 184, 184, 0.228);
+  border-radius: .5rem;
+  width: 9rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  padding: 0px 5px;
+  margin: 5px 7px;
+}
+.closeBtn{
+  height: .5rem;
+  width: .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border:none;
+  transform: scale(.7);
+  color: grey;
+}
+.timeSlot{
+  font-size: .7rem;
+  color: grey;
+}

@@ -1,0 +1,19 @@
+@media only screen and (max-width: 900px){
+    .bottomContainer{
+        position: sticky;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        height: 3rem;
+        background: var(--first-color);
+        color: white;
+        z-index: 2;
+        outline: none;
+        box-shadow: none;
+    }
+    .bottomElement:focus{
+        outline: none;
+        box-shadow: none;
+    }
+}

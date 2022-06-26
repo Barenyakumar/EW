@@ -1,0 +1,14 @@
+.singleComplexCard{
+  padding: 1rem 0px;
+  width: 14rem;
+  
+}
+
+.MuiCardComplex{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,22 @@
+.textarea{
+  resize: none;
+  border-radius: 4px;
+  position: relative;
+  border: 1px solid #ced4da;
+  
+  font-size: 16px;
+  padding: 10px 26px 10px 12px;
+  height: 8rem;
+  width: 95%;
+  
+}
+
+
+.upload > label{
+  display: flex;
+  align-items: center;
+
+}
+#uploadImg{
+  display: none;
+}

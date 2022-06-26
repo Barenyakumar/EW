@@ -1,0 +1,16 @@
+/* /===== VARIABLES CSS =====/ */
+
+.logo{
+    font-size: 36px;
+    letter-spacing: 5px;
+    font-family: var(--sub-heading-font);
+    font-weight: bolder;
+    margin:0px .5rem;
+}
+
+@media only screen and (max-width: 900px){
+    .logo{
+        font-size: 25px;
+        letter-spacing: 3px;
+    }
+}

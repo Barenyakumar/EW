@@ -1,0 +1,54 @@
+.Profile{
+  width: 100%;
+  height: 100%;
+  margin: 0px auto;
+}
+/* .profileBg{
+  width: 90%;
+  height: 10%;
+} */
+.profileDetails{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: translateY(-60%);
+  width: 90%;
+  /* height: 20%; */
+  margin: 1rem;
+}
+
+  .profileName{
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      width: 16rem;
+      height: 5rem;
+      flex-direction: column;
+  }
+
+.expertise{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  
+}
+
+.experienceProfile{
+  height: 30%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+.expertiseProfile{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+}
+
