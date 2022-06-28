@@ -35,6 +35,7 @@ import Availability from "../../components/availability/Availability"
 import SearchPage from "../Search/Search"
 import BookingSessionPage from "../BookingSession/BookingSessionPage"
 import Createsession from "../../components/groupSessions/CreateSession"
+import SessionDetails from "../../components/sessiondetails/SessionDetails"
 
 export const Home = () => {
   const { user } = useContext(AuthContext)
@@ -46,7 +47,11 @@ export const Home = () => {
     const routes = useRoutes([
       {
         path: "/",
-        element: user ? <Navigate to="/home" /> : <Explore loginCallback={loginCallback} public={true} />,
+        element: user ? (
+          <Navigate to="/home" />
+        ) : (
+          <Explore loginCallback={loginCallback} public={true} />
+        ),
       },
       {
         path: "/register",
@@ -66,11 +71,12 @@ export const Home = () => {
       },
       {
         path: "/home",
-        element: !user || user === undefined? (
-          <Navigate to="/login" />
-        ) : (
-          <MenteeHome loginCallback={loginCallback(false)} />
-        ),
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <MenteeHome loginCallback={loginCallback(false)} />
+          ),
       },
       // {
       //   path: "/mentor",
@@ -86,7 +92,8 @@ export const Home = () => {
       // },
       {
         path: "/booking",
-        element: !user || user === undefined? <Navigate to="/login" /> : <Booking />,
+        element:
+          !user || user === undefined ? <Navigate to="/login" /> : <Booking />,
       },
       // {
       //   path: "/myprofile",
@@ -94,7 +101,8 @@ export const Home = () => {
       // },
       {
         path: `/profile/:username`,
-        element: !user || user === undefined? <Navigate to="/login" /> : <Profile />,
+        element:
+          !user || user === undefined ? <Navigate to="/login" /> : <Profile />,
       },
       // {
       //   path: "/groupsession",
@@ -118,19 +126,44 @@ export const Home = () => {
       // },
       {
         path: "/settings",
-        element: !user || user === undefined? <Navigate to="/login" /> : <Setting />,
+        element:
+          !user || user === undefined ? <Navigate to="/login" /> : <Setting />,
       },
       {
         path: "/availability",
-        element: !user || user === undefined? <Navigate to="/login" /> : <Availability />,
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <Availability />
+          ),
       },
       {
         path: "/search",
-        element: !user || user === undefined? <Navigate to="/login" /> : <MentorList />,
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <MentorList />
+          ),
       },
       {
         path: `/createbooking/:id`,
-        element: !user || user === undefined? <Navigate to="/login" /> : <BookingSessionPage />,
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <BookingSessionPage />
+          ),
+      },
+      {
+        path: `/sessiondetails`,
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <SessionDetails />
+          ),
       },
       {
         path: `/newgroupsession`,
