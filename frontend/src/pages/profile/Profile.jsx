@@ -102,7 +102,7 @@ console.log(availibility);
       <div className="Profile">
         <div className="profileBg">
           <img
-            src={
+            src={ 
               userProfile.coverImage
                 ? publicFolder + userProfile.coverImage
                 : "/images/loginbg.jpg"

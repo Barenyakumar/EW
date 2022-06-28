@@ -1,0 +1,25 @@
+.sessionContainer{
+   width: 70%;
+  height: 100%;
+  margin: 0px auto;
+}
+
+.group_session_time{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.group_session_desc{
+  color: #0A243F;
+  font-size: 1rem;
+}
+
+@media only screen and (max-width: 500px){
+  .sessionContainer{
+   width: 90%;
+  height: 100%;
+  margin: 0px auto;
+}
+
+}
