@@ -6,10 +6,10 @@ const onesessionSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       required: true,
     },
-    // mentee: {
-    //   type: Number,
-    //   required: true,
-    // },
+    sessionName: {
+      type: String,
+      required: true,
+    },
     sessionType: {
       type: String,
       required: true,
@@ -42,6 +42,18 @@ const onesessionSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    sessionImg:{
+      type:String,
+      default:"",
+    },
+    coHosts:{
+      type:Array,
+      default:[]
+    },
+    duration:{
+      type:String,
+      default:"30 mins"
+    }
   },
   {
     timestamps: true,

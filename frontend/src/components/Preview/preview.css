@@ -1,0 +1,7 @@
+.previewImgConainer{
+    height: 100%;
+    background-color: rgb(246, 246, 246);
+    width:100%;
+    margin: 1rem 0px ;
+    min-width: 300px;
+  }

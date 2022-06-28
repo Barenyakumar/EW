@@ -34,6 +34,7 @@ import Setting from "../Setting/Setting"
 import Availability from "../../components/availability/Availability"
 import SearchPage from "../Search/Search"
 import BookingSessionPage from "../BookingSession/BookingSessionPage"
+import Createsession from "../../components/groupSessions/CreateSession"
 
 export const Home = () => {
   const { user } = useContext(AuthContext)
@@ -130,6 +131,10 @@ export const Home = () => {
       {
         path: `/createbooking/:id`,
         element: !user || user === undefined? <Navigate to="/login" /> : <BookingSessionPage />,
+      },
+      {
+        path: `/newgroupsession`,
+        element: !user || user === undefined? <Navigate to="/login" /> : <Createsession />,
       },
     ])
     return routes
