@@ -35,6 +35,24 @@ const Session = require("../models/oneSession")
   })
 
 
+  // create group session route by mentor 
+  router.post("/:mentorId", async (req, res) => {
+    const mentorID = req.params.mid
+    try {
+      const newSession = new Session(req.body)
+      newSession.members = [mentorID, ...req.body.coHosts];
+      const session = await newSession.save()
+      res.status(200).json(session)
+      // res.status(201).json(session)
+    } catch (err) {
+      // res.status(500).json(err)
+      res.status(500).json(err)
+    }
+
+  })
+
+  
+
   //when mentee wants to see his booking
   router.get("/:id", async (req, res) => {
     try {
