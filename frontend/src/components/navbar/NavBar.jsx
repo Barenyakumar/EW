@@ -115,7 +115,7 @@ export const NavBar = (props) => {
                           <span className="listValue">Explore</span>
                         </li>{" "}
                       </Link> */}
-                      <Link
+                      {/* <Link
                         onClick={toggleDrawer(false)}
                         to="/booking"
                         style={{ textDecoration: "none", color: "black" }}
@@ -128,7 +128,7 @@ export const NavBar = (props) => {
                           </Avatar>
                           <span className="listValue">My Bookings</span>
                         </li>
-                      </Link>
+                      </Link> */}
                       {/* <Link
                         onClick={toggleDrawer(false)}
                         to="/challanges"
@@ -143,9 +143,9 @@ export const NavBar = (props) => {
                           <span className="listValue">Challanges</span>
                         </li>{" "}
                       </Link> */}
-                      {/* <Link
+                      <Link
                         onClick={toggleDrawer(false)}
-                        to="/"
+                        to="/groupsession"
                         style={{ textDecoration: "none", color: "black" }}
                       >
                         <li className="navValues">
@@ -156,7 +156,7 @@ export const NavBar = (props) => {
                           </Avatar>
                           <span className="listValue">Group Session</span>
                         </li>{" "}
-                      </Link> */}
+                      </Link>
                       <Link
                         onClick={toggleDrawer(false)}
                         to="/search"

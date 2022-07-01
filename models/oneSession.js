@@ -24,10 +24,10 @@ const onesessionSchema = new mongoose.Schema(
     },
     endTime: {
       type: String,
-      required: true,
+      default:""
     },
     date: {
-      type: Date,
+      type: String,
       required: true,
     },
     description: {
@@ -36,7 +36,7 @@ const onesessionSchema = new mongoose.Schema(
     },
     members: {
       type: [{type: mongoose.Types.ObjectId}],
-      required: true,
+      default:[],
     },
     sessionLink: {
       type: String,
@@ -53,6 +53,10 @@ const onesessionSchema = new mongoose.Schema(
     duration:{
       type:String,
       default:"30 mins"
+    },
+    isActive:{
+      type:Boolean,
+      default:true
     }
   },
   {

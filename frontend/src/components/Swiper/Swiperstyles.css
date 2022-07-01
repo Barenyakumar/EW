@@ -19,6 +19,7 @@ body {
 }
 .mySwiper{
   height:60vh;
+  min-width: 23rem;
 }
 
 .swiper-slide {

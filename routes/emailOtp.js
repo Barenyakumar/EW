@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-router.post("/welcome",(req,res)=>{
+router.post("/mail",(req,res)=>{
     const options ={
         from:"eduwarts@outlook.com",
         to:req.body.reciever,

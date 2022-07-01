@@ -1,13 +1,19 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import PropTypes from "prop-types"
 import {
   Tabs,
   Tab,
   Typography,
   Box,
+  Button,
 } from "@mui/material"
 // import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import MuiCardComplex from "../muiCard/MuiCardComplex"
+import {SwiperSession} from "../Swiper/Swiper"
+import axios from "axios"
+import { useContext } from "react"
+import {AuthContext} from "../../context/AuthContext"
+import { Link } from 'react-router-dom';
 
 // const card = (
 //   <React.Fragment>
@@ -81,6 +87,25 @@ function a11yProps(index) {
 }
 
 export default function GroupSession() {
+  const {user} = useContext(AuthContext)
+
+  const [UpcomingGroupSessions, setUpcomingGroupSessions] = useState([]);
+  const [pastGroupSession, setPastGroupSession] = useState([])
+  useEffect(() => {
+    async function getUpcomingData(){
+      const res = await axios.get("/session/activegroup")
+      setUpcomingGroupSessions(res.data);
+    }
+    async function getPastData(){
+      const res = await axios.get("/session/pastgroup")
+      setPastGroupSession(res.data);
+    }
+    getUpcomingData();
+    getPastData();
+
+  }, [])
+  
+
 
   const [value, setValue] = React.useState(0)
 
@@ -91,6 +116,12 @@ export default function GroupSession() {
     <div className="Booking">
       <h2>Group Sessions</h2>
       <h3>The bookings are done as per your request attempeted</h3>
+      {
+        user.isMentor?
+        <Button variant="outlined" component={Link} to={"/newgroupsession"}style={{
+          float:"right"
+        }}>Create Session</Button>:""
+      }
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -103,17 +134,13 @@ export default function GroupSession() {
       </Box>
       <TabPanel value={value} index={0}>
         <div className="MuiCardComplex">
-          {groupsession.map((elem) => (
-            <div className="singleComplexCard">
-              <MuiCardComplex element={elem} />
-            </div>
-          ))}
+              <SwiperSession arrayList={UpcomingGroupSessions}/>
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className="MuiCardComplex">
-          {groupsession.map((elem) => (
-            <div className="singleComplexCard">
+          {pastGroupSession.map((elem) => (
+            <div className="singleComplexCard" key={elem._id}>
               <MuiCardComplex element={elem} />
             </div>
           ))}

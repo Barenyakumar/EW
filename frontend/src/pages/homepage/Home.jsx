@@ -104,10 +104,10 @@ export const Home = () => {
         element:
           !user || user === undefined ? <Navigate to="/login" /> : <Profile />,
       },
-      // {
-      //   path: "/groupsession",
-      //   element: !user || user === undefined? <Navigate to="/login" /> : <GroupSession />,
-      // },
+      {
+        path: "/groupsession",
+        element: !user || user === undefined? <Navigate to="/login" /> : <GroupSession />,
+      },
       // {
       //   path: "/notification",
       //   element: !user || user === undefined? <Navigate to="/login" /> : <Notification />,
@@ -157,7 +157,7 @@ export const Home = () => {
           ),
       },
       {
-        path: `/sessiondetails`,
+        path: `/session/:id`,
         element:
           !user || user === undefined ? (
             <Navigate to="/login" />
@@ -178,6 +178,7 @@ export const Home = () => {
 
   const [loginFlag, setLoginFlag] = useState(false)
 
+console.log(loginFlag)
   const loginCallback = (data) => setLoginFlag(data)
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -207,7 +208,7 @@ export const Home = () => {
       >
         {!loginFlag ? <NavBar /> : ""}
         <AppRoutes />
-        {!loginFlag ? slide_val ? <BottomNav /> : "" : ""}
+        {!loginFlag ? slide_val ? <BottomNav/> : "" : ""}
       </div>
     </>
   )

@@ -1,25 +1,35 @@
-.sessionContainer{
-   width: 70%;
-  height: 100%;
+.sessionContainer {
+  width: 90%;
   margin: 0px auto;
+  /* border: 1px solid grey; */
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 1px 2px 8px grey;
 }
 
-.group_session_time{
+.group_session_time {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.group_session_desc{
+.group_session_desc {
   color: #0A243F;
   font-size: 1rem;
 }
-
-@media only screen and (max-width: 500px){
-  .sessionContainer{
-   width: 90%;
-  height: 100%;
-  margin: 0px auto;
+.sessionButtons{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2rem 0px;
 }
+.host_name{
+  display: flex;
+  align-items: center;
+  width: 35%;
+  min-width: 20rem;
+}
+
+@media only screen and (max-width: 500px) {
 
 }
