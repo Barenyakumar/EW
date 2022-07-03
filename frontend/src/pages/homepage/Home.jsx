@@ -36,6 +36,8 @@ import SearchPage from "../Search/Search"
 import BookingSessionPage from "../BookingSession/BookingSessionPage"
 import Createsession from "../../components/groupSessions/CreateSession"
 import SessionDetails from "../../components/sessiondetails/SessionDetails"
+import Footer from "../../components/footer/Footer"
+import Preloader from "../../components/PreLoader/Preloader"
 
 export const Home = () => {
   const { user } = useContext(AuthContext)
@@ -104,10 +106,10 @@ export const Home = () => {
         element:
           !user || user === undefined ? <Navigate to="/login" /> : <Profile />,
       },
-      {
-        path: "/groupsession",
-        element: !user || user === undefined? <Navigate to="/login" /> : <GroupSession />,
-      },
+      // {
+      //   path: "/groupsession",
+      //   element: !user || user === undefined? <Navigate to="/login" /> : <GroupSession />,
+      // },
       // {
       //   path: "/notification",
       //   element: !user || user === undefined? <Navigate to="/login" /> : <Notification />,
@@ -167,7 +169,17 @@ export const Home = () => {
       },
       {
         path: `/newgroupsession`,
-        element: !user || user === undefined? <Navigate to="/login" /> : <Createsession />,
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <Createsession />
+          ),
+      },
+      {
+        path: `/prelaoder`,
+        element:
+          <Preloader/>
       },
     ])
     return routes
@@ -178,7 +190,7 @@ export const Home = () => {
 
   const [loginFlag, setLoginFlag] = useState(false)
 
-console.log(loginFlag)
+// console.log(loginFlag)
   const loginCallback = (data) => setLoginFlag(data)
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -208,7 +220,7 @@ console.log(loginFlag)
       >
         {!loginFlag ? <NavBar /> : ""}
         <AppRoutes />
-        {!loginFlag ? slide_val ? <BottomNav/> : "" : ""}
+        {!loginFlag ? slide_val ? <BottomNav /> : "" : ""}
       </div>
     </>
   )

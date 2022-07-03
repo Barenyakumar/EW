@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 import { AuthContext } from '../../context/AuthContext';
 
 export const BottomNav = ({loginFlag}) => {
-  console.log(loginFlag)
+  // console.log(loginFlag)
   const {user}= useContext(AuthContext)
   return (
     <div className="bottomContainer">
