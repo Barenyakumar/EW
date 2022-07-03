@@ -4,16 +4,22 @@ const nodemailer = require('nodemailer')
 
 
 const transporter = nodemailer.createTransport({
-    service:"hotmail",
+    // service:"webmail",
+    host:"smtp.eduwarts.tech",
+    port:587,
+    secure:false,
     auth:{
-        user:"eduwarts@outlook.com",
-        pass:"Pratik@4488"
+        user:"team@eduwarts.tech",
+        pass:"tgxSUrp6"
+    },
+    tls: { 
+        rejectUnauthorized: false 
     }
 });
 
 router.post("/mail",(req,res)=>{
     const options ={
-        from:"eduwarts@outlook.com",
+        from:"team@eduwarts.tech",
         to:req.body.reciever,
         subject:req.body.subject,
         text:req.body.message
@@ -42,15 +48,17 @@ router.post("/otp", (req, res)=>{
 
     const otp = makeid(6);
     const options ={
-        from:"eduwarts@outlook.com",
+        from:"team@eduwarts.tech",
         to:req.body.reciever,
         subject:"Email verification from Eduwarts.com",
         text:"Dear user your email verification code is: "+otp
     }
 
     transporter.sendMail(options,function (err, info){
-        if(err)
-            res.status(500).json(err);
+        if(err){
+            console.log(err)
+            res.status(500).json("err");
+        }
         else
             res.status(200).json(otp);
     })
