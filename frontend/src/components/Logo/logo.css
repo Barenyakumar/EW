@@ -6,11 +6,13 @@
     font-family: var(--sub-heading-font);
     font-weight: bolder;
     margin:0px .5rem;
+    width: max-content;
 }
 
 @media only screen and (max-width: 900px){
     .logo{
         font-size: 25px;
         letter-spacing: 3px;
+        width: max-content;
     }
 }

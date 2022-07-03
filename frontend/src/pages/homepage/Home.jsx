@@ -216,7 +216,7 @@ export const Home = () => {
     <>
       <div
         className="homeContainer"
-        style={{ maxWidth: "55rem", margin: "0px auto" }}
+        style={{ maxWidth: "55rem", margin: "0px auto", width:"98%" }}
       >
         {!loginFlag ? <NavBar /> : ""}
         <AppRoutes />

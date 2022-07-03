@@ -113,16 +113,39 @@ export default function Createsession() {
       setError(true)
     }
 
+    const mailRes = await axios.post("/send_mail_to_all",{sessionBody:sessionBody, mentorName:currentUser.name, sessionId:groupSession.data._id});
+
     // console.log(groupSession);
 
-    const usersMail = await axios.get("/users/all");
-    setUserMail(usersMail.data);
-    console.log(usersMail.data);
+    // const usersMail = await axios.get("/users/all");
+    // setUserMail(usersMail.data);
+    // console.log(usersMail.data);
 
-   
+    // for (let i = 0; i < usersMail.data.length; i++) {
+    //   const email = await axios.post("/email/mail", {
+    //     reciever: usersMail.data[i].email,
+    //     subject: `${sessionName} is being published by your mentor ${currentUser.name}`,
+    //     message: `Dear ${usersMail.data[i].Name}, \n <b>${currentUser.name}</b> has created a group session,\n
+    //     ${sessionName},\n
+    //     Group Session\n
+    //     Description: ${sessionDesc}\n
+    //     Date: ${sessionDate}\n
+    //     Duration:${duration} mins\n
+
+    //     you can visit the link to know more about the session.
+    //     http://localhost:3000/session/${groupSession.data._id}\n\n\n\n\n\n
+
+    //     This is an automated mail. Please do not reply to this mail.\n\n\n
+    //     Team Eduwarts.
+    //     `
+    //   })
+    //   console.log(email.data);
+
+    // }
+
     setIsLoading(false)
 
-    // window.location.replace(`/session/${groupSession.data._id}`)
+    window.location.replace(`/session/${groupSession.data._id}`)
   }
 
   return (
