@@ -27,16 +27,7 @@ const containerStyle = {
 }
 
   return (
-    <div
-      className="userSearchContainer"
-      style={{
-        display: "flext",
-        alignItems: "flex-start",
-        justifyContent: "center",
-        height: "calc(92vh )",
-        overflow:"hidden"
-      }}
-    >
+    <div className="userSearchContainer">
       <div
         className="searchBarIcon searchElem container"
         style={{

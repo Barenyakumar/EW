@@ -6,7 +6,8 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded"
 import { Link } from "react-router-dom"
 import { AuthContext } from '../../context/AuthContext';
 
-export const BottomNav = () => {
+export const BottomNav = ({loginFlag}) => {
+  // console.log(loginFlag)
   const {user}= useContext(AuthContext)
   return (
     <div className="bottomContainer">
@@ -16,9 +17,12 @@ export const BottomNav = () => {
       <Link to='/search' style={{textDecoration:"none", color:"white"}}>
         <div className="bottomElement"><TravelExploreOutlinedIcon/></div>
       </Link>
+      {
+        user?
       <Link to={`/profile/${user.username}`} style={{textDecoration:"none", color:"white"}}>
         <div className="bottomElement"><AccountCircleRoundedIcon /></div>
-      </Link>
+      </Link>:""
+      }
     </div>
   )
 }

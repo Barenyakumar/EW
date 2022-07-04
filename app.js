@@ -10,6 +10,7 @@ const sessionRoutes = require("./routes/session");
 const UserRoutes = require("./routes/users");
 const sessionBooking = require("./routes/booking")
 const availabilityRoutes = require("./routes/availability")
+const Session = require("./models/oneSession")
 
 
 dotenv.config();
@@ -36,7 +37,7 @@ const storage = multer.diskStorage({
         cb(null, "public/userImages");
     },
     filename:(req, file, cb) =>{
-        cb(null,req.body.name);
+        cb(null,req.body.fileName);
     },
 });
 
@@ -49,6 +50,7 @@ const upload = multer({
 // const upload = multer({storage});
 app.post("/upload", upload.single("file"), (req, res) =>{
     try{
+        console.log(req.body);
         // pass file name as name(userId) and file as file in body for e.g..
         // {
         //     "name":"test.jpg"(this sould be userId of the user),
@@ -66,6 +68,19 @@ app.use("/session", sessionRoutes);
 app.use("/users", UserRoutes)
 app.use("/booking", sessionBooking)
 app.use("/availability", availabilityRoutes)
+
+
+// update group session DB for past and upcoming data
+setInterval(async() => {
+    const session = await Session.find();
+    session.forEach( async s => {
+        const sessionDate = new Date(s.date + s.startTime);
+        if(sessionDate.getTime()< Date.now()){
+            s.isActive = false;
+            await s.save();
+        }
+    });
+}, 10000);
 
 if(process.env.NODE_ENV == 'production'){
     app.use(express.static("frontend/build"))

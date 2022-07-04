@@ -25,6 +25,7 @@
   object-fit: contain;
   height: 100%;
   width: 100%;
+  min-width: 16rem;
   border-radius: .5rem;
   /* z-index: 1; */
 }

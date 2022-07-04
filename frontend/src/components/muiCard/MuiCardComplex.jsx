@@ -15,6 +15,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite"
 import ShareIcon from "@mui/icons-material/Share"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
+import { Link } from "react-router-dom"
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props
@@ -35,81 +36,83 @@ export default function MuiCardComplex(props) {
   }
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="194"
-        image={"./images/bg1.jpg"}
-        alt="Paella dish"
-      />
-
-      <CardContent>
-
-        {props.element.sessionName ? (
-          <Typography variant="h5" color="text.secondary">
-            {props.element.sessionName}
-          </Typography>
-        ) : (
-          ""
-        )}
-        {props.element.date ? (
-          <Typography variant="body2" color="text.secondary">
-            {props.element.date}
-          </Typography>
-        ) : (
-          ""
-        )}
-        {props.element.startTime ? (
-          <Typography variant="body2" color="text.secondary">
-            {props.element.startTime+"-"+props.element.endTime}
-          </Typography>
-        ) : (
-          ""
-        )}
-        {props.element.category ? (
-          <Typography variant="body2" color="text.secondary">
-            {props.element.category}
-          </Typography>
-        ) : (
-          ""
-        )}
-      </CardContent>
-
-      {props.element.conductor ? (
-        <CardHeader
-          avatar={
-            <div className="avatar">
-              <Avatar
-                alt="Remy Sharp"
-                sx={{ bgcolor: "#344CB7 " }}
-                src={"./images/" + props.element.conductorImg}
-              />
-            </div>
-          }
-          title={props.element.conductor}
-          subheader={props.element.role}
+    <Link to={`/session/${props.element._id}`}>
+      <Card sx={{ maxWidth: 345, textDecoration:"none" }}>
+        <CardMedia
+          component="img"
+          height="194"
+          image={"./images/default-cover.jpg"}
+          alt="Paella dish"
         />
-      ) : (
-        ""
-      )}
 
-      {props.element.avatar ? (
-        <CardHeader
-          avatar={
-            <AvatarGroup total={24}>
-              {props.element.avatar.map((avatarelem) => (
+        <CardContent sx={{textDecoration:"none"}}>
+
+          {props.element.sessionName ? (
+            <Typography variant="h5" color="text.secondary" style={{textDecoration:"none"}}>
+              {props.element.sessionName}
+            </Typography>
+          ) : (
+            ""
+          )}
+          {props.element.date ? (
+            <Typography variant="h6" color="text.secondary">
+              {props.element.date}
+            </Typography>
+          ) : (
+            ""
+          )}
+          {props.element.startTime ? (
+            <Typography variant="h6" color="text.secondary">
+              {props.element.startTime + "-" + props.element.endTime}
+            </Typography>
+          ) : (
+            ""
+          )}
+          {props.element.category ? (
+            <Typography variant="body2" color="text.secondary">
+              {props.element.category}
+            </Typography>
+          ) : (
+            ""
+          )}
+        </CardContent>
+
+        {props.element.conductor ? (
+          <CardHeader
+            avatar={
+              <div className="avatar">
                 <Avatar
-                  alt={avatarelem.alt}
+                  alt="Remy Sharp"
                   sx={{ bgcolor: "#344CB7 " }}
-                  src={"./images/" + avatarelem.img1}
+                  src={"./images/" + props.element.conductorImg}
                 />
-              ))}
-            </AvatarGroup>
-          }
-        />
-      ) : (
-        ""
-      )}
-    </Card>
+              </div>
+            }
+            title={props.element.conductor}
+            subheader={props.element.role}
+          />
+        ) : (
+          ""
+        )}
+
+        {props.element.avatar ? (
+          <CardHeader
+            avatar={
+              <AvatarGroup total={24}>
+                {props.element.avatar.map((avatarelem) => (
+                  <Avatar
+                    alt={avatarelem.alt}
+                    sx={{ bgcolor: "#344CB7 " }}
+                    src={"./images/" + avatarelem.img1}
+                  />
+                ))}
+              </AvatarGroup>
+            }
+          />
+        ) : (
+          ""
+        )}
+      </Card>
+    </Link>
   )
 }

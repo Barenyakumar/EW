@@ -4,16 +4,22 @@ const nodemailer = require('nodemailer')
 
 
 const transporter = nodemailer.createTransport({
-    service:"hotmail",
-    auth:{
-        user:"eduwarts@outlook.com",
-        pass:"Pratik@4488"
-    }
-});
+  // service:"webmail",
+  host: "smtp.eduwarts.tech",
+  port: 587,
+  secure: false,
+  auth: {
+    user: "team@eduwarts.tech",
+    pass: "tgxSUrp6",
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+})
 
-router.post("/welcome",(req,res)=>{
+router.post("/mail",(req,res)=>{
     const options ={
-        from:"eduwarts@outlook.com",
+        from:"team@eduwarts.tech",
         to:req.body.reciever,
         subject:req.body.subject,
         text:req.body.message

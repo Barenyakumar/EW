@@ -15,6 +15,7 @@ import TravelExploreIcon from "@mui/icons-material/TravelExplore"
 import { Button } from "@mui/material"
 import { Link, Navigate } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext"
+import LogoutIcon from "@mui/icons-material/Logout"
 
 export const NavBar = (props) => {
   const [open, setOpen] = useState(false)
@@ -115,7 +116,7 @@ export const NavBar = (props) => {
                           <span className="listValue">Explore</span>
                         </li>{" "}
                       </Link> */}
-                      <Link
+                      {/* <Link
                         onClick={toggleDrawer(false)}
                         to="/booking"
                         style={{ textDecoration: "none", color: "black" }}
@@ -128,7 +129,7 @@ export const NavBar = (props) => {
                           </Avatar>
                           <span className="listValue">My Bookings</span>
                         </li>
-                      </Link>
+                      </Link> */}
                       {/* <Link
                         onClick={toggleDrawer(false)}
                         to="/challanges"
@@ -143,9 +144,9 @@ export const NavBar = (props) => {
                           <span className="listValue">Challanges</span>
                         </li>{" "}
                       </Link> */}
-                      {/* <Link
+                      <Link
                         onClick={toggleDrawer(false)}
-                        to="/"
+                        to="/groupsession"
                         style={{ textDecoration: "none", color: "black" }}
                       >
                         <li className="navValues">
@@ -156,7 +157,7 @@ export const NavBar = (props) => {
                           </Avatar>
                           <span className="listValue">Group Session</span>
                         </li>{" "}
-                      </Link> */}
+                      </Link>
                       <Link
                         onClick={toggleDrawer(false)}
                         to="/search"
@@ -201,7 +202,7 @@ export const NavBar = (props) => {
                           <span className="listValue">Wishlist</span>
                         </li>{" "}
                       </Link> */}
-                      <Link
+                      {/* <Link
                         onClick={toggleDrawer(false)}
                         to="/"
                         style={{ textDecoration: "none", color: "black" }}
@@ -214,7 +215,7 @@ export const NavBar = (props) => {
                           </Avatar>{" "}
                           <span className="listValue">Become a Mentor</span>
                         </li>{" "}
-                      </Link>
+                      </Link> */}
                     </ul>
                     <ul className="navContentList list3">
                       <Link
@@ -232,21 +233,23 @@ export const NavBar = (props) => {
                         </li>
                       </Link>
                       <button
-                        onClick={() =>
-                          {
-                            localStorage.removeItem("ed_pr_bk_gj_12_34")
-                            window.location.replace("/")
-                          }
-                            
-                        }
-                       
-                        style={{ textDecoration: "none", color: "black", border: "none", background: "transparent" , outline:"none" }}
+                        onClick={() => {
+                          localStorage.removeItem("ed_pr_bk_gj_12_34")
+                          window.location.replace("/")
+                        }}
+                        style={{
+                          textDecoration: "none",
+                          color: "black",
+                          border: "none",
+                          background: "transparent",
+                          outline: "none",
+                        }}
                       >
                         <li className="navValues">
                           <Avatar
                             sx={{ bgcolor: "#344CB7 ", width: 30, height: 30 }}
                           >
-                            <SettingsIcon />
+                            <LogoutIcon />
                           </Avatar>
                           <span className="listValue">Logout</span>
                         </li>

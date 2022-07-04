@@ -30,7 +30,7 @@ const EditImage = () => {
 
       console.log(file.name)
 
-      const { data } = await axios.post("upload", formData, config)
+      const { data } = await axios.post("/upload", formData, config)
 
       console.log(data)
       setAlert({ severity: "success", msg: "File uploaded success" })

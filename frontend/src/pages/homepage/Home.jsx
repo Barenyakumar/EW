@@ -34,7 +34,10 @@ import Setting from "../Setting/Setting"
 import Availability from "../../components/availability/Availability"
 import SearchPage from "../Search/Search"
 import BookingSessionPage from "../BookingSession/BookingSessionPage"
+import Createsession from "../../components/groupSessions/CreateSession"
 import SessionDetails from "../../components/sessiondetails/SessionDetails"
+import Footer from "../../components/footer/Footer"
+import Preloader from "../../components/PreLoader/Preloader"
 
 export const Home = () => {
   const { user } = useContext(AuthContext)
@@ -156,13 +159,27 @@ export const Home = () => {
           ),
       },
       {
-        path: `/sessiondetails`,
+        path: `/session/:id`,
         element:
           !user || user === undefined ? (
             <Navigate to="/login" />
           ) : (
             <SessionDetails />
           ),
+      },
+      {
+        path: `/newgroupsession`,
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <Createsession />
+          ),
+      },
+      {
+        path: `/prelaoder`,
+        element:
+          <Preloader/>
       },
     ])
     return routes
@@ -173,6 +190,7 @@ export const Home = () => {
 
   const [loginFlag, setLoginFlag] = useState(false)
 
+// console.log(loginFlag)
   const loginCallback = (data) => setLoginFlag(data)
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////

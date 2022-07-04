@@ -63,6 +63,7 @@ router.get("/all", async (req, res) => {
         Name: element.name,
         id: element._id,
         username: element.username,
+        email: element.email
       }
     })
     return res.status(200).json(result)
@@ -71,64 +72,6 @@ router.get("/all", async (req, res) => {
   }
 })
 
-//update user
-// router.put("/:id",async (req, res)=>{
-//   if(req.body.userId === req.params.id || req.body.isAdmin) {
-//     if(req.body.password ){
-//       try {
-//         const salt =  await bcrypt.genSalt(10)
-//         req.body.password = await bcrypt.hash(req.body.password, salt)
-//       } catch (error) {
-//         return res.status(500).json(error)
-//       }
-//     }
-//     try {
-//       const user = await User.findByIdAndUpdate(req.params.id, {$set: req.body,})
-//       res.status(200).json("Account successfully updated")
-//     } catch (error) {
-//       return res.status(500).json(error)
-//     }
-//   } else{
-//     return res.status(403).json("Invalid User ID")
-//   }
-// });
-
-//update user
-// router.put("/:id", async (req, res) => {
-//   if (req.body.userId === req.params.id || req.body.isAdmin) {
-//     try {
-//       const user = await User.findById(req.params.id)
-//       const { name, lOne, lTwo, lThree, iOne, iTwo, iThree, bio, linkedIn } =
-//         req.body
-//       if (name) {
-//         user.name = name
-//       }
-//       var dummyArray = []
-//       if (lOne !== undefined) dummyArray.push(lOne)
-//       if (lTwo !== undefined) dummyArray.push(lTwo)
-//       if (lThree !== undefined) dummyArray.push(lThree)
-//       if (dummyArray.length !== 0) user.language = dummyArray.concat()
-//       dummyArray = []
-//       if (iOne !== undefined) dummyArray.push(iOne)
-//       if (iTwo !== undefined) dummyArray.push(iTwo)
-//       if (iThree !== undefined) dummyArray.push(iThree)
-//       if (dummyArray.length !== 0) user.interests = dummyArray.concat()
-//       if (bio !== undefined) user.bio = bio
-//       if (linkedIn !== undefined) user.otherLinks.push(linkedIn)
-//       await user.save()
-//       const sendUser = { ...user }
-//       delete sendUser["password"]
-//       delete sendUser["updatedAt"]
-//       res
-//         .status(200)
-//         .json({ msg: "Account successfully updated", user: sendUser._doc })
-//     } catch (error) {
-//       return res.status(500).json(error)
-//     }
-//   } else {
-//     return res.status(403).json("Invalid User ID")
-//   }
-// })
 
 router.put("/:id", async (req, res) => {
   if (req.body.userId === req.params.id || req.body.isAdmin) {

@@ -1,9 +1,28 @@
-.body{
-    display: flex;
+.homeContainer{
+    /* display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    height: calc(91vh - 13px);
-    width: 100%;
+    justify-content: space-evenly; */
+    
+    height: 100vh;
+    /* border: 2px solid green; */
+    overflow-y: auto;
+    /* padding-bottom: 2.5rem ; */
+}
+.homeContainer::-webkit-scrollbar{
+    width: 5px;
+}
+.homeContainer::-webkit-scrollbar-track{
+    background: transparent;
+}
+.homeContainer::-webkit-scrollbar-thumb{
+    background: rgba(199, 199, 199, 0.29);
+    height: 10px;
+    border-radius: 10px;
+}
+.homeContainer::-webkit-scrollbar-thumb:hover{
+    background: rgba(199, 199, 199, 0.57);
+    height: 10px;
+    border-radius: 10px;
 }
 .sideBar{
     height:100%;
