@@ -54,7 +54,11 @@ export default function SwiperMentor({arrayList}) {
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-        {arrayList.map(element=><SwiperSlide key={element._id}><SingleCard element={element} /></SwiperSlide>)}
+        {arrayList.map((element) => (
+          <SwiperSlide key={element._id}>
+            <SingleCard element={element}  />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </>
   )
@@ -81,7 +85,7 @@ export function SwiperSession({arrayList}) {
 
   function widthset() {
     setWidth(window.innerWidth)
-    console.log(width)
+    // console.log(width)
     setSlide_val(setSlide(width))
   }
 

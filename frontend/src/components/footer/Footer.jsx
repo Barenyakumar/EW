@@ -25,7 +25,7 @@ export default function Footer() {
         fontSize: "16px",
       }}
     >
-      <p
+      <div
         style={{
           display: "flex",
           flexDirection: "row",
@@ -35,8 +35,8 @@ export default function Footer() {
         }}
       >
         <Logo />
-      </p>
-      <p
+      </div>
+      <div
         style={{
           display: "flex",
           flexDirection: "row",
@@ -46,7 +46,7 @@ export default function Footer() {
         }}
       >
         <CopyrightIcon /> 2022 Eduwarts | All rights reserved.
-      </p>
+      </div>
     </div>
   )
 }
