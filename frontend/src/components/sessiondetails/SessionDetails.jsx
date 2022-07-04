@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import './sessiondetail.css'
+import React, { useEffect, useState } from "react"
+import "./sessiondetail.css"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
-import { Button } from '@mui/material'
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import GroupsIcon from '@mui/icons-material/Groups';
-import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
-import Avatar from '@mui/material/Avatar';
-import { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { Button } from "@mui/material"
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace"
+import GroupsIcon from "@mui/icons-material/Groups"
+import { Link, useParams } from "react-router-dom"
+import axios from "axios"
+import Avatar from "@mui/material/Avatar"
+import { useContext } from "react"
+import { AuthContext } from "../../context/AuthContext"
 import CardHeader from "@mui/material/CardHeader"
-
-
-
 
 // const sessionDetail =
 //   {
@@ -30,48 +27,55 @@ import CardHeader from "@mui/material/CardHeader"
 //     ],
 //   }
 
-
-
 export default function SessionDetails() {
-  const {user} = useContext(AuthContext)
-  const sessionId = useParams().id;
+  const { user } = useContext(AuthContext)
+  const sessionId = useParams().id
   const [sessionDetail, setSessionDetail] = useState({})
   const [mentor, setMentor] = useState({})
   const [sessionLink, setSessionLink] = useState("")
 
-  const sessionDate = new Date(sessionDetail.date + sessionDetail.startTime);
+  const sessionDate = new Date(sessionDetail.date + sessionDetail.startTime)
 
   useEffect(() => {
     const getSessionData = async () => {
-      const res = await axios.get(`/session/${sessionId}`);
-      setSessionDetail(res.data);
-      console.log(res.data);
+      const res = await axios.get(`/session/${sessionId}`)
+      setSessionDetail(res.data)
+      // console.log(res.data);
     }
-    getSessionData();
-
-
-
+    getSessionData()
   }, [])
   useEffect(() => {
     const getMentor = async () => {
       if (sessionDetail.mentor) {
-        const mentor = await axios.get(`/users/${sessionDetail.mentor}`);
-        setMentor(mentor.data);
+        const mentor = await axios.get(`/users/${sessionDetail.mentor}`)
+        setMentor(mentor.data)
       }
     }
-    getMentor();
-
+    getMentor()
   }, [sessionDetail])
 
-
-  const handlejoin = async ()=>{
-    const role = user._id === sessionDetail.mentor ?"host":"guest"
-    const sessionLink = "https://62bd7a31d93831765b61385f--eduwartsmeet.netlify.app"+sessionDetail.sessionLink+"/"+role;
-    console.log(sessionLink);
-    window.location.replace(sessionLink);
+  const handlejoin = async () => {
+    const role = user._id === sessionDetail.mentor ? "host" : "guest"
+    const sessionLink =
+      "https://62bd7a31d93831765b61385f--eduwartsmeet.netlify.app" +
+      sessionDetail.sessionLink +
+      "/" +
+      role
+    // console.log(sessionLink);
+    window.location.replace(sessionLink)
   }
 
   const public_folder = "http://localhost:9000/UserImages"
+
+  useEffect(() => {
+    document.title =
+      sessionDetail && mentor
+        ? sessionDetail.sessionName + " by " + mentor.name + " | Eduwarts"
+        : "Eduwarts"
+
+    // document.getElementsByTagName("META")[2].content="Description"
+  }, [sessionDetail,mentor])
+
   return (
     <div className="sessionContainer">
       <div className="group_session_title" style={{ marginTop: "1rem" }}>
@@ -82,15 +86,20 @@ export default function SessionDetails() {
             <CalendarMonthIcon />
           </span>
           <span>
-            {sessionDetail.date} , {sessionDate.toLocaleString([], {
-              hour: '2-digit',
-              minute: '2-digit'
+            {sessionDetail.date} ,{" "}
+            {sessionDate.toLocaleString([], {
+              hour: "2-digit",
+              minute: "2-digit",
             })}
           </span>
         </div>
         <div className="group_session_img" style={{ marginTop: "1rem" }}>
           <img
-            src={sessionDetail.sessionImg ? public_folder + sessionDetail.sessionImg : "/images/default-cover.jpg"}
+            src={
+              sessionDetail.sessionImg
+                ? public_folder + sessionDetail.sessionImg
+                : "/images/default-cover.jpg"
+            }
             alt={sessionDetail.title}
             loading="lazy"
             style={{ width: "100%", maxHeight: "50vh" }}
@@ -103,19 +112,23 @@ export default function SessionDetails() {
           <h3>
             <b>Hosted by : </b>
           </h3>
-            <CardHeader
-          avatar={
-            <div className="avatar">
-              <Avatar
-                alt="Remy Sharp"
-                sx={{ bgcolor: "#344CB7 " }}
-                src={mentor.profileImage ? public_folder + mentor.profileImage : "/images/3.jpg"}
-              />
-            </div>
-          }
-          title={mentor.name}
-          subheader={mentor.expertise}
-        />
+          <CardHeader
+            avatar={
+              <div className="avatar">
+                <Avatar
+                  alt="Remy Sharp"
+                  sx={{ bgcolor: "#344CB7 " }}
+                  src={
+                    mentor.profileImage
+                      ? public_folder + mentor.profileImage
+                      : "/images/3.jpg"
+                  }
+                />
+              </div>
+            }
+            title={mentor.name}
+            subheader={mentor.expertise}
+          />
         </div>
         <div className="cohost_name" style={{ marginTop: "0.5rem" }}>
           <h3>
@@ -134,11 +147,16 @@ export default function SessionDetails() {
         {/* sessionDetail.cohost ? <h3>Hosted by: {sessionDetail.host}</h3> : "" */}
       </div>
       <div className="sessionButtons">
-        <Button variant='outlined' component ={Link} to={"/home"} size='large'>< KeyboardBackspaceIcon /></Button>
-        <Button variant='contained' size='large'><span style={{ margin: "0px .5rem" }} onClick={handlejoin}>Join Session</span><GroupsIcon /></Button>
+        <Button variant="outlined" component={Link} to={"/home"} size="large">
+          <KeyboardBackspaceIcon />
+        </Button>
+        <Button variant="contained" size="large">
+          <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
+            Join Session
+          </span>
+          <GroupsIcon />
+        </Button>
       </div>
     </div>
   )
 }
-
-

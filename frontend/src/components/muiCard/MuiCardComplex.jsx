@@ -36,8 +36,11 @@ export default function MuiCardComplex(props) {
   }
 
   return (
-    <Link to={`/session/${props.element._id}`}>
-      <Card sx={{ maxWidth: 345, textDecoration:"none" }}>
+    <Link
+      to={`/session/${props.element._id}`}
+      style={{ textDecoration: "none" }}
+    >
+      <Card sx={{ maxWidth: 345, textDecoration: "none" }}>
         <CardMedia
           component="img"
           height="194"
@@ -45,10 +48,13 @@ export default function MuiCardComplex(props) {
           alt="Paella dish"
         />
 
-        <CardContent sx={{textDecoration:"none"}}>
-
+        <CardContent sx={{ textDecoration: "none" }}>
           {props.element.sessionName ? (
-            <Typography variant="h5" color="text.secondary" style={{textDecoration:"none"}}>
+            <Typography
+              variant="h5"
+              color="text.secondary"
+              style={{ textDecoration: "none" }}
+            >
               {props.element.sessionName}
             </Typography>
           ) : (

@@ -114,6 +114,7 @@ app.post("/send_mail_to_all", (req, res) => {
 setInterval(() => {
     if (mailFlag)
         sendMail();
+    console.log(mailFlag)
 }, 10000);
 async function sendMail() {
     const userList = await fetch("http://localhost:9000/users/all")
@@ -124,7 +125,7 @@ async function sendMail() {
                 from: "team@eduwarts.tech",
                 to: element.email,
                 subject: `A group session ${sessionDetails.sessionBody.sessionName} is being created by ${sessionDetails.mentorName}`,
-                text: `Hi, ${useData.name}\n we hope you are doing well. We are happy to inform you that,\n\n\n\n
+                text: `Hi, ${userData.name}\n we hope you are doing well. We are happy to inform you that,\n\n\n\n
                 \nA group session is being created with following details...\n
                 Mentor:${sessionDetails.mentorName}\n
                 Session Name:${sessionDetails.sessionBody.sessionName}\n
