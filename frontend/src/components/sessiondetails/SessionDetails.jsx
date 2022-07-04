@@ -134,7 +134,7 @@ export default function SessionDetails() {
         {/* sessionDetail.cohost ? <h3>Hosted by: {sessionDetail.host}</h3> : "" */}
       </div>
       <div className="sessionButtons">
-        <Button variant='outlined' component ={Link} to={"/groupsession"} size='large'>< KeyboardBackspaceIcon /></Button>
+        <Button variant='outlined' component ={Link} to={"/home"} size='large'>< KeyboardBackspaceIcon /></Button>
         <Button variant='contained' size='large'><span style={{ margin: "0px .5rem" }} onClick={handlejoin}>Join Session</span><GroupsIcon /></Button>
       </div>
     </div>
