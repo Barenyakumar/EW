@@ -12,17 +12,21 @@ import { AuthContext } from "../../../context/AuthContext"
 import axios from "axios"
 import GroupSession from "../../../components/groupSessions/GroupSession"
 import Footer from "../../../components/footer/Footer"
+import Preloader from "../../../components/PreLoader/Preloader"
  
 
 export default function MenteeHome() {
   
   const [mentorList, setMentorList] = useState([])
+  const [preloader, setpreloader] = useState(false)
 
   useEffect(() => {
    
-    const allMentors = async () => {   
+    const allMentors = async () => {  
+      setpreloader(true) 
       const res = await axios.get("users/search?isMentor=true&s")
       setMentorList(res.data)
+      setpreloader(false)
     }
 
     allMentors()
@@ -64,6 +68,7 @@ export default function MenteeHome() {
       <br></br>
       <br></br>
       <Footer />
+      {preloader ? <Preloader /> : ""}
     </div>
   )
 }

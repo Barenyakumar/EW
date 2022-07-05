@@ -5,8 +5,8 @@ import "./login.css"
 import axios from 'axios'
 import { AuthContext } from '../../context/AuthContext'
 import Popup from '../popup-box/Popup'
+import Preloader from '../PreLoader/Preloader'
 const Login = (props) => {
-
 
   const email = useRef();
   const password = useRef();
@@ -49,6 +49,7 @@ const Login = (props) => {
           }
         </form>
       </div>
+      {isFetching ? <Preloader /> : ""}
     </div>
   )
 }
