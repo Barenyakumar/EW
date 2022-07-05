@@ -1,10 +1,11 @@
-import React, {useState, useEffect, useRef, useContext } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Link } from "react-router-dom"
 import { Button, Dialog } from '@mui/material'
 import axios from 'axios'
 import { AuthContext } from '../../context/AuthContext'
 import "./login.css"
 import Popup from '../popup-box/Popup'
+import Preloader from '../PreLoader/Preloader'
 
 
 
@@ -19,34 +20,44 @@ const SignUp = (props) => {
   const password = useRef()
   const rePassword = useRef()
   const gender = useRef()
+  const otp = useRef()
+  const [err, setErr] = useState(error)
+
+
   const [errMessage, setErrMessage] = useState("")
-  useEffect(()=>{
-    if(error){
-      if(error.response.data.code == 11000){
-        setErrMessage("Duplicate entry in "+ Object.keys(error.response.data.keyValue)+" try other rather than " +Object.values(error.response.data.keyValue))
+  useEffect(() => {
+    if (error) {
+      if (error.response.data.code == 11000) {
+        setErrMessage("Duplicate entry in " + Object.keys(error.response.data.keyValue) + " try other rather than " + Object.values(error.response.data.keyValue)+".Try logging in.")
         // setErrMessage("Duplicate entry in "+ JSON.stringify(error.response.data.keyValue))
       }
-      if(error.response.data.code == 11600 || error.response.data.code == 211){
+      if (error.response.data.code == 11600 || error.response.data.code == 211) {
         setErrMessage("Database server is down...\n Try again after sometime...")
         // setErrMessage("Duplicate entry in "+ JSON.stringify(error.response.data.keyValue))
       }
     }
-  },[error])
+  }, [error])
 
   // console.log(rePassword.current.value)
 
   const submithandler = (e) => {
+    setPreloader(true)
     e.preventDefault();
-
-
-    const signupData = {
-      name: menteeName.current.value,
-      email: email.current.value,
-      username: username.current.value,
-      password: password.current.value,
-      gender: gender.current.value
+    if (otpMatched) {
+      const signupData = {
+        name: menteeName.current.value,
+        email: email.current.value,
+        username: username.current.value,
+        password: password.current.value,
+        gender: gender.current.value
+      }
+      loginCall(signupData, dispatch);
     }
-    loginCall(signupData, dispatch);
+    else{
+      setPreloader(false)
+      setErr("authenticate email")
+      setErrMessage("Please authenticate your email first...")
+    }
 
   }
   const loginCall = async (userCredentials, dispatch) => {
@@ -54,20 +65,69 @@ const SignUp = (props) => {
     try {
       const res = await axios.post("auth/register", userCredentials);
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      setPreloader(false)
 
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE", payload: error });
+      setPreloader(false)
 
     }
   }
 
+
+  // send opt handler
+  const [otpSent, setotpSent] = useState(false)
+  const [Otp, setOtp] = useState("")
+  const [otpMatched, setOtpMatched] = useState(false)
+  const [preloader, setPreloader] = useState(false)
+
+  async function sendOTPHandler(e) {
+    setPreloader(true)
+    e.preventDefault();
+    try {
+      if (email.current.value != "") {
+        const res = await axios.post("/email/otp", { reciever: email.current.value })
+        setPreloader(false)
+        setotpSent(true);
+        setOtp(res.data);
+      }
+      else {
+        setPreloader(false)
+        setErr("Wrong email!!!")
+        setErrMessage("Please enter a valid email id")
+      }
+    } catch (error) {
+      setPreloader(false)
+      setErr("Wrong email!!!")
+      setErrMessage("Something went wrong while sending otp. Please try again...")
+    }
+
+  }
+
+  function matchOTP(){
+    if (otp.current.value == Otp) {
+      setOtpMatched(true);
+      setotpSent(false);
+    }
+  }
+
   return (
-    < div className = 'loginContainer' >
+    < div className='loginContainer' >
       <div className="logincontent">
         <img src="/images/login.png" alt="" className="loginImg" />
         <form action="" className="loginForm" method='post' onSubmit={submithandler}>
           <input type="text" ref={menteeName} placeholder='Name' name='name' required={true} />
-          <input type="email" ref={email} placeholder='Email' name='email' required={true} />
+          <div className="email_div">
+            <input type="email" ref={email} placeholder='Email' name='email' required={true} style={otpMatched?{border:"1px solid green"}:{border:"1px solid red"}} />
+            <a href="" onClick={sendOTPHandler} disabled={true} style={{fontSize:".7rem"}}>{otpSent ? "Resend OTP" : "Verify"}</a>
+          </div>
+          {
+            otpSent ?
+              <div className="otp_div">
+                <input type="text" ref={otp} placeholder="Enter OTP" required />
+                <button onClick={matchOTP}>Submit</button>
+              </div> : ""
+          }
           <input type="text" ref={username} placeholder='Username' name='username' minLength={4} maxLength={10} required={true} />
           <input type="password" ref={password} placeholder='Password' name="passoword" minLength={6} required={true} />
           <input type="password" ref={rePassword} placeholder='Confirm password' name="passoword" minLength={6} required={true} />
@@ -77,17 +137,18 @@ const SignUp = (props) => {
               <option value="Female">Female</option>
               <option value="Other">Other</option>
             </select></label>
-          <Button variant='contained' type='submit' className='loginBtn' disabled={isFetching}>{isFetching ? "Loading" : "Sign up"}</Button>
+          <Button variant='contained' type='submit' className='loginBtn' disabled={isFetching || !otpMatched}>{isFetching ? "Loading" : "Sign up"}</Button>
 
           <Link to="/login" className='redirectLink'>Alredy registered! </Link>
-          
+
           {
-            error?
-            <Popup flag={true} message={errMessage} />:""
+            err ?
+              <Popup flag={true} message={errMessage} /> : ""
           }
 
         </form>
       </div>
+      {preloader ? <Preloader /> : ""}
     </div >
   )
 }

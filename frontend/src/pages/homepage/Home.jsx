@@ -161,12 +161,7 @@ export const Home = () => {
       },
       {
         path: `/session/:id`,
-        element:
-          !user || user === undefined ? (
-            <Navigate to="/login" />
-          ) : (
-            <SessionDetails />
-          ),
+        element:<SessionDetails />,
       },
       {
         path: `/newgroupsession`,

@@ -49,7 +49,6 @@ const Setting = () => {
   })
   const { user: userInfo } = useContext(AuthContext)
 
-  console.log(user)
   useEffect(() => {
     setUser({
       name: userInfo.name,
@@ -76,7 +75,7 @@ const Setting = () => {
           <Tab label="Edit Profile" {...a11yProps(0)} />
           <Tab label="Edit Email" {...a11yProps(1)} />
           <Tab label="Edit Password" {...a11yProps(2)} />
-          <Tab label="Upload Images" {...a11yProps(3)} />
+          {/* <Tab label="Upload Images" {...a11yProps(3)} /> */}
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -93,9 +92,9 @@ const Setting = () => {
       <TabPanel value={value} index={2}>
         <EditPassword />
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      {/* <TabPanel value={value} index={3}>
         <EditImage />
-      </TabPanel>
+      </TabPanel> */}
     </>
   )
 }
