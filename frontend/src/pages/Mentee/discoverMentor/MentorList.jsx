@@ -5,6 +5,7 @@ import SingleCard from '../../../components/Card/Card'
 import { Button } from '@mui/material'
 import './MentorList.css'
 import axios from 'axios'
+import Preloader from '../../../components/PreLoader/Preloader'
 
 const mentorList = [
   {
@@ -95,13 +96,16 @@ const mentorList = [
 
 
 const MentorList = () => {
+  const [preloader, setPreloader] = useState(false)
 
   const [searchText, setSearchText] = useState("")
   const [searchResult, setSearchResult] = useState([])
   useEffect(() => {
     async function getSearchResult() {
+      setPreloader(true)
       const res = await axios.get(`/users/search?s=${searchText.trim()}`)
       setSearchResult(res.data)
+      setPreloader(false)
       // console.log(res.data);
     }
     getSearchResult()
@@ -155,6 +159,7 @@ const MentorList = () => {
         })}
       </div>
         {/* <Button variant="outlined" className='LoadBtn' onClick={changeHeight}>Load More ...</Button> */}
+        {preloader ? <Preloader /> : ""}
     </div>
   )
 }

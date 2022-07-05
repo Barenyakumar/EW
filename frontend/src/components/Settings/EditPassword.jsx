@@ -3,8 +3,13 @@ import { Box, FormControl, TextField, Button, Alert } from "@mui/material"
 import axios from "axios"
 import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
+import Preloader from "../PreLoader/Preloader"
+import Popup from "../popup-box/Popup"
 
 const EditPassword = () => {
+  const [preloader, setPreloader] = useState(false)
+  const [error, setError] = useState(false)
+  const [errMessage, setErrMessage] = useState("")
   const {user} = useContext(AuthContext);
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -16,6 +21,7 @@ const EditPassword = () => {
   })
 
   const handleClick = () => {
+    setPreloader(true)
     if (password !== "" && password === confirmPassword) {
       const config = {
         headers: {
@@ -29,14 +35,22 @@ const EditPassword = () => {
           config
         )
         setOtp(data)
+        setPreloader(false)
       }
 
       getOtp()
       console.log("mail sent");
     }
+    else{
+      setError(true);
+      setErrMessage("Password doest not match. Try again...")
+      setPreloader(false);
+      setConfirmPassword("");
+    }
   }
 
   const handleSubmit = async () => {
+    setPreloader(true)
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -47,6 +61,7 @@ const EditPassword = () => {
       { userId: user._id, password: password },
       config
     )
+    setPreloader(false)
     if (res.status === 200)
       setAlert({ severity: "success", msg: "Password Updated Succesfully" })
   }
@@ -101,8 +116,13 @@ const EditPassword = () => {
               </Box>
             </Box>
           )}
+          {
+            error ?
+              <Popup flag={true} message={errMessage} /> : ""
+          }
         </FormControl>
       </Box>
+      {preloader ? <Preloader /> : ""}
     </>
   )
 }

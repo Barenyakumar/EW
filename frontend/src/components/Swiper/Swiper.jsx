@@ -104,7 +104,7 @@ export function SwiperSession({arrayList}) {
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-        {arrayList.map(element=><SwiperSlide><SessionCard element={element}/></SwiperSlide>)}
+        {arrayList.map(element => <SwiperSlide key={element._id}><SessionCard element={element}/></SwiperSlide>)}
       </Swiper>
     </>
   )

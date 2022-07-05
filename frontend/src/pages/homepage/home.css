@@ -6,7 +6,7 @@
     height: 100vh;
     /* border: 2px solid green; */
     overflow-y: auto;
-    padding-bottom: 2.5rem ;
+    /* padding-bottom: 2.5rem ; */
 }
 .homeContainer::-webkit-scrollbar{
     width: 5px;

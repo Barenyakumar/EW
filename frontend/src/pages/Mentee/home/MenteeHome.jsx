@@ -10,129 +10,29 @@ import SwiperMentor from "../../../components/Swiper/Swiper"
 import "./menteeHome.css"
 import { AuthContext } from "../../../context/AuthContext"
 import axios from "axios"
-
-// const mentorList = [
-//   {
-//     id: 1,
-//     name: "Kumar",
-//     username: "Barenya Kumar Panda",
-//     role: "UI/UX",
-//     bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
-//     img: "m3.jfif",
-//   },
-//   {
-//     id: 1,
-//     name: "Kumar",
-//     username: "Barenya Kumar Panda",
-//     role: "UI/UX",
-//     bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
-//     img: "m3.jfif",
-//   },
-//   {
-//     id: 1,
-//     name: "Kumar",
-//     username: "Barenya Kumar Panda",
-//     role: "UI/UX",
-//     bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
-//     img: "m3.jfif",
-//   },
-//   {
-//     id: 1,
-//     name: "Kumar",
-//     username: "Barenya Kumar Panda",
-//     role: "UI/UX",
-//     bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
-//     img: "m3.jfif",
-//   },
-//   {
-//     id: 1,
-//     name: "Kumar",
-//     username: "Barenya Kumar Panda",
-//     role: "UI/UX",
-//     bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
-//     img: "m3.jfif",
-//   },
-//   {
-//     id: 1,
-//     name: "Kumar",
-//     username: "Barenya Kumar Panda",
-//     role: "UI/UX",
-//     bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
-//     img: "m3.jfif",
-//   },
-// ]
-
-const challengeList = [
-  {
-    mentorName: "ARTsian Challenge",
-    role: "Time limit : 24hrs",
-    bio: "By Kumar Barenya",
-    img: "m3.jfif",
-  },
-  {
-    mentorName: "ARTsian Challenge",
-    role: "Time limit : 24hrs",
-    bio: "By Kumar Barenya",
-    img: "m4.jfif",
-  },
-  {
-    mentorName: "ARTsian Challenge",
-    role: "Time limit : 24hrs",
-    bio: "By Kumar Barenya",
-    img: "m5.jfif",
-  },
-  {
-    mentorName: "ARTsian Challenge",
-    role: "Time limit : 24hrs",
-    bio: "By Kumar Barenya",
-    img: "m6.jfif",
-  },
-]
-
-const sessionList = [
-  {
-    mentorName: "No Code For Good #2",
-    role: "Time limit : 24hrs",
-    bio: "By Kumar Barenya",
-    img: "m3.jfif",
-  },
-  {
-    mentorName: "No Code For Good #2",
-    role: "Time limit : 24hrs",
-    bio: "By Kumar Barenya",
-    img: "m4.jfif",
-  },
-  {
-    mentorName: "No Code For Good #2",
-    role: "Time limit : 24hrs",
-    bio: "By Kumar Barenya",
-    img: "m5.jfif",
-  },
-  {
-    mentorName: "No Code For Good #2",
-    role: "Time limit : 24hrs",
-    bio: "By Kumar Barenya",
-    img: "m6.jfif",
-  },
-]
-
-
+import GroupSession from "../../../components/groupSessions/GroupSession"
+import Footer from "../../../components/footer/Footer"
+import Preloader from "../../../components/PreLoader/Preloader"
+ 
 
 export default function MenteeHome() {
   
   const [mentorList, setMentorList] = useState([])
+  const [preloader, setpreloader] = useState(false)
 
   useEffect(() => {
    
-    const allMentors = async () => {   
+    const allMentors = async () => {  
+      setpreloader(true) 
       const res = await axios.get("users/search?isMentor=true&s")
       setMentorList(res.data)
+      setpreloader(false)
     }
 
     allMentors()
   }, [])
   
-  console.log(mentorList)
+  // console.log(mentorList)
 
 
   return (
@@ -146,7 +46,11 @@ export default function MenteeHome() {
         states in our community
       </h3>
 
-      <SearchBar />
+      {/* <SearchBar /> */}
+      <br></br>
+      <br></br>
+
+      <GroupSession />
 
       <h1 className="centerTitle">Discover mentors</h1>
 
@@ -161,6 +65,10 @@ export default function MenteeHome() {
         <h2 className="centerTitle">Join group mentoring </h2>
         <SwiperMentor arrayList={sessionList} />
       </div> */}
+      <br></br>
+      <br></br>
+      <Footer />
+      {preloader ? <Preloader /> : ""}
     </div>
   )
 }
