@@ -27,6 +27,40 @@
     outline: none;
     margin: 1rem 0px;
 }
+.email_div{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 70%;
+    height: 2rem;
+    margin: 1rem 0px;
+}
+.email_div>input{
+    height: 100%;
+    width: 80%;
+    outline: none;
+}
+.otp_div{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 70%;
+    height: 2rem;
+    margin: 1rem 0px;
+}
+.otp_div>input{
+    height: 100%;
+    width: 80%;
+    outline: none;
+}
+.otp_div>button{
+    height: 1.5rem;
+    border: 2px solid rgb(25, 97, 254);
+    background-color:rgb(81, 134, 248) ;
+    color: white;
+    width: 18%;
+    border-radius: .2rem;
+}
 .loginForm>label{
     width: 70%;
     height: 2rem;

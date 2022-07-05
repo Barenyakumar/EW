@@ -13,6 +13,7 @@ import {
   Alert,
 } from "@mui/material"
 import axios from 'axios'
+import Preloader from "../PreLoader/Preloader"
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -44,9 +45,13 @@ const INTERESTS = [
 ]
 
 const EditProfile = ({ user, userInfo, handleChange }) => {
+  const [alert, setAlert] = useState({
+    severity: "",
+    msg: null,
+  })
   const [loading, setLoading] = useState(false)
   const handleClick = async (e) => {
-    console.log("hi");
+    setLoading(true)
     e.preventDefault()
     const config = {
       headers: {
@@ -69,12 +74,16 @@ const EditProfile = ({ user, userInfo, handleChange }) => {
     if (user.interests[1]) userData["iTwo"] = user.interests[1]
     if (user.interests[2]) userData["iThree"] = user.interests[2]
 
-    console.log(userData);
     const { data } = await axios.put(`users/${userInfo._id}`, userData, config)
-    console.log("data after update", data)
+    localStorage.setItem("ed_pr_bk_gj_12_34", JSON.stringify(data.user))
+    setLoading(false)
+    setAlert({ severity: "success", msg: "Profile Updated Succesfully" })
   }
   return (
     <>
+      {alert.msg !== null && (
+        <Alert severity={alert.severity}>{alert.msg}</Alert>
+      )}
       {user.language.length > 3 && (
         <Alert variant="filled" severity="error">
           Max 3 languages
@@ -133,7 +142,7 @@ const EditProfile = ({ user, userInfo, handleChange }) => {
                   <MenuItem
                     key={l}
                     value={l}
-                    //style={getStyles(l, personl, theme)}
+                  //style={getStyles(l, personl, theme)}
                   >
                     {l}
                   </MenuItem>
@@ -165,7 +174,7 @@ const EditProfile = ({ user, userInfo, handleChange }) => {
                   <MenuItem
                     key={i}
                     value={i}
-                    //style={getStyles(l, personl, theme)}
+                  //style={getStyles(l, personl, theme)}
                   >
                     {i}
                   </MenuItem>
@@ -178,6 +187,7 @@ const EditProfile = ({ user, userInfo, handleChange }) => {
       <Button onClick={handleClick} variant="contained">
         Submit
       </Button>
+      {loading ? <Preloader /> : ""}
     </>
   )
 }

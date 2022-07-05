@@ -14,7 +14,6 @@ const Session = require("./models/oneSession")
 const fetch = require("node-fetch")
 const nodemailer = require('nodemailer')
 
-
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URL, {
@@ -28,9 +27,13 @@ mongoose.connection.on("connected", () => {
     console.log("Eduwats_DB is connected...")
 })
 
+
+// setting up public dir
+app.use(express.static('public'));
 app.use("/UserImages", express.static(path.join(__dirname, "public/userImages")));
 
 app.use(express.json());
+
 
 
 
@@ -108,7 +111,7 @@ var sessionDetails = {};
 // api to toggle mail flag for each request
 app.post("/send_mail_to_all", (req, res) => {
     mailFlag = true;
-    sessionDetails = {...req.body};
+    sessionDetails = { ...req.body };
     res.status(200).json("initiated");
 })
 setInterval(() => {
@@ -117,14 +120,14 @@ setInterval(() => {
 }, 10000);
 async function sendMail() {
     const userList = await fetch("http://localhost:9000/users/all")
-    .then(res=> res.json())
-    .then(userData=>{
-        userData.forEach(element => {
-            const options = {
-                from: "team@eduwarts.tech",
-                to: element.email,
-                subject: `A group session ${sessionDetails.sessionBody.sessionName} is being created by ${sessionDetails.mentorName}`,
-                text: `Hi, ${useData.name}\n we hope you are doing well. We are happy to inform you that,\n\n\n\n
+        .then(res => res.json())
+        .then(userData => {
+            userData.forEach(element => {
+                const options = {
+                    from: "team@eduwarts.tech",
+                    to: element.email,
+                    subject: `A group session ${sessionDetails.sessionBody.sessionName} is being created by ${sessionDetails.mentorName}`,
+                    text: `Hi, ${userData.name}\n we hope you are doing well. We are happy to inform you that,\n\n\n\n
                 \nA group session is being created with following details...\n
                 Mentor:${sessionDetails.mentorName}\n
                 Session Name:${sessionDetails.sessionBody.sessionName}\n
@@ -139,19 +142,19 @@ async function sendMail() {
     
                 This is an automated mail. Please do not reply to this mail.\n\n\n
                 Team Eduwarts.`,
-            }
-            transporter.sendMail(options, function (err, info) {
-                if (err) {
-                    console.log(err)
                 }
-                else
-                    console.log(info.response)
-            })
-        });
+                transporter.sendMail(options, function (err, info) {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else
+                        console.log(info.response)
+                })
+            });
 
-    }).catch((err)=> console.log(err))
+        }).catch((err) => console.log(err))
     mailFlag = false;
-    sessionDetails={};
+    sessionDetails = {};
 }
 
 

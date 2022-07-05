@@ -16,8 +16,10 @@ import { Button } from "@mui/material"
 import { Link, Navigate } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext"
 import LogoutIcon from "@mui/icons-material/Logout"
+import Preloader from "../PreLoader/Preloader"
 
 export const NavBar = (props) => {
+  const [preloader, setPreloader] = useState(false)
   const [open, setOpen] = useState(false)
 
   const toggleDrawer = (open) => (event) => {
@@ -144,7 +146,7 @@ export const NavBar = (props) => {
                           <span className="listValue">Challanges</span>
                         </li>{" "}
                       </Link> */}
-                      <Link
+                      {/* <Link
                         onClick={toggleDrawer(false)}
                         to="/groupsession"
                         style={{ textDecoration: "none", color: "black" }}
@@ -157,7 +159,7 @@ export const NavBar = (props) => {
                           </Avatar>
                           <span className="listValue">Group Session</span>
                         </li>{" "}
-                      </Link>
+                      </Link> */}
                       <Link
                         onClick={toggleDrawer(false)}
                         to="/search"
@@ -234,6 +236,7 @@ export const NavBar = (props) => {
                       </Link>
                       <button
                         onClick={() => {
+                          setPreloader(true)
                           localStorage.removeItem("ed_pr_bk_gj_12_34")
                           window.location.replace("/")
                         }}
@@ -258,6 +261,7 @@ export const NavBar = (props) => {
                   </div>
                 </SwipeableDrawer>
               </div>
+              {preloader ? <Preloader /> : ""}
             </>
           )
         )}

@@ -1,0 +1,58 @@
+<html>
+
+<head>
+  <title>Reset Password</title>
+</head>
+<style>
+  .welcomeBody {
+    height: 100%;
+    width: 100%;
+    background: #f2f8f8;
+    background: center cover url("http://localhost:9000/UserImages/welcome.png");
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  a {
+    width: 80%;
+    text-decoration: none;
+    margin: 1rem;
+  }
+  button{
+    height: 2rem;
+    width: 10rem;
+    background: rgb(245, 112, 112);
+    outline: none;
+    border: 1px solid grey;
+    border-radius: .3rem;
+  }
+
+</style>
+
+<body>
+  <!-- <p>Hello,</p>
+  <p>A password reset was requested for this email address (<%= emailAddress %>). If you requested this reset, click the
+      link below to reset your password:</p>
+  <p><a href="<%= resetLink %>">Reset Your Password</a></p>
+   -->
+   <div class="welcomeBody">
+    <h1>Hey 👋, welcome onboard ! 🎉</h1>
+    <br><br><br>
+    <h2 style="color: rgb(83, 83, 83);"><%= userName  %> , Let's do everything we can to help you make right decision.</h2>
+    <br><br><br><br><br><br>
+    <img src="welcome.png" alt="welcome image is pasted here">
+
+    <a href=""><button>Update
+      you profile</button></a>
+    <a href="http://localhost:9000/"><button>Explore
+      Group session</button></a>
+    <a href="http://localhost:9000/search"><button>Find
+      Mentors</button></a>
+    <a href="http://localhost:9000/groupsession"><button>Search
+      other users</button></a>
+  </div>
+</body>
+
+</html>

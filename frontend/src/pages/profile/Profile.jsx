@@ -17,6 +17,7 @@ import {Link} from "react-router-dom"
 import ViewAvailability from "../../components/availability/viewAvailability"
 import Availability from "../../components/availability/Availability"
 import { useNavigate } from "react-router-dom";
+import Preloader from "../../components/PreLoader/Preloader"
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -52,15 +53,17 @@ function a11yProps(index) {
 }
 
 export default function Profile() {
-
+  const [preloader, setpreloader] = useState(false)
   const navigate = useNavigate();
 
   const [availibility, setAvailibility] = useState([]);
   const { user: CurrentUser } = useContext(AuthContext)
   useEffect(()=>{
     async function getAvailability (){
+      setpreloader(true)
       const res = await axios.get(`/availability/${CurrentUser._id}`)
       setAvailibility(res.data);
+      setpreloader(false)
     }
     getAvailability()
   },[])
@@ -69,27 +72,27 @@ console.log(availibility);
 
 
 
-
-
   const [value, setValue] = useState(0)
   const [userProfile, setUserProfile] = useState({})
   const { username } = useParams()
   useEffect(() => {
-    if (username === CurrentUser.username) {
-      setUserProfile(CurrentUser)
-    } else {
+    setpreloader(true)
+    // if (username === CurrentUser.username) {
+    //   setUserProfile(CurrentUser)
+    //   setpreloader(false)
+    // } else {
       const fetchUser = async () => {
         try {
           const res = await axios.get(`/users/?username=${username}`)
           setUserProfile(res.data)
-          
+          setpreloader(false)
         } catch (error) {
           navigate(-1)
         }
         
       }
       fetchUser()
-    }
+    // }
   }, [username, CurrentUser])
 
   const handleChange = (event, newValue) => {
@@ -283,6 +286,7 @@ console.log(availibility);
           </TabPanel>
         </Box>
       </div>
+      {preloader ? <Preloader /> : ""}
     </>
   )
 }
