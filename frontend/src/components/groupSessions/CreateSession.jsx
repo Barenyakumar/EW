@@ -113,7 +113,11 @@ export default function Createsession() {
       setError(true)
     }
 
-    const mailRes = await axios.post("/send_mail_to_all",{sessionBody:sessionBody, mentorName:currentUser.name, sessionId:groupSession.data._id});
+    const mailRes = await axios.post("/send_mail_to_all", {
+      sessionBody: sessionBody,
+      mentorName: currentUser.name,
+      sessionId: groupSession.data._id,
+    })
 
     // console.log(groupSession);
 

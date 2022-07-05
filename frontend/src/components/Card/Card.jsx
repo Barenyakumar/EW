@@ -87,7 +87,7 @@ export function SessionCard(props) {
   
   
 const publicFolder = "http://localhost:9000/UserImages/"
-const role = user._id === props.element.mentor ?"host":"guest"
+const role = user ? user._id === props.element.mentor ?"host":"guest" : ""
   return (
     <Link to={`/session/${props.element._id}`}>
       <div className="cardcontainer" style={cardStyle}>

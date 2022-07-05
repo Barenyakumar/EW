@@ -38,6 +38,7 @@ import Createsession from "../../components/groupSessions/CreateSession"
 import SessionDetails from "../../components/sessiondetails/SessionDetails"
 import Footer from "../../components/footer/Footer"
 import Preloader from "../../components/PreLoader/Preloader"
+import SignupWelcome from "../../components/emailTemplates/SignupWelcome"
 
 export const Home = () => {
   const { user } = useContext(AuthContext)
@@ -178,8 +179,16 @@ export const Home = () => {
       },
       {
         path: `/prelaoder`,
+        element: <Preloader />,
+      },
+      {
+        path: `/signupwelcome`,
         element:
-          <Preloader/>
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <SignupWelcome />
+          ),
       },
     ])
     return routes

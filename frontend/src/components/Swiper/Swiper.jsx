@@ -31,7 +31,7 @@ export default function SwiperMentor({arrayList}) {
 
   function widthset() {
     setWidth(window.innerWidth)
-    console.log(width)
+    // console.log(width)
     setSlide_val(setSlide(width))
   }
 
@@ -81,7 +81,7 @@ export function SwiperSession({arrayList}) {
 
   function widthset() {
     setWidth(window.innerWidth)
-    console.log(width)
+    // console.log(width)
     setSlide_val(setSlide(width))
   }
 
