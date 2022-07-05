@@ -7,6 +7,7 @@
     /* border: 2px solid green; */
     overflow-y: auto;
     /* padding-bottom: 2.5rem ; */
+    margin-bottom: 3rem;
 }
 .homeContainer::-webkit-scrollbar{
     width: 5px;

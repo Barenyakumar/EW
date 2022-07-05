@@ -92,18 +92,17 @@ export default function GroupSession() {
   const [UpcomingGroupSessions, setUpcomingGroupSessions] = useState([]);
   const [pastGroupSession, setPastGroupSession] = useState([])
   useEffect(() => {
-    async function getUpcomingData(){
+    async function getUpcomingData() {
       const res = await axios.get("/session/activegroup")
-      setUpcomingGroupSessions(res.data);
+      setUpcomingGroupSessions(res.data)
     }
-    async function getPastData(){
+    async function getPastData() {
       const res = await axios.get("/session/pastgroup")
-      setPastGroupSession(res.data);
+      setPastGroupSession(res.data)
     }
-    getUpcomingData();
-    getPastData();
-
-  }, [])
+    getUpcomingData()
+    getPastData()
+  }, [UpcomingGroupSessions, pastGroupSession])
   
 
 

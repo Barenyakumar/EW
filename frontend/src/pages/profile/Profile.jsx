@@ -259,7 +259,7 @@ console.log(availibility);
               ) : (
                 ""
               )}
-              <div className="educationContainer">
+              {/* <div className="educationContainer">
                 <h3 style={{ margin: "1rem 0px" }}>Experience </h3>
                 <div className="experienceProfile">
                   <div className="expertiseProfile">
@@ -278,7 +278,7 @@ console.log(availibility);
                   </div>
                   <Button variant="outlined">Present</Button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </TabPanel>
           <TabPanel value={value} index={1}>
