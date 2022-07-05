@@ -77,10 +77,10 @@ console.log(availibility);
   const { username } = useParams()
   useEffect(() => {
     setpreloader(true)
-    if (username === CurrentUser.username) {
-      setUserProfile(CurrentUser)
-      setpreloader(false)
-    } else {
+    // if (username === CurrentUser.username) {
+    //   setUserProfile(CurrentUser)
+    //   setpreloader(false)
+    // } else {
       const fetchUser = async () => {
         try {
           const res = await axios.get(`/users/?username=${username}`)
@@ -92,7 +92,7 @@ console.log(availibility);
         
       }
       fetchUser()
-    }
+    // }
   }, [username, CurrentUser])
 
   const handleChange = (event, newValue) => {
