@@ -68,10 +68,23 @@
 }
 
 .role {
-  font-size: .5rem;
+  font-size: .8rem;
   font-weight: bold;
   font-family: var(--sub-heading-font);
   margin-bottom: .5rem;
+}
+
+.mentor_List{
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.sessionListDesc{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .bio {

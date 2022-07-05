@@ -41,15 +41,23 @@ const names = [
 ]
 export default function Createsession() {
   const minDate = new Date()
+  // console.log(
+  //   minDate
+  //     .setDate(minDate.getDate() + 1)
+  //     .toString()
+  //     .substring(0, 15)
+  // )
+  const dateObj = minDate.setDate(minDate.getDate() + 1)
+
   const [error, setError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-
+const newDateTomorrow = new Date(dateObj).toString().substring(0,15)
   const [category, setCategory] = useState("")
   const [sessionName, setSessionName] = useState("")
   const [sessionDesc, setSessionDesc] = useState("")
-  const [dateTime, setDateTime] = useState(
-    minDate.setDate(minDate.getDate() + 1)
-  )
+  // new Date("Tue Jul 05 2022 00:00 AM")
+  const [dateTime, setDateTime] = useState(new Date(newDateTomorrow + " 00:00 AM"))
+
   const [selectedImage, setSelectedImage] = useState()
   const [duration, setDuration] = useState(60)
   const [userMail, setUserMail] = useState([])
@@ -58,7 +66,7 @@ export default function Createsession() {
 
   // console.log(new Date().setDate(new Date()+1));
   // console.log(minDate.setDate(minDate.getDate()+1))
-
+  console.log(dateTime)
   const handleGroupSession = async (e) => {
     e.preventDefault()
     try {
@@ -86,7 +94,7 @@ export default function Createsession() {
 
     const sessionDate = new Date(dateTime).toString()
 
-    console.log(sessionDate)
+    // console.log(sessionDate)
     // console.log(room.data);
     const sessionBody = {
       mentor: currentUser._id,
@@ -99,7 +107,7 @@ export default function Createsession() {
       startTime: sessionDate.substring(15, 55),
       date: sessionDate.substring(0, 15),
     }
-    console.log(room)
+    // console.log(room)
     try {
       setIsLoading(true)
 

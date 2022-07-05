@@ -104,75 +104,6 @@ function makeid(length) {
 
 router.post("/otp", (req, res) => {
 
-<<<<<<< HEAD
-    const otp = makeid(6);
-    const options = {
-      from: "eduwarts@outlook.com",
-      to: req.body.reciever,
-      subject: "Email verification from Eduwarts.com",
-      html: ` <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        margin: "1rem 1rem",
-      }}
-    >
-      <div
-        className="eduwartsLogo"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <img
-          src="./images/3.jpg"
-          alt=""
-          style={{ width: "60%", maxHeight: "50vh" }}
-        />
-      </div>
-      <div
-        className="welcomeMessage"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          margin: "1rem 1rem",
-        }}
-      >
-        <div
-          className="messageLine1"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-            margin: "1rem 1rem",
-          }}
-        >
-          Hey user there 👋, welcome onboard ! 🎉
-        </div>
-        <div
-          className="messageLine2"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-            margin: "1rem 1rem",
-          }}
-        >
-          user.firstName,let's do everything we can to help you make right
-          decision.
-        </div>
-        <button>Visit Now</button>
-      </div>
-    </div>`,
-    }
-=======
   const otp = makeid(6);
   const options = {
     from: "team@eduwarts.tech",
@@ -181,7 +112,6 @@ router.post("/otp", (req, res) => {
     text: "Dear user your email verification code is: " + otp,
     html: `<h1>Dear user your email verification code is: ${otp}</h1>`,
   }
->>>>>>> ce65d6fc2d4c2cf9760b9dd708b856f5a0958c8f
 
   transporter.sendMail(options, function (err, info) {
     if (err)

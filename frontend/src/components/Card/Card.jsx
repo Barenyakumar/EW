@@ -1,9 +1,8 @@
-import { Button } from "@mui/material";
+import { Button } from "@mui/material"
 import React, { useContext, useEffect, useState } from "react"
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
-import { MenteeBadge, MentorBadge } from "../badges/MentorBadge";
-
+import { Link } from "react-router-dom"
+import { AuthContext } from "../../context/AuthContext"
+import { MenteeBadge, MentorBadge } from "../badges/MentorBadge"
 
 // role is the generic name for mentor role/ chllanges timelimit/ session time
 // name is the generic name for metor name/ challanges title, session title
@@ -12,14 +11,17 @@ import { MenteeBadge, MentorBadge } from "../badges/MentorBadge";
 import "./Card.css"
 
 export default function SingleCard(props) {
-  const [cardStyle, setCardStyle] = useState({});
+  const [cardStyle, setCardStyle] = useState({})
   useEffect(() => {
     if (props.height || props.width) {
-      setCardStyle({ height: props.height, width: props.width, margin: ".3rem .5rem" })
+      setCardStyle({
+        height: props.height,
+        width: props.width,
+        margin: ".3rem .5rem",
+      })
       // console.log("run" + cardStyle)
     }
-  }, []);
-  
+  }, [])
 
   // const arrElem = {};
   // if (props.element.mentorName)
@@ -28,10 +30,9 @@ export default function SingleCard(props) {
   //   arrElem.Name = props.element.challangeName;
   // else if (props.element.sessionTitle)
   //   arrElem.Name = props.element.sessionTitle;
-  
-  
-const publicFolder = "http://localhost:9000/UserImages/"
-  
+
+  const publicFolder = "http://localhost:9000/UserImages/"
+
   return (
     <Link to={`/profile/${props.element.username}`}>
       <div className="cardcontainer" style={cardStyle}>
@@ -67,15 +68,18 @@ const publicFolder = "http://localhost:9000/UserImages/"
   )
 }
 export function SessionCard(props) {
-  const [cardStyle, setCardStyle] = useState({});
-  const {user} = useContext(AuthContext)
+  const [cardStyle, setCardStyle] = useState({})
+  const { user } = useContext(AuthContext)
   useEffect(() => {
     if (props.height || props.width) {
-      setCardStyle({ height: props.height, width: props.width, margin: ".3rem .5rem" })
+      setCardStyle({
+        height: props.height,
+        width: props.width,
+        margin: ".3rem .5rem",
+      })
       // console.log("run" + cardStyle)
     }
-  }, []);
-  
+  }, [])
 
   // const arrElem = {};
   // if (props.element.mentorName)
@@ -84,10 +88,13 @@ export function SessionCard(props) {
   //   arrElem.Name = props.element.challangeName;
   // else if (props.element.sessionTitle)
   //   arrElem.Name = props.element.sessionTitle;
-  
-  
-const publicFolder = "http://localhost:9000/UserImages/"
-const role = user ? user._id === props.element.mentor ?"host":"guest" : ""
+
+  const publicFolder = "http://localhost:9000/UserImages/"
+  const role = user
+    ? user._id === props.element.mentor
+      ? "host"
+      : "guest"
+    : ""
   return (
     <Link to={`/session/${props.element._id}`}>
       <div className="cardcontainer" style={cardStyle}>
@@ -103,14 +110,34 @@ const role = user ? user._id === props.element.mentor ?"host":"guest" : ""
 
           <div className="des">
             <div className="name">
-              <span className="mentor_List element">{props.element.sessionName}</span>
-              <span className="role element">{props.element.category}</span>
-              <span className="role element">{props.element.date}, {new Date(props.element.date+props.element.startTime).toLocaleString([], {
-              hour: '2-digit',
-              minute: '2-digit'
-            })}</span>
-              <span className="role element">{props.element.duration} mins</span>
-              <Button variant="contained" onClick={()=>{window.location.replace(`https://62bd7a31d93831765b61385f--eduwartsmeet.netlify.app${props.element.sessionLink}/${role}`)}}>join</Button>
+              <span className="mentor_List element">
+                {props.element.sessionName}
+              </span>
+              <span className="role element">
+                {props.element.date},{" "}
+                {new Date(
+                  props.element.date + props.element.startTime
+                ).toLocaleString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
+              <div className="sessionListDesc">
+                <span className="role element">{props.element.category}</span>
+                <span className="role element">
+                  {props.element.duration} mins
+                </span>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    window.location.replace(
+                      `https://62bd7a31d93831765b61385f--eduwartsmeet.netlify.app${props.element.sessionLink}/${role}`
+                    )
+                  }}
+                >
+                  join
+                </Button>
+              </div>
             </div>
           </div>
         </div>

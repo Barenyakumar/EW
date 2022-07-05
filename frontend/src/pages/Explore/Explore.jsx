@@ -91,7 +91,7 @@ export default function Explore(props) {
 
   useEffect(() => {
     const allMentors = async () => {
-      const res = await axios.get("users/search?isMentor=true&s")
+      const res = await axios.get("users/mentors")
       setMentorList(res.data)
     }
 

@@ -54,6 +54,7 @@ export default function SwiperMentor({arrayList}) {
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
+        
         {arrayList.map(element=><SwiperSlide key={element._id}><SingleCard element={element} /></SwiperSlide>)}
       </Swiper>
     </>

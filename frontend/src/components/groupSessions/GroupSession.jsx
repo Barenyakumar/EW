@@ -116,12 +116,20 @@ export default function GroupSession() {
     <div className="Booking">
       <h2>Group Sessions</h2>
       <h3>The bookings are done as per your request attempeted</h3>
-      {
-        user.isMentor?
-        <Button variant="outlined" component={Link} to={"/newgroupsession"}style={{
-          float:"right"
-        }}>Create Session</Button>:""
-      }
+      {user.isMentor ? (
+        <Button
+          variant="outlined"
+          component={Link}
+          to={"/newgroupsession"}
+          style={{
+            float: "right",
+          }}
+        >
+          Create Session
+        </Button>
+      ) : (
+        ""
+      )}
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -133,17 +141,21 @@ export default function GroupSession() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <div className="MuiCardComplex">
-              <SwiperSession arrayList={UpcomingGroupSessions}/>
-        </div>
+        {UpcomingGroupSessions.length > 0 ? (
+          <div className="MuiCardComplex">
+            <SwiperSession arrayList={UpcomingGroupSessions} />
+          </div>
+        ) : (
+          "No upcoming sessions available..."
+        )}
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className="MuiCardComplex">
-          {pastGroupSession.map((elem) => (
+          {pastGroupSession.length > 0 ? pastGroupSession.map((elem) => (
             <div className="singleComplexCard" key={elem._id}>
               <MuiCardComplex element={elem} />
             </div>
-          ))}
+          )) : "No sessions found..."}
         </div>
       </TabPanel>
     </div>

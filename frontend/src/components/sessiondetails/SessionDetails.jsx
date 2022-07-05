@@ -173,7 +173,7 @@ export default function SessionDetails() {
           <div className="sessionButtons">
         <Button variant='outlined' component ={Link} to={"/home"} size='large'>< KeyboardBackspaceIcon /></Button>
         <Button variant='outlined' onClick={handleShare} size='large'>< ShareIcon /></Button>
-        <Button variant='contained' size='large'><span style={{ margin: "0px .5rem" }} onClick={handlejoin}>Join Session</span><GroupsIcon /></Button>
+        <Button variant='contained' size='large'><span style={{ margin: "0px .5rem" }} onClick={handlejoin}>Join</span><GroupsIcon /></Button>
       </div>
         )
       }
@@ -184,15 +184,14 @@ export default function SessionDetails() {
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
-        fullWidth
-        maxWidth={"80vw"}
+       
       >
         <DialogTitle>Share </DialogTitle>
         <DialogContent style={{display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap"}}>
-          <div className="share_text" style={{border:"1px solid black"}}>{sessionLink}</div>
-          <Button onClick={() => {navigator.clipboard.writeText(sessionLink)}}>copy</Button>
+          <div className="share_text" >{sessionLink}</div>
         </DialogContent>
         <DialogActions>
+          <Button onClick={() => {navigator.clipboard.writeText(sessionLink)}}>copy</Button>
           <Button variant='contained' onClick={handleClose}>close</Button>
         </DialogActions>
       </Dialog>

@@ -31,7 +31,7 @@ const SignUp = (props) => {
         setErrMessage("Duplicate entry in " + Object.keys(error.response.data.keyValue) + " try other rather than " + Object.values(error.response.data.keyValue)+".Try logging in.")
         // setErrMessage("Duplicate entry in "+ JSON.stringify(error.response.data.keyValue))
       }
-      if (error.response.data.code == 11600 || error.response.data.code == 211) {
+      if (error.response.data.code === 11600 || error.response.data.code == 211) {
         setErrMessage("Database server is down...\n Try again after sometime...")
         // setErrMessage("Duplicate entry in "+ JSON.stringify(error.response.data.keyValue))
       }
@@ -41,6 +41,7 @@ const SignUp = (props) => {
   // console.log(rePassword.current.value)
 
   const submithandler = (e) => {
+    
     setPreloader(true)
     e.preventDefault();
     if (otpMatched) {
@@ -56,9 +57,8 @@ const SignUp = (props) => {
     else{
       setPreloader(false)
       setErr("authenticate email")
-      setErrMessage("Please authenticate your email first...")
+      setErrMessage("OTP doesn't match. Please try again.")
     }
-
   }
   const loginCall = async (userCredentials, dispatch) => {
     dispatch({ type: "LOGIN_START" });
@@ -66,7 +66,7 @@ const SignUp = (props) => {
       const res = await axios.post("auth/register", userCredentials);
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
       setPreloader(false)
-
+      localStorage.setItem("ed_pr_bk_gj_12_34", JSON.stringify(res.data))
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE", payload: error });
       setPreloader(false)
@@ -85,7 +85,7 @@ const SignUp = (props) => {
     setPreloader(true)
     e.preventDefault();
     try {
-      if (email.current.value != "") {
+      if (email.current.value !== "") {
         const res = await axios.post("/email/otp", { reciever: email.current.value })
         setPreloader(false)
         setotpSent(true);
@@ -119,7 +119,7 @@ const SignUp = (props) => {
           <input type="text" ref={menteeName} placeholder='Name' name='name' required={true} />
           <div className="email_div">
             <input type="email" ref={email} placeholder='Email' name='email' required={true} style={otpMatched?{border:"1px solid green"}:{border:"1px solid red"}} />
-            <a href="" onClick={sendOTPHandler} disabled={true} style={{fontSize:".7rem"}}>{otpSent ? "Resend OTP" : "Verify"}</a>
+            <a onClick={sendOTPHandler} disabled={true} style={{ fontSize: "1rem" ,  textDecoration: "underline" }}>{!otpMatched ? otpSent ? "Resend" : "Verify" : ""}</a>
           </div>
           {
             otpSent ?
