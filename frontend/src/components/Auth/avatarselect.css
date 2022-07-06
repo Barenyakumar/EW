@@ -11,6 +11,7 @@
   height: 10rem;
   width: 10rem;
   margin: 1rem 0.3rem;
+  border-radius: 50%;
 }
 
 @media only screen and (max-width: 900px){

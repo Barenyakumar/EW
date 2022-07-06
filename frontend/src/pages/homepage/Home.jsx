@@ -194,11 +194,7 @@ export const Home = () => {
       {
         path: `/avatar`,
         element:
-          !user || user === undefined ? (
-            <Navigate to="/login" />
-          ) : (
             <AvatarSelect />
-          ),
       },
     ])
     return routes
