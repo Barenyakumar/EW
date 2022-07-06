@@ -21,7 +21,7 @@ export default function SingleCard(props) {
       })
       // console.log("run" + cardStyle)
     }
-  }, [])
+  }, [props])
 
   // const arrElem = {};
   // if (props.element.mentorName)
@@ -41,7 +41,7 @@ export default function SingleCard(props) {
             src={
               props.element.profileImage
                 ? publicFolder + props.element.profileImage
-                : "/images/3.jpg"
+                : `/Avatars/${props.element.gender}/${props.element.defaultImage}`
             }
             alt=""
           />
@@ -49,9 +49,11 @@ export default function SingleCard(props) {
           <div className="des">
             <div className="name">
               <span className="mentor_List element">{props.element.name}</span>
+              <div style={{display: 'flex', alignItems: 'flex-end',justifyContent: 'space-between', width:"100%"}}>
+
               <span className="role element">{props.element.username}</span>
               {props.element.isMentor ? (
-                <div className="mentor element">
+                <div className="mentor_Badge element">
                   <MentorBadge />
                   <span className="role element">
                     {props.element.expertise}
@@ -60,6 +62,7 @@ export default function SingleCard(props) {
               ) : (
                 <MenteeBadge />
               )}
+              </div>
             </div>
           </div>
         </div>
@@ -79,7 +82,7 @@ export function SessionCard(props) {
       })
       // console.log("run" + cardStyle)
     }
-  }, [])
+  }, [props])
 
   // const arrElem = {};
   // if (props.element.mentorName)
@@ -96,7 +99,7 @@ export function SessionCard(props) {
       : "guest"
     : ""
   return (
-    <Link to={`/session/${props.element._id}`}>
+    <Link to={`/getsession/${props.element._id}`}>
       <div className="cardcontainer" style={cardStyle}>
         <div className="img">
           <img

@@ -18,6 +18,8 @@ import { NavBar } from "../../components/navbar/NavBar"
 import Footer from "../../components/footer/Footer"
 // import challenges from "../../dummydata/challenges.json.json"
 // import Swiper from "swiper"
+import { Helmet } from "react-helmet"
+
 
 const useStyles = makeStyles({
   tabStyle: {
@@ -111,6 +113,16 @@ export default function Explore(props) {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>
+          Learn and grow with help from your own skilled seniors | Eduwarts
+        </title>
+        <meta
+          name="description"
+          content="Book and meet mentors to enhance your skills and recognise the diversity of various skill sets in our community."
+        />
+      </Helmet>
       <NavBar public={true} />
       <Box sx={{ width: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -291,7 +303,10 @@ export default function Explore(props) {
                 </div>
                 <div
                   className="pic picBlack"
-                  style={{ backgroundColor: "rgba(0,0,0,0.8)" , padding: "20px 10px" }}
+                  style={{
+                    backgroundColor: "rgba(0,0,0,0.8)",
+                    padding: "20px 10px",
+                  }}
                 >
                   <h1 style={{ color: "#ffffff" }}>Host Group sessions</h1>
                   <p style={{ color: "#ffffff" }}>

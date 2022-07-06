@@ -8,20 +8,43 @@ export default function AvatarSelect() {
   const [AvatarVal, setAvatarVal] = useState("");
   const AvatarCallback = data => setAvatarVal(data)
 
-  console.log(AvatarVal);
+  // console.log(AvatarVal);
   return (
     <>
-      <h1>Select your Avatar</h1>
-      <div className="AvatarSelectContainerOuts">
-        {
-          avatars.map(elem => {
-            return (
-              <AvatarSelection key={elem} elem={elem} AvatarCallback={AvatarCallback} AvatarVal={AvatarVal} />
-            )
-          })
-        }
+      <div
+        className="avatarHeading"
+        style={{
+          margin: "1rem 0px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <h1>Select your Avatar that suits you! </h1>
       </div>
-      <Button variant='outlined'>done</Button>
+      <div className="AvatarSelectContainerOuts">
+        {avatars.map((elem) => {
+          return (
+            <AvatarSelection
+              key={elem}
+              elem={elem}
+              AvatarCallback={AvatarCallback}
+              AvatarVal={AvatarVal}
+            />
+          )
+        })}
+      </div>
+      <div
+        className="buttonAvatar"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "1rem 0px",
+        }}
+      >
+        <Button variant="contained">Clone this Avatar</Button>
+      </div>
     </>
   )
 }

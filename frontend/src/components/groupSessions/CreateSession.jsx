@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import PreviewImg from "../Preview/Preview"
-import { Box, TextField, OutlinedInput, Button } from "@mui/material"
+// import PreviewImg from "../Preview/Preview"
+import { Box, TextField, Button } from "@mui/material"
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import Select from "@mui/material/Select"
@@ -15,6 +15,8 @@ import { AuthContext } from "../../context/AuthContext"
 import { Link } from "react-router-dom"
 import Popup from "../popup-box/Popup"
 import Preloader from "../PreLoader/Preloader"
+import { Helmet } from "react-helmet"
+
 
 // import DatePickers from '../DatePicker/DatePicker'
 
@@ -40,6 +42,9 @@ const names = [
   "Others",
 ]
 export default function Createsession() {
+
+  
+
   const minDate = new Date()
   // console.log(
   //   minDate
@@ -60,7 +65,7 @@ const newDateTomorrow = new Date(dateObj).toString().substring(0,15)
 
   const [selectedImage, setSelectedImage] = useState()
   const [duration, setDuration] = useState(60)
-  const [userMail, setUserMail] = useState([])
+  // const [userMail, setUserMail] = useState([])
   const { user: currentUser } = useContext(AuthContext)
   const ImageCallback = (data) => setSelectedImage(data)
 
@@ -121,11 +126,11 @@ const newDateTomorrow = new Date(dateObj).toString().substring(0,15)
       setError(true)
     }
 
-    const mailRes = await axios.post("/send_mail_to_all", {
-      sessionBody: sessionBody,
-      mentorName: currentUser.name,
-      sessionId: groupSession.data._id,
-    })
+    // const mailRes = await axios.post("/send_mail_to_all", {
+    //   sessionBody: sessionBody,
+    //   mentorName: currentUser.name,
+    //   sessionId: groupSession.data._id,
+    // })
 
     // console.log(groupSession);
 
@@ -157,11 +162,19 @@ const newDateTomorrow = new Date(dateObj).toString().substring(0,15)
 
     setIsLoading(false)
 
-    window.location.replace(`/session/${groupSession.data._id}`)
+    window.location.replace(`/getsession/${groupSession.data._id}`)
   }
 
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Create a new session to connect with mentors | Eduwarts</title>
+        <meta
+          name="description"
+          content="Learn and grow with help from your own skilled seniors"
+        />
+      </Helmet>
       <h2>Let’s publish this session to the community.</h2>
       <Box
         sx={{

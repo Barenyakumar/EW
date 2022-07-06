@@ -5,19 +5,18 @@ import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box"
-import { Avatar, Button, Stack } from "@mui/material"
+import { Avatar, Button} from "@mui/material"
 import "./Profile.css"
-import SingleCard from "../../components/Card/Card"
+// import SingleCard from "../../components/Card/Card"
 import { AuthContext } from "../../context/AuthContext"
 import axios from "axios"
 import { useParams } from "react-router-dom"
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
 import { MenteeBadge, MentorBadge } from "../../components/badges/MentorBadge"
-import {Link} from "react-router-dom"
-import ViewAvailability from "../../components/availability/viewAvailability"
+// import ViewAvailability from "../../components/availability/viewAvailability"
 import Availability from "../../components/availability/Availability"
 import { useNavigate } from "react-router-dom";
 import Preloader from "../../components/PreLoader/Preloader"
+import { Helmet } from "react-helmet"
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -103,9 +102,18 @@ console.log(availibility);
   return (
     <>
       <div className="Profile">
+        <Helmet>
+          <meta charSet="utf-8" />
+          {userProfile.username ? (
+            <title>{`${userProfile.username}'s profile | Eduwarts`}</title>
+          ) : (
+            "your profile"
+          )}
+          <meta name="description" content="React application" />
+        </Helmet>
         <div className="profileBg">
           <img
-            src={ 
+            src={
               userProfile.coverImage
                 ? publicFolder + userProfile.coverImage
                 : "/images/loginbg.jpg"
@@ -120,7 +128,7 @@ console.log(availibility);
               src={
                 userProfile.profileImage
                   ? publicFolder + userProfile.profileImage
-                  : "/images/3.jpg"
+                  : `/Avatars/${userProfile.gender}/${userProfile.defaultImage}`
               }
               sx={{
                 width: "30vw",
@@ -145,16 +153,10 @@ console.log(availibility);
               {userProfile.isMentor ? <MentorBadge /> : <MenteeBadge />}{" "}
             </div>
           </div>
-          {CurrentUser.username !== username ? (
+          {/* {CurrentUser.username !== username ? (
             userProfile.isMentor ? (
               <div style={{ width: "7rem" }}>
-                {/* <Button
-                  variant="contained"
-                  size="small"
-                  style={{ marginTop: "2rem" }}
-                >
-                  <FavoriteBorderIcon />
-                </Button> */}
+                
                 <Button
                   variant="contained"
                   size="small"
@@ -184,7 +186,7 @@ console.log(availibility);
             </Button>
           ) : (
             ""
-          )}
+          )} */}
           {/* {
             CurrentUser.username === username && !CurrentUser.isMentor ?
               <Button variant="contained" size="small" style={{ marginTop: "2rem", }}>Become a Mentor
@@ -201,11 +203,11 @@ console.log(availibility);
               aria-label="basic tabs example"
             >
               <Tab label="Overview" {...a11yProps(0)} />
-              {CurrentUser.username == username || userProfile.isMentor ? (
+              {/* {CurrentUser.username == username || userProfile.isMentor ? (
                 <Tab label="Week's Availability" {...a11yProps(1)} />
               ) : (
                 ""
-              )}
+              )} */}
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
@@ -282,7 +284,7 @@ console.log(availibility);
             </div>
           </TabPanel>
           <TabPanel value={value} index={1}>
-          <Availability CurrentUser={userProfile} />
+            <Availability CurrentUser={userProfile} />
           </TabPanel>
         </Box>
       </div>

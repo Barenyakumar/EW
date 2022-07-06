@@ -1,5 +1,6 @@
 import * as React from "react"
-import { useState,useEffect } from "react"
+import { useState, useEffect } from "react"
+import { Helmet } from "react-helmet"
 // import "./home.css"
 // import "../../App.css"
 
@@ -33,11 +34,19 @@ export default function MenteeHome() {
     allMentors()
   }, [])
   
-  console.log(mentorList)
-
+  // console.log(mentorList)
+ 
 
   return (
     <div className="Menteewrapper">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Platform to connect with leaders | Eduwarts</title>
+        <meta
+          name="description"
+          content="Learn and grow with help from your own skilled seniors"
+        />
+      </Helmet>
       <h1>
         Learn and <span className="highLight">grow</span> with help from your
         own skilled seniors
@@ -53,7 +62,7 @@ export default function MenteeHome() {
 
       <GroupSession />
 
-      {mentorList.length === 0  ? (
+      {mentorList.length === 0 ? (
         ""
       ) : (
         <>
