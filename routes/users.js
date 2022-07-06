@@ -3,6 +3,19 @@ const router = express.Router()
 const User = require("../models/user")
 const bcrypt = require('bcrypt')
 
+
+// get all mentors
+
+router.get("/mentors", async (req, res)=>{
+  try {
+    const users = await User.find({isMentor:true});
+    res.status(200).json(users)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+})
+
+
 // search User
 router.get('/search', async (req, res) => {
   const { s, isMentor } = req.query;

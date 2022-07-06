@@ -103,6 +103,11 @@ export default function SessionDetails() {
     setSessionLink(`http://localhost:3000/session/${sessionId}`)
   }
 
+  const copyLink = ()=>{
+    navigator.clipboard.writeText(sessionLink);
+    console.log(sessionLink);
+  }
+
 
   const public_folder = "http://localhost:9000/UserImages"
   return (
@@ -190,7 +195,7 @@ export default function SessionDetails() {
         <DialogTitle>Share </DialogTitle>
         <DialogContent style={{display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap"}}>
           <div className="share_text" style={{border:"1px solid black"}}>{sessionLink}</div>
-          <Button onClick={() => {navigator.clipboard.writeText(sessionLink)}}>copy</Button>
+          <Button onClick={copyLink}>copy</Button>
         </DialogContent>
         <DialogActions>
           <Button variant='contained' onClick={handleClose}>close</Button>
