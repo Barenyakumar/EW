@@ -39,6 +39,7 @@ import SessionDetails from "../../components/sessiondetails/SessionDetails"
 import Footer from "../../components/footer/Footer"
 import Preloader from "../../components/PreLoader/Preloader"
 import SignupWelcome from "../../components/emailTemplates/SignupWelcome"
+import AvatarSelect from "../../components/Auth/AvatarSelect"
 
 export const Home = () => {
   const { user } = useContext(AuthContext)
@@ -188,6 +189,15 @@ export const Home = () => {
             <Navigate to="/login" />
           ) : (
             <SignupWelcome />
+          ),
+      },
+      {
+        path: `/avatar`,
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <AvatarSelect />
           ),
       },
     ])
