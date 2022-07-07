@@ -94,7 +94,7 @@ export default function SessionDetails() {
 
   const handleShare = () => {
     handleClickOpen()
-    setSessionLink(`http://localhost:3000/getsession/${sessionId}`)
+    setSessionLink(`http://eduwarts.com/getsession/${sessionId}`)
   }
 
   const [copied, setCopied] = useState(false)
