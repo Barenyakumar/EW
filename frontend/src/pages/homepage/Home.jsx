@@ -59,8 +59,8 @@ export const Home = () => {
       },
       {
         path: "/register",
-        element: user ? (
-          <Navigate to="/home" />
+        element: user? (
+          <Navigate to="/avatar" />
         ) : (
           <SignUp loginCallback={loginCallback} />
         ),
@@ -193,8 +193,9 @@ export const Home = () => {
       },
       {
         path: `/avatar`,
-        element:
-            <AvatarSelect />
+        element: user? user.defaultImg ? (
+          <Navigate to="/home" />):(<AvatarSelect loginCallback={loginCallback}/>
+        ) : (<Login loginCallback={loginCallback} />)
       },
     ])
     return routes

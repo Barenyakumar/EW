@@ -51,7 +51,7 @@ export const NavBar = (props) => {
             <input type="search" name="search" id="search" />
           </div>
         )} */}
-        {props.public ? (
+        {props.public && !user ? (
           <div className="loginBtncontainer">
             <Button
               variant="outlined"
@@ -71,16 +71,19 @@ export const NavBar = (props) => {
             </Button>
           </div>
         ) : (
-          user && (
+          user? (
             <>
+            {
+              console.log(user)
+            }
               <div className="avatar">
                 <span className="avatarName avatarSpan">{user.username}</span>
                 <Avatar
                   className="avatarBadge"
                   sx={{ bgcolor: "#344CB7 " }}
                   onClick={toggleDrawer(true)}
+                  // src={`/Avatars/${user.gender}/${user.defaultImg}`}
                 >
-                  P
                 </Avatar>
                 <SwipeableDrawer
                   anchor={"right"}
@@ -263,7 +266,7 @@ export const NavBar = (props) => {
               </div>
               {preloader ? <Preloader /> : ""}
             </>
-          )
+          ):""
         )}
       </div>
     </>

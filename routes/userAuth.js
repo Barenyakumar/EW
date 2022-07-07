@@ -2,6 +2,17 @@ const router = require("express").Router()
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
+router.post("/setavatar/:id", async(req, res)=>{
+    try {
+        const user = await User.findById(req.params.id);
+        user.defaultImg= req.body.img;
+        await user.save();
+
+        res.status(200).json(user);
+    } catch (error) {
+        
+    }
+})
 
 // register user
 router.post("/register", async (req, res) =>{

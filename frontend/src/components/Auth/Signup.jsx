@@ -22,6 +22,7 @@ const SignUp = (props) => {
   const gender = useRef()
   const otp = useRef()
   const [err, setErr] = useState(error)
+  console.log(error);
 
 
   const [errMessage, setErrMessage] = useState("")
