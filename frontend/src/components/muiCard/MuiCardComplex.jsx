@@ -51,8 +51,8 @@ export default function MuiCardComplex(props) {
         <CardContent sx={{ textDecoration: "none" }}>
           {props.element.sessionName ? (
             <Typography
-              variant="h5"
-              color="text.secondary"
+              variant="h6" 
+              color="#121212"
               style={{ textDecoration: "none" }}
             >
               {props.element.sessionName}
@@ -61,21 +61,21 @@ export default function MuiCardComplex(props) {
             ""
           )}
           {props.element.date ? (
-            <Typography variant="h6" color="text.secondary">
+            <Typography variant="span" color="text.secondary">
               {props.element.date}
             </Typography>
           ) : (
             ""
           )}
           {props.element.startTime ? (
-            <Typography variant="h6" color="text.secondary">
+            <Typography variant="span" color="text.secondary">
               {props.element.startTime + "-" + props.element.endTime}
             </Typography>
           ) : (
             ""
           )}
           {props.element.category ? (
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="span" color="text.secondary">
               {props.element.category}
             </Typography>
           ) : (

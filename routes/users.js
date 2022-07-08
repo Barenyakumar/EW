@@ -3,13 +3,26 @@ const router = express.Router()
 const User = require("../models/user")
 const bcrypt = require('bcrypt')
 
+
+// get all mentors
+
+router.get("/mentors", async (req, res)=>{
+  try {
+    const users = await User.find({isMentor:true});
+    res.status(200).json(users)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+})
+
+
 // search User
 router.get('/search', async (req, res) => {
   const { s, isMentor } = req.query;
   try {
     let queryObject = {};
     if (isMentor) {
-      queryObject.isMentor = isMentor
+      queryObject.isMentor = true
     }
     queryObject.username = { $regex: s, $options: "i" }
     let result1 = await User.find(queryObject)
@@ -19,9 +32,9 @@ router.get('/search', async (req, res) => {
     }
     queryObject.name = { $regex: s, $options: "i" }
     let result2 = await User.find(queryObject)
-    let user = [ ...result1]
-    result2.forEach(elem=>{
-      if(!result1.includes(elem)){
+    let user = [...result1]
+    result2.forEach(elem => {
+      if (!result1.includes(elem)) {
         user.concat([elem])
       }
     })
@@ -73,6 +86,10 @@ router.get("/all", async (req, res) => {
 })
 
 
+
+
+// update profile
+
 router.put("/:id", async (req, res) => {
   if (req.body.userId === req.params.id || req.body.isAdmin) {
     if (req.body.password) {
@@ -111,13 +128,10 @@ router.put("/:id", async (req, res) => {
       if (linkedIn !== undefined) user.otherLinks.push(linkedIn)
 
       await user.save()
-
-      const sendUser = { ...user }
-      delete sendUser["password"]
-      delete sendUser["updatedAt"]
+      const { password, updatedAt, createdAt, isAdmin, ...other } = user._doc
       res
         .status(200)
-        .json({ msg: "Account successfully updated", user: sendUser._doc })
+        .json({ msg: "Account successfully updated", user: other })
     } catch (error) {
       return res.status(500).json(error)
     }
@@ -144,12 +158,12 @@ router.post("/:id/updatemail", async (req, res) => {
   if (req.body.userId === req.params.id || req.body.isAdmin) {
     try {
       const user = await User.findById(req.params.id)
-      let flag =await bcrypt.compare(req.body.password, user.password)
-      if(flag){
+      let flag = await bcrypt.compare(req.body.password, user.password)
+      if (flag) {
         user.email = req.body.email;
-      await user.save()
+        await user.save()
 
-      res.status(200).send("Email updated")
+        res.status(200).send("Email updated")
 
       }
       else
@@ -158,7 +172,7 @@ router.post("/:id/updatemail", async (req, res) => {
       return res.status(500).json(e)
     }
   }
-  else{
+  else {
     res.status(200).json("not a user")
   }
 })

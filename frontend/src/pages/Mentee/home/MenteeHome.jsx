@@ -1,5 +1,6 @@
 import * as React from "react"
-import { useState,useEffect } from "react"
+import { useState, useEffect } from "react"
+import { Helmet } from "react-helmet"
 // import "./home.css"
 // import "../../App.css"
 
@@ -12,34 +13,47 @@ import { AuthContext } from "../../../context/AuthContext"
 import axios from "axios"
 import GroupSession from "../../../components/groupSessions/GroupSession"
 import Footer from "../../../components/footer/Footer"
+import Preloader from "../../../components/PreLoader/Preloader"
  
 
 export default function MenteeHome() {
   
   const [mentorList, setMentorList] = useState([])
+  const [preloader, setpreloader] = useState(false)
 
   useEffect(() => {
    
-    const allMentors = async () => {   
-      const res = await axios.get("users/search?isMentor=true&s")
+    const allMentors = async () => {  
+      setpreloader(true) 
+      const res = await axios.get("users/mentors")
+
       setMentorList(res.data)
+      setpreloader(false)
     }
 
     allMentors()
   }, [])
   
   // console.log(mentorList)
-
+ 
 
   return (
     <div className="Menteewrapper">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Platform to connect with leaders | Eduwarts</title>
+        <meta
+          name="description"
+          content="Learn and grow with help from your own skilled seniors"
+        />
+      </Helmet>
       <h1>
         Learn and <span className="highLight">grow</span> with help from your
-        own skilled seniors{" "}
+        own skilled seniors
       </h1>
       <h3>
-        Book and meet mentors for 1:1 mentorship all across different colleges,
-        states in our community
+        Book and meet mentors to enhance your skills and recognise the diversity
+        of various skill sets in our community.
       </h3>
 
       {/* <SearchBar /> */}
@@ -48,9 +62,14 @@ export default function MenteeHome() {
 
       <GroupSession />
 
-      <h1 className="centerTitle">Discover mentors</h1>
-
-      <SwiperMentor arrayList={mentorList} />
+      {mentorList.length === 0 ? (
+        ""
+      ) : (
+        <>
+          <h1 className="centerTitle">Discover mentors</h1>
+          <SwiperMentor arrayList={mentorList} />
+        </>
+      )}
 
       {/* <SwiperMentor arrayList={userList} /> */}
 
@@ -64,6 +83,7 @@ export default function MenteeHome() {
       <br></br>
       <br></br>
       <Footer />
+      {preloader ? <Preloader /> : ""}
     </div>
   )
 }

@@ -1,0 +1,25 @@
+.AvatarSelectContainerOuts{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 0px auto;
+}
+
+.avatarSelectionContainer{
+  height: 10rem;
+  width: 10rem;
+  margin: 1rem 0.3rem;
+  border-radius: 50%;
+}
+
+@media only screen and (max-width: 900px){
+  .avatarSelectionContainer{
+    height: 7rem;
+    width: 7rem;
+  }
+  .AvatarSelectContainerOuts{
+    width: 100%;
+  }
+}

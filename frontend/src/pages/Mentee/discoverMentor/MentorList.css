@@ -10,11 +10,22 @@
 .MentorList{
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
   height: 70%;
   margin-top: 1rem;
 }
 .LoadBtn{
   margin: 0px auto;
+}
+
+@media only screen and (max-width: 1030px){
+  .MentorList{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 70%;
+  margin-top: 1rem;
+}
 }

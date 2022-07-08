@@ -16,8 +16,10 @@ import { Button } from "@mui/material"
 import { Link, Navigate } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext"
 import LogoutIcon from "@mui/icons-material/Logout"
+import Preloader from "../PreLoader/Preloader"
 
 export const NavBar = (props) => {
+  const [preloader, setPreloader] = useState(false)
   const [open, setOpen] = useState(false)
 
   const toggleDrawer = (open) => (event) => {
@@ -33,6 +35,8 @@ export const NavBar = (props) => {
   }
 
   const { user } = useContext(AuthContext)
+
+  const publicFolder = "http://localhost:9000/UserImages/"
 
   return (
     <>
@@ -74,6 +78,12 @@ export const NavBar = (props) => {
               <div className="avatar">
                 <span className="avatarName avatarSpan">{user.username}</span>
                 <Avatar
+                  src={
+                    user.profileImage
+                      ? publicFolder + user.profileImage
+                      : `/Avatars/${user.gender}/${user.defaultImage}`
+                  }
+                  alt={user.name}
                   className="avatarBadge"
                   sx={{ bgcolor: "#344CB7 " }}
                   onClick={toggleDrawer(true)}
@@ -95,7 +105,12 @@ export const NavBar = (props) => {
                       >
                         <li className="navValues">
                           <Avatar
-                            sx={{ bgcolor: "#344CB7 ", width: 30, height: 30 }}
+                            sx={{
+                              bgcolor: "#344CB7 ",
+                              width: 30,
+                              height: 30,
+                              padding: 2,
+                            }}
                           >
                             <HomeIcon fontSize="small" />
                           </Avatar>
@@ -144,7 +159,7 @@ export const NavBar = (props) => {
                           <span className="listValue">Challanges</span>
                         </li>{" "}
                       </Link> */}
-                      <Link
+                      {/* <Link
                         onClick={toggleDrawer(false)}
                         to="/groupsession"
                         style={{ textDecoration: "none", color: "black" }}
@@ -157,7 +172,7 @@ export const NavBar = (props) => {
                           </Avatar>
                           <span className="listValue">Group Session</span>
                         </li>{" "}
-                      </Link>
+                      </Link> */}
                       <Link
                         onClick={toggleDrawer(false)}
                         to="/search"
@@ -165,7 +180,12 @@ export const NavBar = (props) => {
                       >
                         <li className="navValues">
                           <Avatar
-                            sx={{ bgcolor: "#344CB7 ", width: 30, height: 30 }}
+                            sx={{
+                              bgcolor: "#344CB7 ",
+                              width: 30,
+                              height: 30,
+                              padding: 2,
+                            }}
                           >
                             <TravelExploreIcon fontSize="small" />
                           </Avatar>
@@ -181,7 +201,12 @@ export const NavBar = (props) => {
                       >
                         <li className="navValues">
                           <Avatar
-                            sx={{ bgcolor: "#344CB7 ", width: 30, height: 30 }}
+                            sx={{
+                              bgcolor: "#344CB7 ",
+                              width: 30,
+                              height: 30,
+                              padding: 2,
+                            }}
                           >
                             <AccountCircleRoundedIcon />
                           </Avatar>
@@ -225,7 +250,12 @@ export const NavBar = (props) => {
                       >
                         <li className="navValues">
                           <Avatar
-                            sx={{ bgcolor: "#344CB7 ", width: 30, height: 30 }}
+                            sx={{
+                              bgcolor: "#344CB7 ",
+                              width: 30,
+                              height: 30,
+                              padding: 2,
+                            }}
                           >
                             <SettingsIcon />
                           </Avatar>
@@ -234,6 +264,7 @@ export const NavBar = (props) => {
                       </Link>
                       <button
                         onClick={() => {
+                          setPreloader(true)
                           localStorage.removeItem("ed_pr_bk_gj_12_34")
                           window.location.replace("/")
                         }}
@@ -247,7 +278,12 @@ export const NavBar = (props) => {
                       >
                         <li className="navValues">
                           <Avatar
-                            sx={{ bgcolor: "#344CB7 ", width: 30, height: 30 }}
+                            sx={{
+                              bgcolor: "#344CB7 ",
+                              width: 30,
+                              height: 30,
+                              padding: 2,
+                            }}
                           >
                             <LogoutIcon />
                           </Avatar>
@@ -258,6 +294,7 @@ export const NavBar = (props) => {
                   </div>
                 </SwipeableDrawer>
               </div>
+              {preloader ? <Preloader /> : ""}
             </>
           )
         )}

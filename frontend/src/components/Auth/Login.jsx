@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useRef } from 'react'
-import { Link, Navigate } from "react-router-dom"
+import { Link} from "react-router-dom"
 import { Button } from '@mui/material'
 import "./login.css"
 import axios from 'axios'
 import { AuthContext } from '../../context/AuthContext'
 import Popup from '../popup-box/Popup'
-const Login = (props) => {
+import Preloader from '../PreLoader/Preloader'
+import { Helmet } from "react-helmet"
 
+
+const Login = (props) => {
 
   const email = useRef();
   const password = useRef();
@@ -34,21 +37,54 @@ const Login = (props) => {
   }
 
   return (
-    <div className='loginContainer'>
+    <div className="loginContainer">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Login to get started | Eduwarts</title>
+        <meta
+          name="description"
+          content="Learn and grow with help from your own skilled seniors"
+        />
+      </Helmet>
       <div className="logincontent">
-        <img src="/images/login.png" alt="" className="loginImg" />
-        <form action="" className="loginForm" method='post' onSubmit={loginHandler}>
-          <input type="email" placeholder='Email' name='email' ref={email} required={true} />
-          <input type="password" placeholder='Password' name="passoword" ref={password} minLength={6} required={true} />
-          <Button variant='contained' type='submit' className='loginBtn' disabled={isFetching}>{isFetching?"Loading":"Login"}</Button>
+        <img src="/images/login.jpg" alt="" className="loginImg" />
+        <form
+          action=""
+          className="loginForm"
+          method="post"
+          onSubmit={loginHandler}
+        >
+          <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            ref={email}
+            required={true}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="passoword"
+            ref={password}
+            minLength={6}
+            required={true}
+          />
+          <Button
+            variant="contained"
+            type="submit"
+            className="loginBtn"
+            disabled={isFetching}
+          >
+            {isFetching ? "Loading" : "Login"}
+          </Button>
 
-          <Link to="/register" className='redirectLink'>New to Eduwarts? </Link>
-          {
-            error?
-            <Popup flag={true} message={error.response.data}/>:""
-          }
+          <Link to="/register" className="redirectLink">
+            New to Eduwarts?{" "}
+          </Link>
+          {error ? <Popup flag={true} message={error.response.data} /> : ""}
         </form>
       </div>
+      {isFetching ? <Preloader /> : ""}
     </div>
   )
 }

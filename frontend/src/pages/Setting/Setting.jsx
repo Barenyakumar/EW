@@ -5,6 +5,8 @@ import EditProfile from "../../components/Settings/EditProfile"
 import EditEmail from "../../components/Settings/EditEmail"
 import EditPassword from "../../components/Settings/EditPassword"
 import EditImage from "../../components/Settings/EditImage"
+import { Helmet } from "react-helmet"
+
 
 function a11yProps(index) {
   return {
@@ -49,7 +51,6 @@ const Setting = () => {
   })
   const { user: userInfo } = useContext(AuthContext)
 
-  console.log(user)
   useEffect(() => {
     setUser({
       name: userInfo.name,
@@ -66,6 +67,14 @@ const Setting = () => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Profile's settings | Eduwarts</title>
+        <meta
+          name="description"
+          content="Your profile settings"
+        />
+      </Helmet>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -74,9 +83,9 @@ const Setting = () => {
           fullWidth={true}
         >
           <Tab label="Edit Profile" {...a11yProps(0)} />
-          <Tab label="Edit Email" {...a11yProps(1)} />
-          <Tab label="Edit Password" {...a11yProps(2)} />
-          <Tab label="Upload Images" {...a11yProps(3)} />
+          {/* <Tab label="Edit Email" {...a11yProps(1)} /> */}
+          {/* <Tab label="Edit Password" {...a11yProps(2)} /> */}
+          {/* <Tab label="Upload Images" {...a11yProps(3)} /> */}
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -93,9 +102,9 @@ const Setting = () => {
       <TabPanel value={value} index={2}>
         <EditPassword />
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      {/* <TabPanel value={value} index={3}>
         <EditImage />
-      </TabPanel>
+      </TabPanel> */}
     </>
   )
 }

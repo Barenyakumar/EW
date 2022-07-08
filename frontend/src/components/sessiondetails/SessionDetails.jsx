@@ -10,7 +10,23 @@ import Avatar from "@mui/material/Avatar"
 import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import CardHeader from "@mui/material/CardHeader"
+import ShareIcon from "@mui/icons-material/Share"
+import Dialog from "@mui/material/Dialog"
+import DialogActions from "@mui/material/DialogActions"
+import DialogContent from "@mui/material/DialogContent"
+import DialogTitle from "@mui/material/DialogTitle"
+import Slide from "@mui/material/Slide"
+import Preloader from "../PreLoader/Preloader"
+import { Helmet } from "react-helmet"
+import { CopyToClipboard } from "react-copy-to-clipboard"
 
+<<<<<<< HEAD
+=======
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />
+})
+
+>>>>>>> trial
 // const sessionDetail =
 //   {
 //     sessionName: "Switching to Freelancing by Barenya Kumar Panda",
@@ -33,8 +49,10 @@ export default function SessionDetails() {
   const [sessionDetail, setSessionDetail] = useState({})
   const [mentor, setMentor] = useState({})
   const [sessionLink, setSessionLink] = useState("")
+  const [preloader, SetPreloader] = useState(false)
 
   const sessionDate = new Date(sessionDetail.date + sessionDetail.startTime)
+<<<<<<< HEAD
 
   useEffect(() => {
     const getSessionData = async () => {
@@ -44,11 +62,35 @@ export default function SessionDetails() {
     }
     getSessionData()
   }, [])
+=======
+
+  const [open, setOpen] = React.useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   useEffect(() => {
+    const getSessionData = async () => {
+      SetPreloader(true)
+      const res = await axios.get(`/session/${sessionId}`)
+      setSessionDetail(res.data)
+      SetPreloader(false)
+    }
+    getSessionData()
+  }, [sessionId])
+>>>>>>> trial
+  useEffect(() => {
+    SetPreloader(true)
     const getMentor = async () => {
       if (sessionDetail.mentor) {
         const mentor = await axios.get(`/users/${sessionDetail.mentor}`)
         setMentor(mentor.data)
+        SetPreloader(false)
       }
     }
     getMentor()
@@ -61,9 +103,20 @@ export default function SessionDetails() {
       sessionDetail.sessionLink +
       "/" +
       role
+<<<<<<< HEAD
     // console.log(sessionLink);
+=======
+    console.log(sessionLink)
+>>>>>>> trial
     window.location.replace(sessionLink)
   }
+
+  const handleShare = () => {
+    handleClickOpen()
+    setSessionLink(`http://eduwarts.me/getsession/${sessionId}`)
+  }
+
+  const [copied, setCopied] = useState(false)
 
   const public_folder = "http://localhost:9000/UserImages"
 
@@ -78,6 +131,18 @@ export default function SessionDetails() {
 
   return (
     <div className="sessionContainer">
+      <Helmet>
+        <meta charSet="utf-8" />
+        {sessionDetail.sessionName ? (
+          <title>{` ${sessionDetail.sessionName} by ${mentor.name}`}</title>
+        ) : (
+          "Group session | Eduwarts"
+        )}
+        <meta
+          name="description"
+          content="Learn and grow with help from your own skilled seniors"
+        />
+      </Helmet>
       <div className="group_session_title" style={{ marginTop: "1rem" }}>
         <h1>{sessionDetail.sessionName}</h1>
         <div className="group_session_time" style={{ marginTop: "1rem" }}>
@@ -121,7 +186,11 @@ export default function SessionDetails() {
                   src={
                     mentor.profileImage
                       ? public_folder + mentor.profileImage
+<<<<<<< HEAD
                       : "/images/3.jpg"
+=======
+                      : `/Avatars/${mentor.gender}/${mentor.defaultImage}`
+>>>>>>> trial
                   }
                 />
               </div>
@@ -130,14 +199,14 @@ export default function SessionDetails() {
             subheader={mentor.expertise}
           />
         </div>
-        <div className="cohost_name" style={{ marginTop: "0.5rem" }}>
+        {/* <div className="cohost_name" style={{ marginTop: "0.5rem" }}>
           <h3>
             <b>Cohosted by : </b>
-            {/* {sessionDetail.coHosts.map((cohost) => {
+            {sessionDetail.coHosts.map((cohost) => {
                 ;<h4>{cohost}</h4>
-              })} */}
+              })}
           </h3>
-        </div>
+        </div> */}
         <div className="group_topic_of_disc">
           <h3>
             <b>Topic of discussion : </b>
@@ -146,6 +215,7 @@ export default function SessionDetails() {
         </div>
         {/* sessionDetail.cohost ? <h3>Hosted by: {sessionDetail.host}</h3> : "" */}
       </div>
+<<<<<<< HEAD
       <div className="sessionButtons">
         <Button variant="outlined" component={Link} to={"/home"} size="large">
           <KeyboardBackspaceIcon />
@@ -157,6 +227,65 @@ export default function SessionDetails() {
           <GroupsIcon />
         </Button>
       </div>
+=======
+
+      {!user || user === undefined ? (
+        <div className="joinButtonS" style={{ display: "flex", alignItems: "center", justifyContent:"center" }}>
+          <Button
+            variant="outlined"
+            component={Link}
+            to={"/login"}
+            size="large"
+          >
+            join
+          </Button>
+        </div>
+      ) : (
+        <div className="sessionButtons">
+          <Button variant="outlined" component={Link} to={"/home"} size="large">
+            <KeyboardBackspaceIcon />
+          </Button>
+          <Button variant="outlined" onClick={handleShare} size="large">
+            <ShareIcon />
+          </Button>
+          <Button variant="contained" size="large">
+            <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
+              Join
+            </span>
+            <GroupsIcon />
+          </Button>
+        </div>
+      )}
+
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>Share </DialogTitle>
+        <DialogContent
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+          }}
+        >
+          <div className="share_text">{sessionLink}</div>
+        </DialogContent>
+        <DialogActions>
+          <CopyToClipboard text={sessionLink} onCopy={() => setCopied(true)}>
+            <Button>Copy </Button>
+          </CopyToClipboard>
+          <Button variant="contained" onClick={handleClose}>
+            close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {preloader ? <Preloader /> : ""}
+>>>>>>> trial
     </div>
   )
 }

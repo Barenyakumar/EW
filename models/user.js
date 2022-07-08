@@ -6,13 +6,13 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      min:4,
-      max:10
+      min: 4,
+      max: 10,
     },
     name: {
       type: String,
       required: true,
-      max:50
+      max: 50,
     },
     email: {
       type: String,
@@ -22,8 +22,8 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      min:6,
-      max:20
+      min: 6,
+      max: 20,
     },
     interests: {
       type: Array,
@@ -72,7 +72,11 @@ const userSchema = new mongoose.Schema(
     isAdmin: {
       type: Boolean,
       default: false,
-    }
+    },
+    defaultImage: {
+      type: String,
+      default: `1.png`,
+    },
   },
 
   {

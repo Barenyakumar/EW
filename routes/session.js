@@ -113,7 +113,7 @@ router.get("/activegroup", async (req, res)=>{
 // get all past group session
 router.get("/pastgroup", async (req, res)=>{
   try {
-    const groupSessions = await Session.find({sessionType:"Group"});
+    const groupSessions = await Session.find({sessionType:"Group",isActive:false});
     res.status(200).json(groupSessions);
     
   } catch (error) {

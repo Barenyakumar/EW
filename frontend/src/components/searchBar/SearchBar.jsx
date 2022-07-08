@@ -1,21 +1,21 @@
-import * as React from "react";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
-import Autocomplete from "@mui/material/Autocomplete";
-import Button from "@mui/material/Button";
-import "./searchBar.css";
-import SearchIcon from "@mui/icons-material/Search";
+import * as React from "react"
+import TextField from "@mui/material/TextField"
+import Box from "@mui/material/Box"
+import MenuItem from "@mui/material/MenuItem"
+import Autocomplete from "@mui/material/Autocomplete"
+import Button from "@mui/material/Button"
+import "./searchBar.css"
+import SearchIcon from "@mui/icons-material/Search"
 
 export default function SearchBar(props) {
-  const [currency, setCurrency] = React.useState();
+  const [currency, setCurrency] = React.useState()
   const [searchVal, setSearchVal] = React.useState("")
   // React.useEffect(()=>{
   //    props.searchCallBack(searchVal)
   // },[searchVal])
   const handleChange = (event) => {
-    setCurrency(event.target.value);
-  };
+    setCurrency(event.target.value)
+  }
 
   return (
     <>
@@ -67,34 +67,34 @@ export default function SearchBar(props) {
       </div> */}
       <div className="container">
         <div className="searchContainer">
-          <div className="searchBarIcon searchElem" >
+          <div className="searchBarIcon searchElem">
             <SearchIcon fontSize="medium" />
             <input
               type="text"
               className="searchInput"
               placeholder="Search by name"
-              onChange={(e)=> setSearchVal(e.target.value)}
+              onChange={(e) => setSearchVal(e.target.value)}
             />
           </div>
-              <div className="dropdown searchElem">
-                <select className="selection">
-                  <option className="options" value="1">
-                    test1
-                  </option>
-                  <option className="options" value="2" selected="selected">
-                    test2
-                  </option>
-                  <option className="options" value="3">
-                    test3
-                  </option>
-                </select>
-              </div>
-          
+          <div className="dropdown searchElem">
+            <select className="selection">
+              <option className="options" value="1">
+                test1
+              </option>
+              <option className="options" value="2" selected="selected">
+                test2
+              </option>
+              <option className="options" value="3">
+                test3
+              </option>
+            </select>
+          </div>
+
           <button className="SubmitBtn">Submit</button>
         </div>
       </div>
     </>
-  );
+  )
 }
 
 const currencies = [
@@ -114,4 +114,4 @@ const currencies = [
     value: "JPY",
     label: "¥",
   },
-];
+]
