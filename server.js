@@ -10,6 +10,7 @@ const sessionRoutes = require("./routes/session");
 const UserRoutes = require("./routes/users");
 const sessionBooking = require("./routes/booking")
 const availabilityRoutes = require("./routes/availability")
+const challengeRoutes = require("./routes/challenge")
 const Session = require("./models/oneSession")
 const fetch = require("node-fetch")
 const nodemailer = require('nodemailer')
@@ -73,6 +74,7 @@ app.use("/session", sessionRoutes);
 app.use("/users", UserRoutes)
 app.use("/booking", sessionBooking)
 app.use("/availability", availabilityRoutes)
+app.use("/challenge",challengeRoutes)
 
 
 // update group session DB for past and upcoming data
@@ -171,5 +173,5 @@ if (process.env.NODE_ENV == 'production') {
 // const PORT =process.env.PORT || 9000
 
 app.listen(process.env.PORT, () => {
-    console.log("Server started...")
+    console.log("Server listening on port " + process.env.PORT)
 })
