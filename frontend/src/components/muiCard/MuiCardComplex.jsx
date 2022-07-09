@@ -36,8 +36,11 @@ export default function MuiCardComplex(props) {
   }
 
   return (
-    <Link to={`/session/${props.element._id}`}>
-      <Card sx={{ maxWidth: 345, textDecoration:"none" }}>
+    <Link
+      to={`/session/${props.element._id}`}
+      style={{ textDecoration: "none" }}
+    >
+      <Card sx={{ maxWidth: 345, textDecoration: "none" }}>
         <CardMedia
           component="img"
           height="194"
@@ -45,31 +48,34 @@ export default function MuiCardComplex(props) {
           alt="Paella dish"
         />
 
-        <CardContent sx={{textDecoration:"none"}}>
-
+        <CardContent sx={{ textDecoration: "none" }}>
           {props.element.sessionName ? (
-            <Typography variant="h5" color="text.secondary" style={{textDecoration:"none"}}>
+            <Typography
+              variant="h6" 
+              color="#121212"
+              style={{ textDecoration: "none" }}
+            >
               {props.element.sessionName}
             </Typography>
           ) : (
             ""
           )}
           {props.element.date ? (
-            <Typography variant="h6" color="text.secondary">
+            <Typography variant="span" color="text.secondary">
               {props.element.date}
             </Typography>
           ) : (
             ""
           )}
           {props.element.startTime ? (
-            <Typography variant="h6" color="text.secondary">
+            <Typography variant="span" color="text.secondary">
               {props.element.startTime + "-" + props.element.endTime}
             </Typography>
           ) : (
             ""
           )}
           {props.element.category ? (
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="span" color="text.secondary">
               {props.element.category}
             </Typography>
           ) : (

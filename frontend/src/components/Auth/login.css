@@ -91,17 +91,18 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
     }
     .logincontent{
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         height: 100%;
         width: 100%;
     }
     .loginImg{
-        width: 100%;
+        width: 90%;
     }
     .loginForm{
         display: flex;
@@ -127,6 +128,20 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }
+    .email_div{
+        display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 95%;
+    height: 3rem;
+    margin: 1rem 0px;
+    }
+    .email_div>input{
+        width: 100%;
+        height: 2rem;
     }
     
 }

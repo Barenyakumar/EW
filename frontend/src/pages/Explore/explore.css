@@ -33,9 +33,10 @@ label{
 } */
 
 .centerTitle{
-    margin-bottom: 1.5rem;
+    margin: 1.5rem 0px;
     text-align: center;
     text-decoration: underline;
+    
 }
 .workingSection{
     display: flex;
@@ -46,9 +47,10 @@ label{
 .pic{
     width: 15rem;
     height: 100%;
+    min-height: 20rem;
     display:flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     text-align: center;
     border: 1px solid black;
@@ -56,6 +58,25 @@ label{
     padding: 10px;
     box-shadow: 4px 7px 15px rgb(128 128 128 / 59%);
     margin: 1rem 0px;
+}
+
+.picBlack{
+    width: 90%;
+    max-width: 17rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.hostSessionImg > img{
+    width: 25rem;
+}
+
+.blackContent{
+    width: 100%;
+    text-align: justify;
+    padding: 0px 1rem;
 }
 
 .pic> img{

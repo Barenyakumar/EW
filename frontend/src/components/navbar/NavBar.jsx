@@ -36,6 +36,8 @@ export const NavBar = (props) => {
 
   const { user } = useContext(AuthContext)
 
+  const publicFolder = "http://localhost:9000/UserImages/"
+
   return (
     <>
       <div className="topBar">
@@ -76,6 +78,12 @@ export const NavBar = (props) => {
               <div className="avatar">
                 <span className="avatarName avatarSpan">{user.username}</span>
                 <Avatar
+                  src={
+                    user.profileImage
+                      ? publicFolder + user.profileImage
+                      : `/Avatars/${user.gender}/${user.defaultImage}`
+                  }
+                  alt={user.name}
                   className="avatarBadge"
                   sx={{ bgcolor: "#344CB7 " }}
                   onClick={toggleDrawer(true)}
@@ -97,7 +105,12 @@ export const NavBar = (props) => {
                       >
                         <li className="navValues">
                           <Avatar
-                            sx={{ bgcolor: "#344CB7 ", width: 30, height: 30 }}
+                            sx={{
+                              bgcolor: "#344CB7 ",
+                              width: 30,
+                              height: 30,
+                              padding: 2,
+                            }}
                           >
                             <HomeIcon fontSize="small" />
                           </Avatar>
@@ -167,7 +180,12 @@ export const NavBar = (props) => {
                       >
                         <li className="navValues">
                           <Avatar
-                            sx={{ bgcolor: "#344CB7 ", width: 30, height: 30 }}
+                            sx={{
+                              bgcolor: "#344CB7 ",
+                              width: 30,
+                              height: 30,
+                              padding: 2,
+                            }}
                           >
                             <TravelExploreIcon fontSize="small" />
                           </Avatar>
@@ -183,7 +201,12 @@ export const NavBar = (props) => {
                       >
                         <li className="navValues">
                           <Avatar
-                            sx={{ bgcolor: "#344CB7 ", width: 30, height: 30 }}
+                            sx={{
+                              bgcolor: "#344CB7 ",
+                              width: 30,
+                              height: 30,
+                              padding: 2,
+                            }}
                           >
                             <AccountCircleRoundedIcon />
                           </Avatar>
@@ -227,7 +250,12 @@ export const NavBar = (props) => {
                       >
                         <li className="navValues">
                           <Avatar
-                            sx={{ bgcolor: "#344CB7 ", width: 30, height: 30 }}
+                            sx={{
+                              bgcolor: "#344CB7 ",
+                              width: 30,
+                              height: 30,
+                              padding: 2,
+                            }}
                           >
                             <SettingsIcon />
                           </Avatar>
@@ -250,7 +278,12 @@ export const NavBar = (props) => {
                       >
                         <li className="navValues">
                           <Avatar
-                            sx={{ bgcolor: "#344CB7 ", width: 30, height: 30 }}
+                            sx={{
+                              bgcolor: "#344CB7 ",
+                              width: 30,
+                              height: 30,
+                              padding: 2,
+                            }}
                           >
                             <LogoutIcon />
                           </Avatar>

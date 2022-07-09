@@ -22,7 +22,7 @@ router.get('/search', async (req, res) => {
   try {
     let queryObject = {};
     if (isMentor) {
-      queryObject.isMentor = isMentor
+      queryObject.isMentor = true
     }
     queryObject.username = { $regex: s, $options: "i" }
     let result1 = await User.find(queryObject)
