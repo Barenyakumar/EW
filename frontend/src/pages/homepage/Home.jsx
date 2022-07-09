@@ -14,7 +14,7 @@ import Explore from "../Explore/Explore"
 import MenteeHome from "../Mentee/home/MenteeHome"
 import MentorList from "../Mentee/discoverMentor/MentorList"
 // import SingleChallenge from "../Mentee/discoverChallenges/SingleChallenge"
-// import Challenges from "../Mentee/discoverChallenges/Challenges"
+import Challenges from "../Mentee/discoverChallenges/Challenges"
 // import Booking from "../../components/bookings/Booking"
 // import MyProfile from "../../components/myprofile/MyProfile"
 // import GroupSession from "../../components/groupSessions/GroupSession"
@@ -84,10 +84,10 @@ export const Home = () => {
       //   path: "/mentor",
       //   element: !user || user === undefined? <Navigate to="/login" /> : <MentorList />,
       // },
-      // {
-      //   path: "/challanges",
-      //   element: !user || user === undefined? <Navigate to="/login" /> : <Challenges />,
-      // },
+      {
+        path: "/challanges",
+        element: !user || user === undefined? <Navigate to="/login" /> : <Challenges />,
+      },
       // {
       //   path: "/singlechallange",
       //   element: !user || user === undefined? <Navigate to="/login" /> : <SingleChallenge />,
