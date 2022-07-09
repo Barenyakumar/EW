@@ -103,11 +103,7 @@ export default function SessionDetails() {
       sessionDetail.sessionLink +
       "/" +
       role
-<<<<<<< HEAD
-    // console.log(sessionLink);
-=======
     console.log(sessionLink)
->>>>>>> trial
     window.location.replace(sessionLink)
   }
 
@@ -186,11 +182,7 @@ export default function SessionDetails() {
                   src={
                     mentor.profileImage
                       ? public_folder + mentor.profileImage
-<<<<<<< HEAD
-                      : "/images/3.jpg"
-=======
                       : `/Avatars/${mentor.gender}/${mentor.defaultImage}`
->>>>>>> trial
                   }
                 />
               </div>
@@ -215,19 +207,6 @@ export default function SessionDetails() {
         </div>
         {/* sessionDetail.cohost ? <h3>Hosted by: {sessionDetail.host}</h3> : "" */}
       </div>
-<<<<<<< HEAD
-      <div className="sessionButtons">
-        <Button variant="outlined" component={Link} to={"/home"} size="large">
-          <KeyboardBackspaceIcon />
-        </Button>
-        <Button variant="contained" size="large">
-          <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
-            Join Session
-          </span>
-          <GroupsIcon />
-        </Button>
-      </div>
-=======
 
       {!user || user === undefined ? (
         <div className="joinButtonS" style={{ display: "flex", alignItems: "center", justifyContent:"center" }}>
@@ -285,7 +264,6 @@ export default function SessionDetails() {
         </DialogActions>
       </Dialog>
       {preloader ? <Preloader /> : ""}
->>>>>>> trial
     </div>
   )
 }
