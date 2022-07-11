@@ -1,6 +1,7 @@
 {
     "name": "eduwarts",
     "version": "0.1.0",
+    "proxy": "http://localhost:9000/",
     "private": true,
     "dependencies": {
         "@emotion/react": "^11.8.2",

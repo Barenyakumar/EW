@@ -42,7 +42,7 @@ export const NavBar = (props) => {
     <>
       <div className="topBar">
         <div className="logo">
-          <Logo />
+          <Logo/>
         </div>
         {/* {props.public ? (
           ""

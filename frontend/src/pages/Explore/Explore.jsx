@@ -160,7 +160,7 @@ export default function Explore(props) {
             <h1 className="centerTitle">How it works</h1>
             <div className="workingSection">
               <div className="pic">
-                <img src="./images/1.jpg" alt="" />
+                <img src="./images/4.jpg" alt="" />
                 <p>Choose a particular skill and mentor from our community</p>
               </div>
               <div className="pic">

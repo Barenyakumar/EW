@@ -40,6 +40,7 @@ const SignUp = (props) => {
   }, [error])
 
   // console.log(rePassword.current.value)
+  console.log(error);
 
   const submithandler = (e) => {
     
