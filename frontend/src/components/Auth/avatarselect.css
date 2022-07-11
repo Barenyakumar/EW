@@ -13,6 +13,12 @@
   margin: 1rem 0.3rem;
   border-radius: 50%;
 }
+.buttonAvatar{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
 
 @media only screen and (max-width: 900px){
   .avatarSelectionContainer{

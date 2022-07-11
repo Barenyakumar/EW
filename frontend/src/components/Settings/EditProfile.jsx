@@ -36,12 +36,25 @@ const LANGUAGES = [
 ]
 
 const INTERESTS = [
-  "Web Dev",
-  "Dev Ops",
-  "ML",
+  "Art & Graphic Design",
+  "Dance",
+  "Music",
+  "Photography & Film making",
+  "Blockchain",
+  "UI/UX",
   "Data Science",
-  "Time Pass",
-  "Python",
+  "Web Development",
+  "Buisness Analytics",
+  "Content Writing & SEO",
+  "Digital Marketing",
+  "Information Security",
+  "Product Management",
+  "Event Management",
+  "Competitive Coding",
+  "Software Engineering",
+  "Interview Preparation",
+  "DevOps",
+  "Others",
 ]
 
 const EditProfile = ({ user, userInfo, handleChange }) => {
