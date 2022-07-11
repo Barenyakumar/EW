@@ -99,7 +99,12 @@ const EditProfile = ({ user, userInfo, handleChange }) => {
       )}
       {user.language.length > 3 && (
         <Alert variant="filled" severity="error">
-          Max 3 languages
+          Max 3 languages allowed.
+        </Alert>
+      )}
+      {user.interests.length > 3 && (
+        <Alert variant="filled" severity="error">
+          Max 3 Interests allowed.
         </Alert>
       )}
       <Box>

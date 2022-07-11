@@ -99,8 +99,8 @@ export default function Signup(props) {
 }
 
 function EmailVerify(props) {
-    const [email, setEmail] = useState(props.userCredentials)
     const otp = useRef()
+    const email = useRef()
 
     const [otpSent, setotpSent] = useState(false)
     const [Otp, setOtp] = useState("")
@@ -136,6 +136,7 @@ function EmailVerify(props) {
             }
         } catch (error) {
             setPreloader(false)
+            console.log(error)
             props.setErr("Wrong email!!!")
             props.setErrMessage("Something went wrong while sending otp. Please try again...")
         }
@@ -175,7 +176,7 @@ function EmailVerify(props) {
                 <a
                     onClick={sendOTPHandler}
                     disabled={true}
-                    style={{ fontSize: "1rem", textDecoration: "underline" }}
+                    style={{ fontSize: "1rem", textDecoration: "underline", cursor:"pointer" }}
                 >
                     {!props.otpMatched ? (otpSent ? "Resend" : "Verify") : ""}
                 </a>
