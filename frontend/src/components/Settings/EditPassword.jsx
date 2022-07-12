@@ -10,7 +10,7 @@ const EditPassword = () => {
   const [preloader, setPreloader] = useState(false)
   const [error, setError] = useState(false)
   const [errMessage, setErrMessage] = useState("")
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext)
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [otp, setOtp] = useState("")
@@ -39,13 +39,12 @@ const EditPassword = () => {
       }
 
       getOtp()
-      console.log("mail sent");
-    }
-    else{
-      setError(true);
+      console.log("mail sent")
+    } else {
+      setError(true)
       setErrMessage("Password doest not match. Try again...")
-      setPreloader(false);
-      setConfirmPassword("");
+      setPreloader(false)
+      setConfirmPassword("")
     }
   }
 
@@ -116,10 +115,7 @@ const EditPassword = () => {
               </Box>
             </Box>
           )}
-          {
-            error ?
-              <Popup flag={true} message={errMessage} /> : ""
-          }
+          {error ? <Popup flag={true} message={errMessage} /> : ""}
         </FormControl>
       </Box>
       {preloader ? <Preloader /> : ""}

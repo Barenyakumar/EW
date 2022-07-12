@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useContext } from "react"
 import "./home.css"
-import {
-  Navigate,
-  useRoutes,
-} from "react-router-dom"
+import { Navigate, useRoutes } from "react-router-dom"
 import { NavBar } from "../../components/navbar/NavBar"
 // import { MenuBar } from "../../components/navbar/menuBar"
 // import { MainContent } from "../../components/main_content/MainContent"
@@ -86,7 +83,12 @@ export const Home = () => {
       // },
       {
         path: "/challanges",
-        element: !user || user === undefined? <Navigate to="/login" /> : <Challenges />,
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <Challenges />
+          ),
       },
       // {
       //   path: "/singlechallange",
@@ -190,11 +192,11 @@ export const Home = () => {
       },
       {
         path: `/signup`,
-        element: <Signup /> ,
+        element: <Signup />,
       },
       {
         path: `*`,
-        element: <InvalidURL /> ,
+        element: <InvalidURL />,
       },
     ])
     return routes
@@ -205,7 +207,7 @@ export const Home = () => {
 
   const [loginFlag, setLoginFlag] = useState(false)
 
-// console.log(loginFlag)
+  // console.log(loginFlag)
   const loginCallback = (data) => setLoginFlag(data)
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -231,7 +233,7 @@ export const Home = () => {
     <>
       <div
         className="homeContainer"
-        style={{ maxWidth: "55rem", margin: "0px auto", width:"98%" }}
+        style={{ maxWidth: "55rem", margin: "0px auto", width: "98%" }}
       >
         {!loginFlag ? <NavBar /> : ""}
         <AppRoutes />

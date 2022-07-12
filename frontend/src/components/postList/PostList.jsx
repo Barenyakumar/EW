@@ -13,7 +13,7 @@ export default function PostList() {
     } else if (width <= 1000) {
       return 3
     } else return 4
-  }  
+  }
 
   const [slide_val, setSlide_val] = useState(setSlide(width))
 
@@ -28,9 +28,7 @@ export default function PostList() {
   })
   return (
     <div className="postContainer">
-      <ImageList
-        cols={slide_val}
-      >
+      <ImageList cols={slide_val}>
         {itemData.map((item) => (
           <ImageListItem key={item.img}>
             <img
@@ -38,7 +36,7 @@ export default function PostList() {
               srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
               alt={item.title}
               loading="lazy"
-              style={{padding:"0.5rem"}}
+              style={{ padding: "0.5rem" }}
             />
           </ImageListItem>
         ))}
@@ -97,7 +95,6 @@ const itemData = [
     title: "Bike",
   },
 ]
-
 
 const challengeList = [
   {

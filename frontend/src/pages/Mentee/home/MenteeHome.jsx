@@ -14,17 +14,14 @@ import axios from "axios"
 import GroupSession from "../../../components/groupSessions/GroupSession"
 import Footer from "../../../components/footer/Footer"
 import Preloader from "../../../components/PreLoader/Preloader"
- 
 
 export default function MenteeHome() {
-  
   const [mentorList, setMentorList] = useState([])
   const [preloader, setpreloader] = useState(false)
 
   useEffect(() => {
-   
-    const allMentors = async () => {  
-      // setpreloader(true) 
+    const allMentors = async () => {
+      // setpreloader(true)
       const res = await axios.get("users/mentors")
 
       setMentorList(res.data)
@@ -33,9 +30,8 @@ export default function MenteeHome() {
 
     allMentors()
   }, [])
-  
+
   // console.log(mentorList)
- 
 
   return (
     <div className="Menteewrapper">

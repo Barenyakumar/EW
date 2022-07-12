@@ -90,7 +90,7 @@ export default function SessionDetails() {
       role
     // console.log(sessionLink)
     // window.location.replace(sessionLink)
-    window.open(sessionLink, '_blank').focus();
+    window.open(sessionLink, "_blank").focus()
   }
 
   const handleShare = () => {
@@ -129,9 +129,13 @@ export default function SessionDetails() {
               minute: "2-digit",
             })}
           </span>
-          {
-            sessionDetail.isActive===false?(<span style={{color:'red', marginLeft:"2rem"}}>Session expired!</span>):""
-          }
+          {sessionDetail.isActive === false ? (
+            <span style={{ color: "red", marginLeft: "2rem" }}>
+              Session expired!
+            </span>
+          ) : (
+            ""
+          )}
         </div>
         <div className="group_session_img" style={{ marginTop: "1rem" }}>
           <img
@@ -188,7 +192,14 @@ export default function SessionDetails() {
       </div>
 
       {!user || user === undefined ? (
-        <div className="joinButtonS" style={{ display: "flex", alignItems: "center", justifyContent:"center" }}>
+        <div
+          className="joinButtonS"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Button
             variant="outlined"
             component={Link}
@@ -206,17 +217,14 @@ export default function SessionDetails() {
           <Button variant="outlined" onClick={handleShare} size="large">
             <ShareIcon />
           </Button>
-          {
-          sessionDetail.isActive&&(
+          {sessionDetail.isActive && (
             <Button variant="contained" size="large">
               <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
                 Join
               </span>
               <GroupsIcon />
             </Button>
-          )
-          }
-          
+          )}
         </div>
       )}
 

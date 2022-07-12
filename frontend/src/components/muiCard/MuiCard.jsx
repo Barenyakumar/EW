@@ -1,5 +1,5 @@
 import React from "react"
-import './mui.css'
+import "./mui.css"
 import {
   Box,
   Card,
@@ -9,25 +9,29 @@ import {
   Typography,
   Accordion,
   AccordionSummary,
-  AccordionDetails
+  AccordionDetails,
 } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 
-
 export default function MuiCard(props) {
   const date = new Date(props.date)
-  console.log(date);
+  console.log(date)
   const card = (
-    <React.Fragment >
-      <CardContent >
+    <React.Fragment>
+      <CardContent>
         <Typography variant="h5" color="white" gutterBottom>
           {props.element.category}
         </Typography>
-        <Typography variant="h3"sx={{ fontSize: 15 }} color="white" gutterBottom>
+        <Typography
+          variant="h3"
+          sx={{ fontSize: 15 }}
+          color="white"
+          gutterBottom
+        >
           {props.element.date}
         </Typography>
-        <Typography sx={{ fontSize: 18 }} component="div" color="white" >
-          {props.element.startTime+"-"+props.element.endTime}
+        <Typography sx={{ fontSize: 18 }} component="div" color="white">
+          {props.element.startTime + "-" + props.element.endTime}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="white">
           <Accordion>
@@ -36,7 +40,9 @@ export default function MuiCard(props) {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography>{props.element.description.substring(0,15)+"..."}</Typography>
+              <Typography>
+                {props.element.description.substring(0, 15) + "..."}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>{props.element.description}</Typography>
@@ -47,7 +53,13 @@ export default function MuiCard(props) {
       <CardActions>
         <Button size="small">Reschedule this session</Button>
       </CardActions>
-      <CardActions sx={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+      <CardActions
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <Button variant="contained" size="small" color="error">
           Cancel
         </Button>
@@ -60,7 +72,9 @@ export default function MuiCard(props) {
   return (
     <div className="MuiCard">
       <Box>
-        <Card variant="outlined" className="mui_card_container">{card}</Card>
+        <Card variant="outlined" className="mui_card_container">
+          {card}
+        </Card>
       </Box>
     </div>
   )

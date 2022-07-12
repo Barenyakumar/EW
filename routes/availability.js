@@ -2,47 +2,42 @@ const express = require("express")
 const router = express.Router()
 const Availability = require("../models/availability")
 
-
-
 router.post("/", async (req, res) => {
-  const mentorId = req.body.mentorId;
+  const mentorId = req.body.mentorId
   try {
     const availableObj = await Availability.find({ mentorId })
     availableObj.forEach((element) => {
       if (element.date === req.body.date) {
         throw { code: "element_matched", data: element }
       }
-    });
+    })
     throw "not_an_element"
-  }
-  catch (error) {
-    if (typeof error == 'object' && error.code == "element_matched") {
+  } catch (error) {
+    if (typeof error == "object" && error.code == "element_matched") {
       async function updateEntry(element) {
         element.date = req.body.date
         element.startTime = [...req.body.startTime]
         element.endTime = [...req.body.endTime]
 
-        await element.save();
+        await element.save()
         res.status(200).json(element)
       }
 
       updateEntry(error.data)
-    }
-    else if (error == "not_an_element") {
+    } else if (error == "not_an_element") {
       async function createEntry() {
         const newAvailability = new Availability({
           mentorId: req.body.mentorId,
           date: req.body.date,
           startTime: req.body.startTime,
-          endTime: req.body.endTime
+          endTime: req.body.endTime,
         })
         //save the availability
         const availability = await newAvailability.save()
         res.status(200).json(availability)
       }
-      createEntry();
-    }
-    else{
+      createEntry()
+    } else {
       res.status(500).json(error)
     }
 
@@ -106,7 +101,6 @@ router.post("/", async (req, res) => {
 //     const availability = await newAvailability.save()
 //     res.status(200).json(availability)
 
-
 //   }
 // })
 //create availability and post dates and time slot
@@ -159,9 +153,9 @@ router.post("/", async (req, res) => {
 //   //create a new availability d
 // })
 
-//get all availability of single mentor 
+//get all availability of single mentor
 router.get("/:id", async (req, res) => {
-  const mentorId = req.params.id;
+  const mentorId = req.params.id
   try {
     const availability = await Availability.find({ mentorId })
     res.status(200).json(availability)
@@ -170,7 +164,7 @@ router.get("/:id", async (req, res) => {
   }
 })
 
-// //update availability 
+// //update availability
 // router.patch("/availability/:id", async (req, res) => {
 //   try {
 //     const updatedAvailability = await Availability.findByIdAndUpdate(

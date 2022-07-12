@@ -1,20 +1,22 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from "react"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import { Button, IconButton } from "@mui/material"
 import Avatar from "@mui/material/Avatar"
 
-
 export const NotificationElement = (props) => {
   const [unreadStyle, setUnreadStyle] = useState("white")
-  
+
   useEffect(() => {
     console.log(props.booking)
     if (props.booking.read === 0) {
       setUnreadStyle("#a4a2a270")
     }
-  }, []);
+  }, [])
   return (
-    <div className="notificationElemContentNotf" style={{background:unreadStyle}} >
+    <div
+      className="notificationElemContentNotf"
+      style={{ background: unreadStyle }}
+    >
       <div className="photo">
         <Avatar
           alt="Remy Sharp"

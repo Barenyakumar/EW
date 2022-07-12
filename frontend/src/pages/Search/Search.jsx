@@ -17,14 +17,14 @@ export default function SearchPage() {
   }, [searchText])
   console.log(searchResult)
 
-const containerHeight = useRef()
-const [height, setHeight] = useState(0)
-function changeHeight() {
-  setHeight(containerHeight.current.getBoundingClientRect().height)
-}
-const containerStyle = {
-  maxHeight: (2 * height).toString() + "px",
-}
+  const containerHeight = useRef()
+  const [height, setHeight] = useState(0)
+  function changeHeight() {
+    setHeight(containerHeight.current.getBoundingClientRect().height)
+  }
+  const containerStyle = {
+    maxHeight: (2 * height).toString() + "px",
+  }
 
   return (
     <div className="userSearchContainer">
@@ -45,27 +45,27 @@ const containerStyle = {
           onChange={(e) => setSearchText(e.target.value)}
         />
       </div>
-      <div className="Mentors_Wrapper_class" style={{margin:"1rem 0px", }}>
+      <div className="Mentors_Wrapper_class" style={{ margin: "1rem 0px" }}>
         <div
           ref={containerHeight}
-          className="MentorList" style={{overflowY:"auto"}}>
-          
-      {searchResult[0] === "No user found. Try again... !!!"
-        ? "No user found. Try again... !!!"
-        : searchResult.map((elem) => {
-            return (
-              // <div style={{height:'30rem', width:"15rem", border:"2px solid green"}}>
-              <SingleCard
-                element={elem}
-                height={"17rem"}
-                width={"17rem"}
-                key={elem._id}
-              />
-            )
-        })}
-          </div>
+          className="MentorList"
+          style={{ overflowY: "auto" }}
+        >
+          {searchResult[0] === "No user found. Try again... !!!"
+            ? "No user found. Try again... !!!"
+            : searchResult.map((elem) => {
+                return (
+                  // <div style={{height:'30rem', width:"15rem", border:"2px solid green"}}>
+                  <SingleCard
+                    element={elem}
+                    height={"17rem"}
+                    width={"17rem"}
+                    key={elem._id}
+                  />
+                )
+              })}
+        </div>
       </div>
-      
     </div>
   )
 }

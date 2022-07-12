@@ -49,19 +49,25 @@ export default function SingleCard(props) {
           <div className="des">
             <div className="name">
               <span className="mentor_List element">{props.element.name}</span>
-              <div style={{display: 'flex', alignItems: 'flex-end',justifyContent: 'space-between', width:"100%"}}>
-
-              <span className="role element">{props.element.username}</span>
-              {props.element.isMentor ? (
-                <div className="mentor_Badge">
-                  <MentorBadge />
-                  <span className="role element">
-                    {props.element.expertise}
-                  </span>
-                </div>
-              ) : (
-                <MenteeBadge />
-              )}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "flex-end",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
+                <span className="role element">{props.element.username}</span>
+                {props.element.isMentor ? (
+                  <div className="mentor_Badge">
+                    <MentorBadge />
+                    <span className="role element">
+                      {props.element.expertise}
+                    </span>
+                  </div>
+                ) : (
+                  <MenteeBadge />
+                )}
               </div>
             </div>
           </div>

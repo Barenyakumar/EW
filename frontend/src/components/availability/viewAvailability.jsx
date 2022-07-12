@@ -54,9 +54,9 @@ export default function ViewAvailability(props) {
   ]
 
   const current = new Date()
-  const currentDate = `${current.getDate()}/${current.getMonth() + 1
-    }/${current.getFullYear()}`
-
+  const currentDate = `${current.getDate()}/${
+    current.getMonth() + 1
+  }/${current.getFullYear()}`
 
   const [availableSlot, setAvailableSlot] = useState([])
   useEffect(() => {
@@ -71,44 +71,40 @@ export default function ViewAvailability(props) {
   return (
     <div className="avialability-container">
       <div className="avialability-heading">
-        <h3 style={{fontSize:"1.5rem"}}>Your availability</h3>
-        {
-          user._id === props.currentUser._id?
-        <Button
-          variant="outlined"
-          onClick={() => props.availabilityCallback(true)}
-        >
-          Edit
-        </Button>:""
-        }
+        <h3 style={{ fontSize: "1.5rem" }}>Your availability</h3>
+        {user._id === props.currentUser._id ? (
+          <Button
+            variant="outlined"
+            onClick={() => props.availabilityCallback(true)}
+          >
+            Edit
+          </Button>
+        ) : (
+          ""
+        )}
       </div>
 
-      {
-        availableSlot.map((elem) => {
-          return (
-            <>
-              <div className="available-days-timeSlots">
-                <div className="avialable-days">
-                  <p>{elem.date.substring(4, 16)}</p>
-                  <h3>
-                  
-                  {new Date(elem.date).toLocaleDateString('default', { weekday: 'long' })}
-                  </h3>
-                </div>
-                <div className="availabile-timeSlots">
-                  {
-                    elem.startTime.map((time)=>{
-                      return(
-                        <div className="startTime">{time}</div>
-                      )
-                    })
-                  }
-                </div>
+      {availableSlot.map((elem) => {
+        return (
+          <>
+            <div className="available-days-timeSlots">
+              <div className="avialable-days">
+                <p>{elem.date.substring(4, 16)}</p>
+                <h3>
+                  {new Date(elem.date).toLocaleDateString("default", {
+                    weekday: "long",
+                  })}
+                </h3>
               </div>
-            </>
-          )
-        })
-      }
+              <div className="availabile-timeSlots">
+                {elem.startTime.map((time) => {
+                  return <div className="startTime">{time}</div>
+                })}
+              </div>
+            </div>
+          </>
+        )
+      })}
       <hr></hr>
     </div>
   )

@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useRef, useContext } from 'react'
+import React, { useState, useEffect, useRef, useContext } from "react"
 import { Link } from "react-router-dom"
-import { Button } from '@mui/material'
-import axios from 'axios'
-import { AuthContext } from '../../context/AuthContext'
+import { Button } from "@mui/material"
+import axios from "axios"
+import { AuthContext } from "../../context/AuthContext"
 import "./login.css"
-import Popup from '../popup-box/Popup'
-import Preloader from '../PreLoader/Preloader'
+import Popup from "../popup-box/Popup"
+import Preloader from "../PreLoader/Preloader"
 import { Helmet } from "react-helmet"
 
-
-
 const SignUp = (props) => {
-  useEffect(() => { props.loginCallback(true) }, [props])
+  useEffect(() => {
+    props.loginCallback(true)
+  }, [props])
 
   const { user, isFetching, error, dispatch } = useContext(AuthContext)
 
@@ -24,58 +24,64 @@ const SignUp = (props) => {
   const otp = useRef()
   const [err, setErr] = useState(error)
 
-
   const [errMessage, setErrMessage] = useState("")
   useEffect(() => {
     if (error) {
       if (error.response.data.code === 11000) {
-        setErrMessage("Duplicate entry in " + Object.keys(error.response.data.keyValue) + " try other rather than " + Object.values(error.response.data.keyValue)+".Try logging in.")
+        setErrMessage(
+          "Duplicate entry in " +
+            Object.keys(error.response.data.keyValue) +
+            " try other rather than " +
+            Object.values(error.response.data.keyValue) +
+            ".Try logging in."
+        )
         // setErrMessage("Duplicate entry in "+ JSON.stringify(error.response.data.keyValue))
       }
-      if (error.response.data.code === 11600 || error.response.data.code === 211) {
-        setErrMessage("Database server is down...\n Try again after sometime...")
+      if (
+        error.response.data.code === 11600 ||
+        error.response.data.code === 211
+      ) {
+        setErrMessage(
+          "Database server is down...\n Try again after sometime..."
+        )
         // setErrMessage("Duplicate entry in "+ JSON.stringify(error.response.data.keyValue))
       }
     }
   }, [error])
 
   // console.log(rePassword.current.value)
-  console.log(error);
+  console.log(error)
 
   const submithandler = (e) => {
-    
     setPreloader(true)
-    e.preventDefault();
+    e.preventDefault()
     if (otpMatched) {
       const signupData = {
         name: menteeName.current.value,
         email: email.current.value,
         username: username.current.value,
         password: password.current.value,
-        gender: gender.current.value
+        gender: gender.current.value,
       }
-      loginCall(signupData, dispatch);
-    }
-    else{
+      loginCall(signupData, dispatch)
+    } else {
       setPreloader(false)
       setErr("authenticate email")
       setErrMessage("OTP doesn't match. Please try again.")
     }
   }
   const loginCall = async (userCredentials, dispatch) => {
-    dispatch({ type: "LOGIN_START" });
+    dispatch({ type: "LOGIN_START" })
     try {
-      const res = await axios.post("auth/register", userCredentials);
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      const res = await axios.post("auth/register", userCredentials)
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data })
       setPreloader(false)
       localStorage.setItem("ed_pr_bk_gj_12_34", JSON.stringify(res.data))
     } catch (error) {
-      dispatch({ type: "LOGIN_FAILURE", payload: error });
+      dispatch({ type: "LOGIN_FAILURE", payload: error })
       setPreloader(false)
-
     }
   }
-
 
   // send opt handler
   const [otpSent, setotpSent] = useState(false)
@@ -85,15 +91,16 @@ const SignUp = (props) => {
 
   async function sendOTPHandler(e) {
     setPreloader(true)
-    e.preventDefault();
+    e.preventDefault()
     try {
       if (email.current.value !== "") {
-        const res = await axios.post("/email/otp", { reciever: email.current.value })
+        const res = await axios.post("/email/otp", {
+          reciever: email.current.value,
+        })
         setPreloader(false)
-        setotpSent(true);
-        setOtp(res.data);
-      }
-      else {
+        setotpSent(true)
+        setOtp(res.data)
+      } else {
         setPreloader(false)
         setErr("Wrong email!!!")
         setErrMessage("Please enter a valid email id")
@@ -101,15 +108,16 @@ const SignUp = (props) => {
     } catch (error) {
       setPreloader(false)
       setErr("Wrong email!!!")
-      setErrMessage("Something went wrong while sending otp. Please try again...")
+      setErrMessage(
+        "Something went wrong while sending otp. Please try again..."
+      )
     }
-
   }
 
-  function matchOTP(){
+  function matchOTP() {
     if (otp.current.value === Otp) {
-      setOtpMatched(true);
-      setotpSent(false);
+      setOtpMatched(true)
+      setotpSent(false)
     }
   }
 

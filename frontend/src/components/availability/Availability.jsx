@@ -4,13 +4,12 @@ import "./availability.css"
 import AvailableDay from "./AvailableDay"
 import ViewAvailability from "./viewAvailability"
 import EditAvailability from "./editAvailability"
- 
+
 export default function Availability(props) {
   // const [toggle, setToggle] = useState(false)
   // const [startTime,setStartTime] = useState([])
   // const newTimeArr = []
   // const timeslotDiv = useRef()
-
 
   // const [slot, setSlot] = useState({
   //   day: "",
@@ -37,7 +36,10 @@ export default function Availability(props) {
   return (
     <div className="availabilityContent">
       {!availabilityFlag ? (
-        <ViewAvailability availabilityCallback={availabilityCallback} currentUser ={props.CurrentUser} />
+        <ViewAvailability
+          availabilityCallback={availabilityCallback}
+          currentUser={props.CurrentUser}
+        />
       ) : (
         <EditAvailability availabilityCallback={availabilityCallback} />
       )}

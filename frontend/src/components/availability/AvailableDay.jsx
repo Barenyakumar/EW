@@ -65,8 +65,7 @@ export default function AvailableDay(props) {
     "12:30 AM",
   ]
 
-
-  let day = new Date(props.weekday).toString();
+  let day = new Date(props.weekday).toString()
   day = day.substring(0, 15)
   const { user } = useContext(AuthContext)
 
@@ -99,11 +98,11 @@ export default function AvailableDay(props) {
   const newTime = () => {
     const time = startTime.current.value
     setStartTimeArr([...startTimeArr, time])
-    const end_time  = endTime.current.value 
+    const end_time = endTime.current.value
     setEndTimeArr([...endTimeArr, end_time])
 
     handleClose()
-    
+
     // console.log(startTimeArr)
   }
 
@@ -111,18 +110,17 @@ export default function AvailableDay(props) {
     setSlotSelection({
       date: day,
       startTime: startTimeArr,
-      endTime:endTimeArr,
+      endTime: endTimeArr,
       mentorId: user._id,
     })
   }, [startTimeArr, endTimeArr])
-  
+
   useEffect(() => {
-    if(slotSelection.startTime && slotSelection.endTime)
-        props.timeSlotArrCallback(slotSelection)
+    if (slotSelection.startTime && slotSelection.endTime)
+      props.timeSlotArrCallback(slotSelection)
+  }, [timeElemToBeDeleted, slotSelection])
 
-  }, [timeElemToBeDeleted,slotSelection])
-
-// console.log(slotSelection)
+  // console.log(slotSelection)
   let i = 0
 
   const [open, setOpen] = React.useState(false)
@@ -142,10 +140,14 @@ export default function AvailableDay(props) {
 
   useEffect(() => {
     if (!toggle) {
-      setSlotSelection({date:day, mentorId: user._id, startTime:[], endTime:[]})
+      setSlotSelection({
+        date: day,
+        mentorId: user._id,
+        startTime: [],
+        endTime: [],
+      })
     }
   }, [toggle])
-
 
   return (
     <div className="set-available-hours">
@@ -165,8 +167,10 @@ export default function AvailableDay(props) {
         </div>
 
         <div className="set-available-hours-form-label">
-          <h3 style={{fontSize:"1rem"}}>{new Date(day).toLocaleDateString('default', { weekday: 'short' })}</h3>
-          <h3 style={{fontSize:".8rem"}}>
+          <h3 style={{ fontSize: "1rem" }}>
+            {new Date(day).toLocaleDateString("default", { weekday: "short" })}
+          </h3>
+          <h3 style={{ fontSize: ".8rem" }}>
             {/* {day.getDate()} , {months[day.getMonth()]} */}
             {day.substring(4, 16)}
           </h3>
@@ -175,8 +179,8 @@ export default function AvailableDay(props) {
 
       <div className="set-available-hours-form-time-list">
         <div className="availability-toogle">
-          {toggle
-            ? startTimeArr.map((time,index) => {
+          {toggle ? (
+            startTimeArr.map((time, index) => {
               return (
                 <Timeslot
                   startTime={time}
@@ -186,7 +190,11 @@ export default function AvailableDay(props) {
                 />
               )
             })
-            : <h3 style={{margin:"0px 1rem", fontSize:".8rem"}}>Not Available</h3>}
+          ) : (
+            <h3 style={{ margin: "0px 1rem", fontSize: ".8rem" }}>
+              Not Available
+            </h3>
+          )}
         </div>
 
         <Dialog
@@ -194,32 +202,68 @@ export default function AvailableDay(props) {
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
-
         >
-          <DialogContent sx={{ width: "20rem", height: "15rem", margin: "0px auto" }}>
-            <h3 style={{fontSize:"1.5rem"}}>Select slot</h3>
-            <div className="set-available-hours-form-time available" style={{ height: "60%", width: "100%", display: "flex", alignItems: "center", justifyContent: "space-evenly" }} >
+          <DialogContent
+            sx={{ width: "20rem", height: "15rem", margin: "0px auto" }}
+          >
+            <h3 style={{ fontSize: "1.5rem" }}>Select slot</h3>
+            <div
+              className="set-available-hours-form-time available"
+              style={{
+                height: "60%",
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}
+            >
               <div className="fromTime">
-                <select name="fromTime" id="fromTime" ref={startTime} style={{ border: "1px solid grey", height: "3rem", width: "7rem", color: "grey", fontSize: "1.2rem", outline: "none" }}>
-                  {
-                    preSetTimeSolt.map((slot) => {
-                      return <option value={slot}>{slot}</option>
-                    })
-                  }
+                <select
+                  name="fromTime"
+                  id="fromTime"
+                  ref={startTime}
+                  style={{
+                    border: "1px solid grey",
+                    height: "3rem",
+                    width: "7rem",
+                    color: "grey",
+                    fontSize: "1.2rem",
+                    outline: "none",
+                  }}
+                >
+                  {preSetTimeSolt.map((slot) => {
+                    return <option value={slot}>{slot}</option>
+                  })}
                 </select>
               </div>
               <div style={{ fontSize: "1.2rem", color: "grey" }}>to</div>
               <div className="toTime">
-                <select name="toTime" id="toTime" ref={endTime} style={{ border: "1px solid grey", height: "3rem", width: "7rem", color: "grey", fontSize: "1.2rem", outline: "none" }}>
-                  {
-                    preSetTimeSolt.map((slot) => {
-                      return <option value={slot}>{slot}</option>
-                    })
-                  }
+                <select
+                  name="toTime"
+                  id="toTime"
+                  ref={endTime}
+                  style={{
+                    border: "1px solid grey",
+                    height: "3rem",
+                    width: "7rem",
+                    color: "grey",
+                    fontSize: "1.2rem",
+                    outline: "none",
+                  }}
+                >
+                  {preSetTimeSolt.map((slot) => {
+                    return <option value={slot}>{slot}</option>
+                  })}
                 </select>
               </div>
             </div>
-            <div style={{display:"flex",alignItems:"center", justifyContent:"space-between"}}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
               <Button variant="outlined" onClick={newTime}>
                 <DoneIcon />
               </Button>
@@ -232,7 +276,13 @@ export default function AvailableDay(props) {
       </div>
 
       <div className="set-available-hours-form-addanother">
-        <Button disabled={!toggle} variant="outlined" onClick={handleClickOpen} size="small" sx={{margin:"0px 10px"}}>
+        <Button
+          disabled={!toggle}
+          variant="outlined"
+          onClick={handleClickOpen}
+          size="small"
+          sx={{ margin: "0px 10px" }}
+        >
           <AddIcon fontSize="small" />
         </Button>
         {/* <Button disabled={!toggle}  onClick={saveSlot}>

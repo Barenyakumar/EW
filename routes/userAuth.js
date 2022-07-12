@@ -59,6 +59,35 @@ router.post("/login", async(req, res)=>{
     }
 })
 
+
+
+//ML part
+//62c56b8bea034b44948016ef  - user Id
+//get users details like interests, sessions done
+router.get("/userinterests/:id", async (req, res) => {
+  const userId = req.params.id
+  try {
+    const user = await User.findById(userId)
+    const tempArr = []
+    var obj = {}
+    obj[`${user.name}`] = user.interests
+    tempArr.push(obj)
+    
+    const result = await Promise.all(user.followings.map(async (element) => {
+      const userFollowings = await User.findById(element)
+      const { username, interests } = userFollowings
+      var obj = {}
+      obj[`${username}`] = interests
+      return obj
+    }))
+
+   tempArr.push(result)
+    
+    res.status(200).json(tempArr)
+  } catch (err) {
+    res.status(500).json(err)
+  }
+})
 // change password
 
 // router.put("/forget-password/:id", async(req, res)=>{

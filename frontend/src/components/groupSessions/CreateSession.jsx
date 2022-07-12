@@ -17,7 +17,6 @@ import Popup from "../popup-box/Popup"
 import Preloader from "../PreLoader/Preloader"
 import { Helmet } from "react-helmet"
 
-
 // import DatePickers from '../DatePicker/DatePicker'
 
 const names = [
@@ -44,7 +43,6 @@ const names = [
   "Others",
 ]
 
-
 const categoryVar = [
   "Art_&_Graphic_Design",
   "Dance",
@@ -69,9 +67,6 @@ const categoryVar = [
   "Others",
 ]
 export default function Createsession() {
-
-  
-
   const minDate = new Date()
   // console.log(
   //   minDate
@@ -83,12 +78,14 @@ export default function Createsession() {
 
   const [error, setError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-const newDateTomorrow = new Date(dateObj).toString().substring(0,15)
+  const newDateTomorrow = new Date(dateObj).toString().substring(0, 15)
   const [category, setCategory] = useState("")
   const [sessionName, setSessionName] = useState("")
   const [sessionDesc, setSessionDesc] = useState("")
   // new Date("Tue Jul 05 2022 00:00 AM")
-  const [dateTime, setDateTime] = useState(new Date(newDateTomorrow + " 00:00 AM"))
+  const [dateTime, setDateTime] = useState(
+    new Date(newDateTomorrow + " 00:00 AM")
+  )
 
   const [selectedImage, setSelectedImage] = useState()
   const [duration, setDuration] = useState(60)

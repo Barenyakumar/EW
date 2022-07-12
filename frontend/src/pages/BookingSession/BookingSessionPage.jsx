@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react"
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 import {
   Box,
   FormControl,
@@ -17,33 +17,38 @@ import { useParams } from "react-router-dom"
 import { useEffect } from "react"
 
 const categoryArr = [
-  "python","react","node Js","Cyber security", "MongoDB", "RDBMS","Big Data", "Cloud Computing", "Hadoop"
+  "python",
+  "react",
+  "node Js",
+  "Cyber security",
+  "MongoDB",
+  "RDBMS",
+  "Big Data",
+  "Cloud Computing",
+  "Hadoop",
 ]
 
 const BookingSessionPage = () => {
-  const {id:mentor } = useParams();
+  const { id: mentor } = useParams()
   const [category, setCategory] = useState("")
   const [date, setDate] = useState("")
   const [time, setTime] = useState("")
   const [description, setDescription] = useState("")
   const [alert, setAlert] = useState({ severity: "", msg: null })
-  
 
-  const navigate = useNavigate();
-
-
+  const navigate = useNavigate()
 
   // getting mentor's availability
   const [availableSlot, setAvailableSlot] = useState([])
 
-  useEffect(()=>{
-    async function getAvailabilty(){
+  useEffect(() => {
+    async function getAvailabilty() {
       const res = await axios.get(`/availability/${mentor}`)
-      setAvailableSlot(res.data);
-      console.log(res.data);
+      setAvailableSlot(res.data)
+      console.log(res.data)
     }
-    getAvailabilty();
-  },[])
+    getAvailabilty()
+  }, [])
 
   const { user: userInfo } = useContext(AuthContext)
 
@@ -69,7 +74,7 @@ const BookingSessionPage = () => {
       date: date,
       description: description,
     }
-    console.log(body);
+    console.log(body)
 
     const { data, status } = await axios.post(
       `/session/${userInfo._id}`,
@@ -82,21 +87,26 @@ const BookingSessionPage = () => {
       config
     )
     console.log(bookingData)
-    if (status === 201|| 200){
+    if (status === 201 || 200) {
       setAlert({
         severity: "success",
         msg: "Booking session confirmed",
       })
       setTimeout(() => {
-         navigate(-1)
-      }, 500);
+        navigate(-1)
+      }, 500)
     }
-
-
   }
 
   return (
-    <div style={{height:"calc(92vh - 22px)", overflow:"hidden", position:"relative", top:"25px"}}>
+    <div
+      style={{
+        height: "calc(92vh - 22px)",
+        overflow: "hidden",
+        position: "relative",
+        top: "25px",
+      }}
+    >
       {alert.msg !== null && (
         <Alert severity={alert.severity}>{alert.msg}</Alert>
       )}
@@ -113,7 +123,7 @@ const BookingSessionPage = () => {
             label="Choose a category"
             onChange={(e) => setCategory(e.target.value)}
           >
-            {categoryArr.map((d,i) => (
+            {categoryArr.map((d, i) => (
               <MenuItem key={i} value={d}>
                 {d}
               </MenuItem>
@@ -131,8 +141,7 @@ const BookingSessionPage = () => {
             label="Select A Date"
             onChange={(e) => setDate(e.target.value)}
           >
-            {
-            availableSlot.map((d) => (
+            {availableSlot.map((d) => (
               <MenuItem key={d.date} value={d.date}>
                 {d.date}
               </MenuItem>
@@ -154,8 +163,7 @@ const BookingSessionPage = () => {
               >
                 {availableSlot
                   .find((d) => d.date === date)
-                  .startTime.map((t,i) => 
-                  (
+                  .startTime.map((t, i) => (
                     <MenuItem key={i} value={t}>
                       {t}
                     </MenuItem>

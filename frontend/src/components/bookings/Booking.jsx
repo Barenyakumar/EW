@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import {
   Tabs,
@@ -14,13 +14,12 @@ import {
   AccordionDetails,
 } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import MuiCard from '../muiCard/MuiCard'
-import './booking.css'
-import { useEffect } from 'react'
-import axios from 'axios'
-import { useContext } from 'react'
-import { AuthContext } from '../../context/AuthContext'
-
+import MuiCard from "../muiCard/MuiCard"
+import "./booking.css"
+import { useEffect } from "react"
+import axios from "axios"
+import { useContext } from "react"
+import { AuthContext } from "../../context/AuthContext"
 
 const card = (
   <React.Fragment>
@@ -49,7 +48,6 @@ const card = (
           </AccordionDetails>
         </Accordion>
       </Typography>
-
     </CardContent>
     <CardActions>
       <Button size="small">Send email</Button>
@@ -62,7 +60,6 @@ const card = (
     </CardActions>
   </React.Fragment>
 )
-
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -102,31 +99,27 @@ export default function Booking() {
   const [pendingSession, setPendingSession] = useState([])
   const { user: CurrentUser } = useContext(AuthContext)
 
-
-  
   useEffect(() => {
     async function getSessionData() {
-
-      const res = await axios.get(`/booking/${CurrentUser._id}`);
-      setSessionList(res.data);
-      sessionList.forEach(async(element) => {
-        if (element.isApproved){
+      const res = await axios.get(`/booking/${CurrentUser._id}`)
+      setSessionList(res.data)
+      sessionList.forEach(async (element) => {
+        if (element.isApproved) {
           let result = await axios.get(`/session/${element.sessionId}`)
           let dummy = [...upcomingSession, result.data]
-          setUpcomingSession(dummy);
-        }
-        else{
+          setUpcomingSession(dummy)
+        } else {
           let result = await axios.get(`/session/${element.sessionId}`)
           let dummy = [...pendingSession, result.data]
-          setPendingSession(dummy);
+          setPendingSession(dummy)
         }
       })
     }
 
-    getSessionData();
+    getSessionData()
   }, [sessionList, upcomingSession, pendingSession])
 
-  console.log(pendingSession);
+  console.log(pendingSession)
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
@@ -148,21 +141,22 @@ export default function Booking() {
       <TabPanel value={value} index={0}>
         {upcomingSession.map((elem) => (
           <div className="bookingCard">
-            <MuiCard element={elem} key={elem._id}/>
+            <MuiCard element={elem} key={elem._id} />
           </div>
         ))}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {pendingSession.length>0 && pendingSession.map((elem) => (
-          <div className="bookingCard">
-            <MuiCard element={elem}  key={elem._id} />
-          </div>
-        ))}
+        {pendingSession.length > 0 &&
+          pendingSession.map((elem) => (
+            <div className="bookingCard">
+              <MuiCard element={elem} key={elem._id} />
+            </div>
+          ))}
       </TabPanel>
       <TabPanel value={value} index={2}>
         {booking.map((elem) => (
           <div className="bookingCard">
-            <MuiCard element={elem}  key={elem._id} />
+            <MuiCard element={elem} key={elem._id} />
           </div>
         ))}
       </TabPanel>

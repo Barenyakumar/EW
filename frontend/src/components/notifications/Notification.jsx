@@ -1,22 +1,21 @@
-import React,{useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import "./notification.css"
 import { NotificationElement } from "../notification_element/NotificationElement"
 
-
 const bookings = [
-  { "read": 1, mentorName: "Debraj Bhal2", image: "i3.jpg" },
-  { "read": 1, mentorName: "Debraj Bhal4", image: "i3.jpg" },
-  { "read": 0, mentorName: "Debraj Bhal", image: "i3.jpg" },
-  { "read": 0, mentorName: "Debraj Bhal", image: "i3.jpg" },
-  { "read": 1, mentorName: "Debraj Bhal1", image: "i3.jpg" },
-  { "read": 0, mentorName: "Debraj Bhal", image: "i3.jpg" },
-  { "read": 0, mentorName: "Debraj Bhal", image: "i3.jpg" },
-  { "read": 0, mentorName: "Debraj Bhal", image: "i3.jpg" },
-  { "read": 1, mentorName: "Debraj Bhal3", image: "i3.jpg" },
-  { "read": 1, mentorName: "Debraj Bhal3", image: "i3.jpg" },
-  { "read": 1, mentorName: "Debraj Bhal3", image: "i3.jpg" },
-  { "read": 1, mentorName: "Debraj Bhal3", image: "i3.jpg" },
-  { "read": 0, mentorName: "Debraj Bhal", image: "i3.jpg" },
+  { read: 1, mentorName: "Debraj Bhal2", image: "i3.jpg" },
+  { read: 1, mentorName: "Debraj Bhal4", image: "i3.jpg" },
+  { read: 0, mentorName: "Debraj Bhal", image: "i3.jpg" },
+  { read: 0, mentorName: "Debraj Bhal", image: "i3.jpg" },
+  { read: 1, mentorName: "Debraj Bhal1", image: "i3.jpg" },
+  { read: 0, mentorName: "Debraj Bhal", image: "i3.jpg" },
+  { read: 0, mentorName: "Debraj Bhal", image: "i3.jpg" },
+  { read: 0, mentorName: "Debraj Bhal", image: "i3.jpg" },
+  { read: 1, mentorName: "Debraj Bhal3", image: "i3.jpg" },
+  { read: 1, mentorName: "Debraj Bhal3", image: "i3.jpg" },
+  { read: 1, mentorName: "Debraj Bhal3", image: "i3.jpg" },
+  { read: 1, mentorName: "Debraj Bhal3", image: "i3.jpg" },
+  { read: 0, mentorName: "Debraj Bhal", image: "i3.jpg" },
 ]
 export default function Notification(props) {
   function sortOrder(prop) {

@@ -1,29 +1,25 @@
-import React,{useState} from 'react'
+import React, { useState } from "react"
 import "./availability.css"
 import AvailableDay from "./AvailableDay"
-import { Button } from '@mui/material'
-import axios from 'axios'
+import { Button } from "@mui/material"
+import axios from "axios"
 
-
-  const weekday = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ]
-
-  
-
+const weekday = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+]
 
 export default function EditAvailability(props) {
   const current = new Date()
   // const currentDate = `${current.getDate()}/${
   //   current.getMonth() + 1
   //   }/${current.getFullYear()}`
-  
+
   // const startDay = current.getDay(current.getMonth()+ 2 + " " + current.getDate() + " " + current.get)
 
   const weekArr = [
@@ -36,7 +32,7 @@ export default function EditAvailability(props) {
     current.setDate(current.getDate() + 1),
     current.setDate(current.getDate() + 1),
   ]
-  
+
   const [timeSlotArr, setTimeSlotArr] = useState([])
 
   const timeSlotArrCallback = (data) => {
@@ -44,11 +40,10 @@ export default function EditAvailability(props) {
   }
 
   console.log(timeSlotArr)
-  const handleEditAvailability = async() => {
-    for(let i=0; i<timeSlotArr.length; i++){
-      const res = await axios.post("/availability/",timeSlotArr[i])
-      console.log(res.data);
-
+  const handleEditAvailability = async () => {
+    for (let i = 0; i < timeSlotArr.length; i++) {
+      const res = await axios.post("/availability/", timeSlotArr[i])
+      console.log(res.data)
     }
   }
 
@@ -69,14 +64,17 @@ export default function EditAvailability(props) {
           Apply Changes
         </Button>
       </div>
-     
+
       <div className="available-hours">
-  
         {weekArr.map((day) => {
-          return <AvailableDay weekday={day} timeSlotArrCallback={timeSlotArrCallback} />
+          return (
+            <AvailableDay
+              weekday={day}
+              timeSlotArrCallback={timeSlotArrCallback}
+            />
+          )
         })}
       </div>
     </div>
   )
 }
-
