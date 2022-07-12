@@ -19,6 +19,9 @@ router.post("/register", async (req, res) =>{
             name: req.body.name,
             password: hashedPassword,
             gender: req.body.gender,
+            interests: req.body.interests,
+            language: req.body.language,
+            defaultImage: req.body.defaultImage
         })
 
         //save user and return response...

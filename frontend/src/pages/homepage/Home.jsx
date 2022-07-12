@@ -23,7 +23,6 @@ import Challenges from "../Mentee/discoverChallenges/Challenges"
 // import MentorForm from "../../components/mentorForm/MentorForm"
 import Profile from "../profile/Profile"
 import Login from "../../components/Auth/Login"
-import SignUp from "../../components/Auth/Signup"
 import { AuthContext } from "../../context/AuthContext"
 // import EmailNotification from "../../components/Email-notification/EmailNotification"
 // import Faq from "../../components/FAQ/Faq"
@@ -38,6 +37,7 @@ import Preloader from "../../components/PreLoader/Preloader"
 import SignupWelcome from "../../components/emailTemplates/SignupWelcome"
 import AvatarSelect from "../../components/Auth/AvatarSelect"
 import InvalidURL from "../../components/invalidURL/InvalidURL"
+import Signup from "../register/Signup"
 
 export const Home = () => {
   const { user } = useContext(AuthContext)
@@ -60,7 +60,7 @@ export const Home = () => {
         element: user ? (
           <Navigate to="/home" />
         ) : (
-          <SignUp loginCallback={loginCallback} />
+          <Signup loginCallback={loginCallback} />
         ),
       },
       {
@@ -187,6 +187,10 @@ export const Home = () => {
       {
         path: `/avatar`,
         element: <AvatarSelect />,
+      },
+      {
+        path: `/signup`,
+        element: <Signup /> ,
       },
       {
         path: `*`,

@@ -24,11 +24,11 @@ export default function MenteeHome() {
   useEffect(() => {
    
     const allMentors = async () => {  
-      setpreloader(true) 
+      // setpreloader(true) 
       const res = await axios.get("users/mentors")
 
       setMentorList(res.data)
-      setpreloader(false)
+      // setpreloader(false)
     }
 
     allMentors()

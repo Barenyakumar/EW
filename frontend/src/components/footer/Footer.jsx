@@ -34,7 +34,7 @@ export default function Footer() {
           width: "100%",
         }}
       >
-        <Logo />
+        <Logo color={"white"}/>
       </p>
       <p
         style={{

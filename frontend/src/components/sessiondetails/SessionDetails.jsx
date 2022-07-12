@@ -88,13 +88,14 @@ export default function SessionDetails() {
       sessionDetail.sessionLink +
       "/" +
       role
-    console.log(sessionLink)
-    window.location.replace(sessionLink)
+    // console.log(sessionLink)
+    // window.location.replace(sessionLink)
+    window.open(sessionLink, '_blank').focus();
   }
 
   const handleShare = () => {
     handleClickOpen()
-    setSessionLink(`http://localhost:3000/getsession/${sessionId}`)
+    setSessionLink(`https://eduwarts.com/getsession/${sessionId}`)
   }
 
   const [copied, setCopied] = useState(false)
@@ -128,6 +129,9 @@ export default function SessionDetails() {
               minute: "2-digit",
             })}
           </span>
+          {
+            sessionDetail.isActive===false?(<span style={{color:'red', marginLeft:"2rem"}}>Session expired!</span>):""
+          }
         </div>
         <div className="group_session_img" style={{ marginTop: "1rem" }}>
           <img
@@ -176,7 +180,7 @@ export default function SessionDetails() {
         </div> */}
         <div className="group_topic_of_disc">
           <h3>
-            <b>Topic of discussion : </b>
+            <b>Category : </b>
             {sessionDetail.category}
           </h3>
         </div>
@@ -191,7 +195,7 @@ export default function SessionDetails() {
             to={"/login"}
             size="large"
           >
-            join
+            Join
           </Button>
         </div>
       ) : (
@@ -202,12 +206,17 @@ export default function SessionDetails() {
           <Button variant="outlined" onClick={handleShare} size="large">
             <ShareIcon />
           </Button>
-          <Button variant="contained" size="large">
-            <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
-              Join
-            </span>
-            <GroupsIcon />
-          </Button>
+          {
+          sessionDetail.isActive&&(
+            <Button variant="contained" size="large">
+              <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
+                Join
+              </span>
+              <GroupsIcon />
+            </Button>
+          )
+          }
+          
         </div>
       )}
 
