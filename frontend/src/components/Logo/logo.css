@@ -26,4 +26,9 @@
         letter-spacing: 3px;
         width: max-content;
     }
+    .beta_logo{
+        font-size: 12px;
+        position: relative;
+         left: -10px;
+    }
 }

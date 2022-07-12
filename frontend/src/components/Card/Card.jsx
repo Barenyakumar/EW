@@ -105,7 +105,7 @@ export function SessionCard(props) {
           <img
             src={
               props.element.sessionImg
-                ? publicFolder + props.element.sessionImg
+                ? props.element.sessionImg
                 : "/images/default-cover.jpg"
             }
             alt=""

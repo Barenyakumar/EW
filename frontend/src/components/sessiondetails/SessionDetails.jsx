@@ -137,7 +137,7 @@ export default function SessionDetails() {
           <img
             src={
               sessionDetail.sessionImg
-                ? public_folder + sessionDetail.sessionImg
+                ? sessionDetail.sessionImg
                 : "/images/default-cover.jpg"
             }
             alt={sessionDetail.title}
