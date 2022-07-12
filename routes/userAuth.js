@@ -41,7 +41,7 @@ router.get("/userinterests/:id", async (req, res) => {
   try {
     const user = await User.findById(userId)
     // const interest = user.interests
-      var tempArr = new Array()
+      const tempArr = new Array()
 
       user.interests.forEach(interest => {
           tempArr.push(interest)
@@ -65,8 +65,8 @@ router.get("/userinterests/:id", async (req, res) => {
       })
       // console.log(...userFollowings.interests)
       
+      console.log(tempArr)
     })
-    console.log(tempArr)
     res.status(200).json([...tempArr])
   } catch (err) {
     res.status(500).json(err)
