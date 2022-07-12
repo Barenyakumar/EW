@@ -2,13 +2,13 @@ import React from 'react'
 import Explore from '../../pages/Explore/Explore'
 import MenteeHome from '../../pages/Mentee/home/MenteeHome'
 import MentorList from "../../pages/Mentee/discoverMentor/MentorList"
-import SingleChallenge from '../../pages/Mentee/discoverChallenges/SingleChallenge'
+// import SingleChallenge from '../../pages/Mentee/discoverChallenges/SingleChallenge'
 import Challenges from '../../pages/Mentee/discoverChallenges/Challenges'
 import { Feed } from '../Feed/Feed'
 import './mainContent.css'
 import {
   BrowserRouter as Router,
-  Routes,
+  Routes, 
   Route,
   useRoutes,
 } from "react-router-dom"
@@ -29,7 +29,7 @@ function AppRoutes() {
     { path: "/explore", element: <MenteeHome /> },
     { path: "/mentor", element: <MentorList /> },
     { path: "/challanges", element: <Challenges /> },
-    { path: "/singlechallange", element: <SingleChallenge /> },
+    // { path: "/singlechallange", element: <SingleChallenge /> },
     { path: "/booking", element: <Booking /> },
     { path: "/myprofile", element: <MyProfile /> },
     { path: "/profile", element: <Profile /> },

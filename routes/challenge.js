@@ -21,7 +21,7 @@ router.get('/pastChallenges', async (req, res) => {
     res.status(200).json(activeChallenges)
   } catch (err) { 
     res.status(500).json(err)
-  }
+  } 
 })
 
 
@@ -51,10 +51,10 @@ router.get("/mentor/:id", async (req, res) => {
 
 //create a new challenge by mentor
 router.post("/create/:id", async (req, res) => {
-  const mentorId = req.params.id
-  try {
+  // const mentorId = req.params.id
+  try { 
     const challenge = new Challenge(req.body)
-    challenge.mentor = mentorId
+    // challenge.mentor = mentorId
     // challenge.members.push(mentorId)
     const newChallenge = await challenge.save()
     // console.log(req.body)

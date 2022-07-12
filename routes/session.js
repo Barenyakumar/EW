@@ -121,8 +121,8 @@ router.get("/pastgroup", async (req, res)=>{
   }
 })
 
-
-//create session
+ 
+//create session for oneto one session
 router.post("/:mid", async (req, res) => {
   const menteeID = req.params.mid
   try {

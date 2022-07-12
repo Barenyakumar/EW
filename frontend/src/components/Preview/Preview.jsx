@@ -9,7 +9,7 @@ const Input = styled('input')({
     display: 'none',
   });
 
-
+ 
 
 const PreviewImg = ( props) => {
     const [selectedImage, setSelectedImage] = useState()
@@ -36,7 +36,7 @@ const PreviewImg = ( props) => {
                     <label htmlFor="icon-button-file" style={styles.inputLabel} >
                         <Input accept="image/*" id="icon-button-file" type="file" onChange={imageChange} />
                         <IconButton color="primary" aria-label="upload picture" component="span" >
-                            <PhotoCamera /> <h6>Upload Session Banner</h6>
+                            <PhotoCamera /> <h6> {props.text} </h6>
                         </IconButton>
                     </label>
                     {selectedImage && (

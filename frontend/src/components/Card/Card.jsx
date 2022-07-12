@@ -49,19 +49,25 @@ export default function SingleCard(props) {
           <div className="des">
             <div className="name">
               <span className="mentor_List element">{props.element.name}</span>
-              <div style={{display: 'flex', alignItems: 'flex-end',justifyContent: 'space-between', width:"100%"}}>
-
-              <span className="role element">{props.element.username}</span>
-              {props.element.isMentor ? (
-                <div className="mentor_Badge element">
-                  <MentorBadge />
-                  <span className="role element">
-                    {props.element.expertise}
-                  </span>
-                </div>
-              ) : (
-                <MenteeBadge />
-              )}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "flex-end",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
+                <span className="role element">{props.element.username}</span>
+                {props.element.isMentor ? (
+                  <div className="mentor_Badge element">
+                    <MentorBadge />
+                    <span className="role element">
+                      {props.element.expertise}
+                    </span>
+                  </div>
+                ) : (
+                  <MenteeBadge />
+                )}
               </div>
             </div>
           </div>
@@ -70,6 +76,7 @@ export default function SingleCard(props) {
     </Link>
   )
 }
+
 export function SessionCard(props) {
   const [cardStyle, setCardStyle] = useState({})
   const { user } = useContext(AuthContext)
@@ -139,6 +146,85 @@ export function SessionCard(props) {
                   }}
                 >
                   join
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
+  )
+}
+
+export function ChallengeCard(props) {
+  const [cardStyle, setCardStyle] = useState({})
+  // const { user } = useContext(AuthContext)
+  useEffect(() => {
+    if (props.height || props.width) {
+      setCardStyle({
+        height: props.height,
+        width: props.width,
+        margin: ".3rem .5rem",
+      })
+      // console.log("run" + cardStyle)
+    }
+  }, [props])
+
+  // const arrElem = {};
+  // if (props.element.mentorName)
+  //   arrElem.Name = props.element.mentorName;
+  // else if (props.element.challangeName)
+  //   arrElem.Name = props.element.challangeName;
+  // else if (props.element.sessionTitle)
+  //   arrElem.Name = props.element.sessionTitle;
+
+  const publicFolder = "http://localhost:9000/UserImages/"
+  // const role = user
+  //   ? user._id === props.element.mentor
+  //     ? "host"
+  //     : "guest"
+  //   : ""
+  return (
+    <Link to={`/profile`}>
+      <div className="cardcontainer" style={cardStyle}>
+        <div className="img">
+          <img
+            src={
+              props.element.challengeImg
+                ? publicFolder + props.element.challengeImg
+                : "/images/default-cover.jpg"
+            }
+            alt=""
+          />
+
+          <div className="des">
+            <div className="name">
+              <span className="mentor_List element">
+                {props.element.sessionName}
+              </span>
+              <span className="role element">
+                {props.element.date},{" "}
+                {new Date(
+                  props.element.endDate + props.element.endTime
+                ).toLocaleString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
+              <div className="sessionListDesc">
+                <span className="role element">{props.element.category}</span>
+                <span className="role element">
+                  {props.element.description} 
+                </span>
+                <Button
+                  variant="contained"
+                  // onClick={() => {
+                  //   window.location.replace(
+                  //     `https://62bd7a31d93831765b61385f--eduwartsmeet.netlify.app${props.element.sessionLink}/${role}`
+                  //   )
+                  // }}
+                >
+                  Take Challenge
                 </Button>
               </div>
             </div>

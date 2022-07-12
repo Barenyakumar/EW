@@ -11,6 +11,7 @@ const UserRoutes = require("./routes/users");
 const sessionBooking = require("./routes/booking")
 const availabilityRoutes = require("./routes/availability")
 const challengeRoutes = require("./routes/challenge")
+const submitChallengeRoutes = require("./routes/submitChallenge")
 const Session = require("./models/oneSession")
 const fetch = require("node-fetch")
 const nodemailer = require('nodemailer')
@@ -74,7 +75,8 @@ app.use("/session", sessionRoutes);
 app.use("/users", UserRoutes)
 app.use("/booking", sessionBooking)
 app.use("/availability", availabilityRoutes)
-app.use("/challenge",challengeRoutes)
+app.use("/challenge", challengeRoutes)
+app.use("/submitchallenge", submitChallengeRoutes)
 
 
 // update group session DB for past and upcoming data
@@ -119,7 +121,7 @@ app.post("/send_mail_to_all", (req, res) => {
 setInterval(() => {
     if (mailFlag)
         sendMail();
-    console.log(mailFlag)
+    // console.log(mailFlag)
 }, 10000);
 async function sendMail() {
     const userList = await fetch("http://localhost:9000/users/all")

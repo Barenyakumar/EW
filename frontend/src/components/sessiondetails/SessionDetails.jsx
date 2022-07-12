@@ -20,13 +20,10 @@ import Preloader from "../PreLoader/Preloader"
 import { Helmet } from "react-helmet"
 import { CopyToClipboard } from "react-copy-to-clipboard"
 
-<<<<<<< HEAD
-=======
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />
 })
 
->>>>>>> trial
 // const sessionDetail =
 //   {
 //     sessionName: "Switching to Freelancing by Barenya Kumar Panda",
@@ -52,17 +49,6 @@ export default function SessionDetails() {
   const [preloader, SetPreloader] = useState(false)
 
   const sessionDate = new Date(sessionDetail.date + sessionDetail.startTime)
-<<<<<<< HEAD
-
-  useEffect(() => {
-    const getSessionData = async () => {
-      const res = await axios.get(`/session/${sessionId}`)
-      setSessionDetail(res.data)
-      // console.log(res.data);
-    }
-    getSessionData()
-  }, [])
-=======
 
   const [open, setOpen] = React.useState(false)
 
@@ -83,7 +69,6 @@ export default function SessionDetails() {
     }
     getSessionData()
   }, [sessionId])
->>>>>>> trial
   useEffect(() => {
     SetPreloader(true)
     const getMentor = async () => {
@@ -116,14 +101,14 @@ export default function SessionDetails() {
 
   const public_folder = "http://localhost:9000/UserImages"
 
-  useEffect(() => {
-    document.title =
-      sessionDetail && mentor
-        ? sessionDetail.sessionName + " by " + mentor.name + " | Eduwarts"
-        : "Eduwarts"
+  // useEffect(() => {
+  //   document.title =
+  //     sessionDetail && mentor
+  //       ? sessionDetail.sessionName + " by " + mentor.name + " | Eduwarts"
+  //       : "Eduwarts"
 
-    // document.getElementsByTagName("META")[2].content="Description"
-  }, [sessionDetail,mentor])
+  //   // document.getElementsByTagName("META")[2].content="Description"
+  // }, [sessionDetail,mentor])
 
   return (
     <div className="sessionContainer">

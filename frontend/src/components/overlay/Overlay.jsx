@@ -1,102 +1,109 @@
-import * as React from "react"
-import PropTypes from "prop-types"
-import Button from "@mui/material/Button"
-import { styled } from "@mui/material/styles"
-import Dialog from "@mui/material/Dialog"
-import DialogTitle from "@mui/material/DialogTitle"
-import DialogContent from "@mui/material/DialogContent"
-import DialogActions from "@mui/material/DialogActions"
-import IconButton from "@mui/material/IconButton"
-import CloseIcon from "@mui/icons-material/Close"
-import Typography from "@mui/material/Typography"
-import "./overlay.css"
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate"
+// import React, { useState } from "react"
+// import PropTypes from "prop-types"
+// import Button from "@mui/material/Button"
+// import { styled } from "@mui/material/styles"
+// import Dialog from "@mui/material/Dialog"
+// import DialogTitle from "@mui/material/DialogTitle"
+// import DialogContent from "@mui/material/DialogContent"
+// import DialogActions from "@mui/material/DialogActions"
+// import IconButton from "@mui/material/IconButton"
+// import CloseIcon from "@mui/icons-material/Close"
+// import Typography from "@mui/material/Typography"
+// import "./overlay.css"
+// import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate"
+// import PreviewImg from "../Preview/Preview"
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}))
+// const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+//   "& .MuiDialogContent-root": {
+//     padding: theme.spacing(2),
+//   },
+//   "& .MuiDialogActions-root": {
+//     padding: theme.spacing(1),
+//   },
+// }))
 
-const BootstrapDialogTitle = (props) => {
-  const { children, onClose, ...other } = props
+// const BootstrapDialogTitle = (props) => {
+//   const { children, onClose, ...other } = props
 
-  return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-      {children}
-      {onClose ? (
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </DialogTitle>
-  )
-}
+//   return (
+//     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+//       {children}
+//       {onClose ? (
+//         <IconButton
+//           aria-label="close"
+//           onClick={onClose}
+//           sx={{
+//             position: "absolute",
+//             right: 8,
+//             top: 8,
+//             color: (theme) => theme.palette.grey[500],
+//           }}
+//         >
+//           <CloseIcon />
+//         </IconButton>
+//       ) : null}
+//     </DialogTitle>
+//   )
+// }
 
-BootstrapDialogTitle.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func.isRequired,
-}
+// BootstrapDialogTitle.propTypes = {
+//   children: PropTypes.node,
+//   onClose: PropTypes.func.isRequired,
+// }
 
-export default function Overlay(props) {
-  const [open, setOpen] = React.useState(false)
+// export default function Overlay(props) {
+//   const [open, setOpen] = React.useState(false)
 
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
-  const handleClose = () => {
-    setOpen(false)
-  }
+//   const handleClickOpen = () => {
+//     setOpen(true)
+//   }
+//   const handleClose = () => {
+//     setOpen(false)
+//   }
 
-  return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        {props.text}
-      </Button>
-      <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-        maxWidth="md"
-        fullWidth={true}
-      >
-        <BootstrapDialogTitle
-          id="customized-dialog-title"
-          onClose={handleClose}
-        >
-          <h2>{props.title}</h2> <br />
-          {props.author}
-        </BootstrapDialogTitle>
-        <DialogContent dividers>
-          <textarea id="txtid" name="txtname" className="textarea">
-            Caption was here!
-          </textarea>
-          <div className="upload">
-            <label htmlFor="uploadImg">
-              <AddPhotoAlternateIcon fontSize="large" />
-              <div className="uplText">Upload Image</div>
-            </label>
-            <input type="file" name="uploadImg" id="uploadImg" />
-          </div>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Post
-          </Button>
-        </DialogActions>
-      </BootstrapDialog>
-    </div>
-  )
-}
+//   const [selectedImage, setSelectedImage] = useState()
+//   const ImageCallback = (data) => setSelectedImage(data)
+
+//   return (
+//     <div>
+//       <Button variant="outlined" onClick={handleClickOpen}>
+//         Take Challenge
+//       </Button>
+//       <BootstrapDialog
+//         onClose={handleClose}
+//         aria-labelledby="customized-dialog-title"
+//         open={open}
+//         maxWidth="md"
+//         fullWidth={true}
+//       >
+//         <BootstrapDialogTitle
+//           id="customized-dialog-title"
+//           onClose={handleClose}
+//         >
+//           <h2>{props.title}</h2> <br />
+//           hosted by : {props.author}
+//         </BootstrapDialogTitle>
+//         <DialogContent dividers>
+//           <textarea id="txtid" name="txtname" className="textarea">
+//             Caption was here!
+//           </textarea>
+//           {/* <div className="upload">
+//             <label htmlFor="uploadImg">
+//               <AddPhotoAlternateIcon fontSize="large" />
+//               <div className="uplText">Upload Image</div>
+//             </label>
+//             <input type="file" name="uploadImg" id="uploadImg" />
+//           </div> */}
+
+//           <PreviewImg ImageCallback={ImageCallback} text="upload Image" />
+
+//         </DialogContent>
+//         <DialogActions>
+//           <Button autoFocus onClick={handleClose}>
+//             Post
+//           </Button>
+//         </DialogActions>
+//       </BootstrapDialog>
+//     </div>
+//   )
+// }

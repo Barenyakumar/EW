@@ -10,11 +10,11 @@ import { NavBar } from "../../components/navbar/NavBar"
 // import { Sidebar } from "../../components/sidebar/Sidebar"
 import { BottomNav } from "../../components/bottom_Nav/BottomNav"
 // import { Feed } from "../../components/Feed/Feed"
-import Explore from "../Explore/Explore"
+import Explore from "../Explore/Explore" 
 import MenteeHome from "../Mentee/home/MenteeHome"
 import MentorList from "../Mentee/discoverMentor/MentorList"
-// import SingleChallenge from "../Mentee/discoverChallenges/SingleChallenge"
-// import Challenges from "../Mentee/discoverChallenges/Challenges"
+// import SingleChallenge from "../../components/challenges/SingleChallenge"
+import Challenges from "../../components/challenges/Challenges"
 // import Booking from "../../components/bookings/Booking"
 // import MyProfile from "../../components/myprofile/MyProfile"
 // import GroupSession from "../../components/groupSessions/GroupSession"
@@ -38,6 +38,9 @@ import Preloader from "../../components/PreLoader/Preloader"
 import SignupWelcome from "../../components/emailTemplates/SignupWelcome"
 import AvatarSelect from "../../components/Auth/AvatarSelect"
 import InvalidURL from "../../components/invalidURL/InvalidURL"
+import CreateChallenge from "../../components/challenges/CreateChallenge"
+import ChallengeDetails from "../../components/challenges/ChallengeDetails"
+import SolutionDetails from "../../components/submission/SolutionDetails"
 
 export const Home = () => {
   const { user } = useContext(AuthContext)
@@ -84,13 +87,23 @@ export const Home = () => {
       //   path: "/mentor",
       //   element: !user || user === undefined? <Navigate to="/login" /> : <MentorList />,
       // },
-      // {
-      //   path: "/challanges",
-      //   element: !user || user === undefined? <Navigate to="/login" /> : <Challenges />,
-      // },
+      {
+        path: "/challanges",
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <Challenges />
+          ),
+      },
       // {
       //   path: "/singlechallange",
-      //   element: !user || user === undefined? <Navigate to="/login" /> : <SingleChallenge />,
+      //   element:
+      //     !user || user === undefined ? (
+      //       <Navigate to="/login" />
+      //     ) : (
+      //       <SingleChallenge />
+      //     ),
       // },
       // {
       //   path: "/booking",
@@ -190,7 +203,24 @@ export const Home = () => {
       },
       {
         path: `*`,
-        element: <InvalidURL /> ,
+        element: <InvalidURL />,
+      },
+      {
+        path: `/createnewchallenge`,
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <CreateChallenge />
+          ),
+      },
+      {
+        path: `/getchallenge/:id`,
+        element: <ChallengeDetails />,
+      },
+      {
+        path: `/submittedchallenge/:id`,
+        element: <SolutionDetails />,
       },
     ])
     return routes

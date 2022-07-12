@@ -14,7 +14,96 @@ import axios from "axios"
 import GroupSession from "../../../components/groupSessions/GroupSession"
 import Footer from "../../../components/footer/Footer"
 import Preloader from "../../../components/PreLoader/Preloader"
+import Challenges from "../../../components/challenges/Challenges"
  
+
+const challengeList = [
+  {
+    id: 1,
+    mentorName: "Barenya Kumar Panda",
+    role: "UI/UX",
+    bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
+    img: "m3.jfif",
+  },
+  {
+    id: 2,
+    mentorName: "Barenya Kumar Panda",
+    role: "UI/UX",
+    bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
+    img: "m4.jfif",
+  },
+  {
+    id: 3,
+    mentorName: "Barenya Kumar Panda",
+    role: "UI/UX",
+    bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
+    img: "m5.jfif",
+  },
+  {
+    id: 4,
+    mentorName: "Barenya Kumar Panda",
+    role: "UI/UX",
+    bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
+    img: "m6.jfif",
+  },
+  {
+    id: 5,
+    mentorName: "Barenya Kumar Panda",
+    role: "UI/UX",
+    bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
+    img: "m3.jfif",
+  },
+  {
+    id: 6,
+    mentorName: "Barenya Kumar Panda",
+    role: "UI/UX",
+    bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
+    img: "m4.jfif",
+  },
+  {
+    id: 7,
+    mentorName: "Barenya Kumar Panda",
+    role: "UI/UX",
+    bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
+    img: "m5.jfif",
+  },
+  {
+    id: 8,
+    mentorName: "Barenya Kumar Panda",
+    role: "UI/UX",
+    bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
+    img: "m6.jfif",
+  },
+  {
+    id: 9,
+    mentorName: "Barenya Kumar Panda",
+    role: "UI/UX",
+    bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
+    img: "m3.jfif",
+  },
+  {
+    id: 10,
+    mentorName: "Barenya Kumar Panda",
+    role: "UI/UX",
+    bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
+    img: "m4.jfif",
+  },
+  {
+    id: 11,
+    mentorName: "Barenya Kumar Panda",
+    role: "UI/UX",
+    bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
+    img: "m5.jfif",
+  },
+  {
+    id: 12,
+    mentorName: "Barenya Kumar Panda",
+    role: "UI/UX",
+    bio: "Hey this is bk panda how are you guys lets start learning figma with me.",
+    img: "m6.jfif",
+  },
+]
+
 
 export default function MenteeHome() {
   
@@ -74,9 +163,11 @@ export default function MenteeHome() {
       {/* <SwiperMentor arrayList={userList} /> */}
 
       {/* <h3 className="centerTitle">Explore Challenges</h3>
-      <SwiperMentor arrayList={challengeList} />
+      <SwiperMentor arrayList={challengeList} /> */}
 
-      <div style={{ marginTop: "30px" }}>
+      <Challenges/>
+      
+      {/* <div style={{ marginTop: "30px" }}>
         <h2 className="centerTitle">Join group mentoring </h2>
         <SwiperMentor arrayList={sessionList} />
       </div> */}

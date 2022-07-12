@@ -33,7 +33,7 @@ const challengeSchema = new mongoose.Schema(
     challengeImg: {
       type: String,
       default: "",
-    },
+    }, 
     isActive: {
       type: Boolean,
       default: true,
