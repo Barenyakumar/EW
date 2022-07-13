@@ -41,7 +41,7 @@ const EditEmail = () => {
       // console.log(emailres.data)
     } 
     else
-      // console.log("otp not matched" + OTP)
+      console.log("otp not matched" + OTP)
   }
   return (
     <>
