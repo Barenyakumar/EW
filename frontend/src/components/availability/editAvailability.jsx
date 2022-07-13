@@ -39,11 +39,11 @@ export default function EditAvailability(props) {
     setTimeSlotArr([...timeSlotArr, data])
   }
 
-  console.log(timeSlotArr)
+  // console.log(timeSlotArr)
   const handleEditAvailability = async () => {
     for (let i = 0; i < timeSlotArr.length; i++) {
       const res = await axios.post("/availability/", timeSlotArr[i])
-      console.log(res.data)
+      // console.log(res.data)
     }
   }
 

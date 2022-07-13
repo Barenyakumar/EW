@@ -31,7 +31,7 @@ export default function Availability(props) {
   const availabilityCallback = (data) => {
     setAvailabilityFlag(data)
   }
-  console.log(availabilityFlag)
+  // console.log(availabilityFlag)
 
   return (
     <div className="availabilityContent">

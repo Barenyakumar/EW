@@ -44,7 +44,7 @@ export default function Signup(props) {
     props.loginCallback(true)
   }, [props])
 
-  console.log(userCredentials)
+  // console.log(userCredentials)
 
   function renderSwitch(param) {
     switch (param) {
@@ -178,7 +178,7 @@ function EmailVerify(props) {
         setPreloader(false)
         setotpSent(true)
         setOtp(res.data)
-        console.log(res.data)
+        // console.log(res.data)
       } else {
         setPreloader(false)
         props.setErr("Wrong email!!!")
@@ -195,7 +195,7 @@ function EmailVerify(props) {
   }
 
   function matchOTP() {
-    if (otp.current.value === Otp) {
+    if (otp.current.value === Otp.otp && email.current.value === Otp.email) {
       props.setOtpMatched(true)
       setotpSent(false)
       props.setUserCredentials((prev) => ({

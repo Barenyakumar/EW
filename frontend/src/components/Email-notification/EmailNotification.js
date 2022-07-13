@@ -1,3 +1,3 @@
 export default function EmailNotification() {
-  console.log("hi")
+  // console.log("hi")
 }

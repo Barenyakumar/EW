@@ -39,7 +39,7 @@ const EditPassword = () => {
       }
 
       getOtp()
-      console.log("mail sent")
+      // console.log("mail sent")
     } else {
       setError(true)
       setErrMessage("Password doest not match. Try again...")

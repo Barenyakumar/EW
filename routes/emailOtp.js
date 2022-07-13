@@ -117,7 +117,7 @@ router.post("/otp", (req, res) => {
     if (err)
       res.status(500).json(err);
     else
-      res.status(200).json(otp);
+      res.status(200).json({ email: req.body.reciever, otp: otp })
   })
 })
 

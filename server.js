@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGO_URL, {
 })
 
 mongoose.connection.on("connected", () => {
-  console.log("Eduwats_DB is connected...")
+  //console.log("Eduwats_DB is connected...")
 })
 
 // setting up public dir
@@ -53,7 +53,7 @@ const upload = multer({
 // const upload = multer({storage});
 app.post("/upload", upload.single("file"), (req, res) => {
   try {
-    console.log(req.body)
+    // console.log(req.body)
     // pass file name as name(userId) and file as file in body for e.g..
     // {
     //     "name":"test.jpg"(this sould be userId of the user),
@@ -141,7 +141,8 @@ async function sendMail() {
         transporter.sendMail(options, function (err, info) {
           if (err) {
             console.log(err)
-          } else console.log(info.response)
+          }
+          // else console.log(info.response)
         })
       })
     })

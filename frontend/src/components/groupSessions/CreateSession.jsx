@@ -95,7 +95,7 @@ export default function Createsession() {
 
   // console.log(new Date().setDate(new Date()+1));
   // console.log(minDate.setDate(minDate.getDate()+1))
-  console.log(dateTime)
+  // console.log(dateTime)
   const handleGroupSession = async (e) => {
     e.preventDefault()
     try {

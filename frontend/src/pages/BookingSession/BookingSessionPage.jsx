@@ -45,7 +45,7 @@ const BookingSessionPage = () => {
     async function getAvailabilty() {
       const res = await axios.get(`/availability/${mentor}`)
       setAvailableSlot(res.data)
-      console.log(res.data)
+      // console.log(res.data)
     }
     getAvailabilty()
   }, [])
@@ -74,7 +74,7 @@ const BookingSessionPage = () => {
       date: date,
       description: description,
     }
-    console.log(body)
+    // console.log(body)
 
     const { data, status } = await axios.post(
       `/session/${userInfo._id}`,
@@ -86,7 +86,7 @@ const BookingSessionPage = () => {
       { sessionId: data._id, mentorId: mentor },
       config
     )
-    console.log(bookingData)
+    // console.log(bookingData)
     if (status === 201 || 200) {
       setAlert({
         severity: "success",

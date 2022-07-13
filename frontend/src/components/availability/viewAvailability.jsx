@@ -63,7 +63,7 @@ export default function ViewAvailability(props) {
     const getSlot = async () => {
       const res = await axios.get(`/availability/${user._id}`)
       setAvailableSlot(res.data)
-      console.log(res.data)
+      // console.log(res.data)
     }
     getSlot()
   }, [])

@@ -15,7 +15,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 
 export default function MuiCard(props) {
   const date = new Date(props.date)
-  console.log(date)
+  // console.log(date)
   const card = (
     <React.Fragment>
       <CardContent>

@@ -13,7 +13,7 @@ const EditEmail = () => {
   const [pass, setPass] = useState("")
 
   async function handleEmailOtp() {
-    console.log(email)
+    // console.log(email)
     const res = await axios.post("email/otp", {
       reciever: email,
     })
@@ -26,9 +26,9 @@ const EditEmail = () => {
     },
   }
   const handleEmailChange = async () => {
-    console.log("hey")
+    // console.log("hey")
     if (OTP === otp) {
-      console.log("matched!!!")
+      // console.log("matched!!!")
       const emailres = await axios.post(
         `users/${user._id}/updatemail`,
         {
@@ -38,8 +38,10 @@ const EditEmail = () => {
         },
         config
       )
-      console.log(emailres.data)
-    } else console.log("otp not matched" + OTP)
+      // console.log(emailres.data)
+    } 
+    else
+      // console.log("otp not matched" + OTP)
   }
   return (
     <>

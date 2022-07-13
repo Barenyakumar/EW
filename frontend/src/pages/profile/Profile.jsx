@@ -67,7 +67,7 @@ export default function Profile() {
     getAvailability()
   }, [])
 
-  console.log(availibility)
+  // console.log(availibility)
 
   const [value, setValue] = useState(0)
   const [userProfile, setUserProfile] = useState({})
@@ -95,7 +95,7 @@ export default function Profile() {
     setValue(newValue)
   }
   const publicFolder = "http://localhost:9000/UserImages/"
-  console.log(publicFolder + userProfile.profileImage)
+  // console.log(publicFolder + userProfile.profileImage)
   return (
     <>
       <div className="Profile">

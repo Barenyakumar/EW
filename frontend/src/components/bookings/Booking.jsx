@@ -119,7 +119,7 @@ export default function Booking() {
     getSessionData()
   }, [sessionList, upcomingSession, pendingSession])
 
-  console.log(pendingSession)
+  // console.log(pendingSession)
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }

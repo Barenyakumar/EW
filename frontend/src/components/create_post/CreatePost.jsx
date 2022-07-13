@@ -10,7 +10,7 @@ export const CreatePost = () => {
   const imgFile = useRef()
   const [imgData, setImgData] = useState("")
   const imagePreview = (e) => {
-    console.log(e.target.files[0])
+    // console.log(e.target.files[0])
     var reader = new FileReader()
     reader.onload = function (event) {
       // The file's text will be printed here
@@ -24,7 +24,7 @@ export const CreatePost = () => {
     imgFile.current.value = ""
   }
 
-  console.log(imgFile.current ? console.log(imgFile.current.files) : "")
+  // console.log(imgFile.current ? console.log(imgFile.current.files) : "")
   return (
     <div className="createPostContainer">
       <div id="avatar">

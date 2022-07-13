@@ -7,7 +7,7 @@ export const NotificationElement = (props) => {
   const [unreadStyle, setUnreadStyle] = useState("white")
 
   useEffect(() => {
-    console.log(props.booking)
+    // console.log(props.booking)
     if (props.booking.read === 0) {
       setUnreadStyle("#a4a2a270")
     }

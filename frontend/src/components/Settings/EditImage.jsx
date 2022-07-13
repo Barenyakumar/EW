@@ -17,7 +17,7 @@ const EditImage = () => {
     const formData = new FormData()
     formData.append("file", file)
 
-    console.log(formData)
+    // console.log(formData)
 
     setUploading(true)
 
@@ -28,15 +28,15 @@ const EditImage = () => {
         },
       }
 
-      console.log(file.name)
+      // console.log(file.name)
 
       const { data } = await axios.post("/upload", formData, config)
 
-      console.log(data)
+      // console.log(data)
       setAlert({ severity: "success", msg: "File uploaded success" })
       setUploading(false)
     } catch (error) {
-      console.error(error)
+      // console.error(error)
       setUploading(false)
     }
   }
