@@ -24,6 +24,7 @@ router.get("/challenge/:id", async (req, res) => {
     const challengeId = req.params.id
     const allSubmissions = await ChallengeSubmition.find({
       challengeId
+      
     })
     res.status(200).json(allSubmissions)
   } catch (err) {

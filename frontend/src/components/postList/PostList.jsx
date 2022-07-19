@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react"
 import ImageList from "@mui/material/ImageList"
 import ImageListItem from "@mui/material/ImageListItem"
-import { useMediaQuery } from "@mui/material/useMediaQuery"
-import SingleCard from "../Card/Card"
+import { Link } from "react-router-dom"
 
-export default function PostList() {
+export default function PostList({ itemData }) {
   const [width, setWidth] = useState(window.innerWidth)
   // setWidth(window.innerWidth);
   const setSlide = (width) => {
@@ -13,7 +12,7 @@ export default function PostList() {
     } else if (width <= 1000) {
       return 3
     } else return 4
-  }  
+  }
 
   const [slide_val, setSlide_val] = useState(setSlide(width))
 
@@ -26,21 +25,23 @@ export default function PostList() {
   useEffect(() => {
     window.addEventListener("resize", widthset)
   })
+
+  const public_folder = "http://localhost:9000/UserImages/"
   return (
-    <div className="postContainer">
-      <ImageList
-        cols={slide_val}
-      >
+    <div className="postContainer" style={{ marginBottom: "2rem" }}>
+      <ImageList cols={slide_val}>
         {itemData.map((item) => (
-          <ImageListItem key={item.img}>
-            <img
-              src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-              srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.title}
-              loading="lazy"
-              style={{padding:"0.5rem"}}
-            />
-          </ImageListItem>
+          <Link to={`/challengeposts/${item._id}`}>
+            <ImageListItem key={item._id}>
+              <img
+                src={`${public_folder + item.solutionImg}`}
+                srcSet={`${public_folder + item.solutionImg}`}
+                alt={item.title}
+                loading="lazy"
+                style={{ padding: "0.5rem" }}
+              />
+            </ImageListItem>
+          </Link>
         ))}
       </ImageList>
     </div>
@@ -97,7 +98,6 @@ const itemData = [
     title: "Bike",
   },
 ]
-
 
 const challengeList = [
   {

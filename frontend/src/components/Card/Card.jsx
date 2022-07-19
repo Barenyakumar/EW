@@ -185,7 +185,7 @@ export function ChallengeCard(props) {
   //     : "guest"
   //   : ""
   return (
-    <Link to={`/profile`}>
+    <Link to={`/getchallenge/${props.element._id}`}>
       <div className="cardcontainer" style={cardStyle}>
         <div className="img">
           <img
@@ -200,10 +200,10 @@ export function ChallengeCard(props) {
           <div className="des">
             <div className="name">
               <span className="mentor_List element">
-                {props.element.sessionName}
+                {props.element.challengeName}
               </span>
               <span className="role element">
-                {props.element.date},{" "}
+                {props.element.endDate},{" "}
                 {new Date(
                   props.element.endDate + props.element.endTime
                 ).toLocaleString([], {
@@ -213,9 +213,9 @@ export function ChallengeCard(props) {
               </span>
               <div className="sessionListDesc">
                 <span className="role element">{props.element.category}</span>
-                <span className="role element">
+                {/* <span className="role element">
                   {props.element.description} 
-                </span>
+                </span>  */}
                 <Button
                   variant="contained"
                   // onClick={() => {
@@ -224,7 +224,7 @@ export function ChallengeCard(props) {
                   //   )
                   // }}
                 >
-                  Take Challenge
+                  Participate
                 </Button>
               </div>
             </div>

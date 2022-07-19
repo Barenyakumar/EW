@@ -73,6 +73,7 @@ export default function ChallengeDetails() {
   const [mentor, setMentor] = useState({})
   const [challengeLink, setChallengeLink] = useState("")
   const [preloader, setPreloader] = useState(false)
+  const [submissions, setSubmissions] = useState([])
 
   const challengeDate = new Date(
     challengeDetail.endDate + challengeDetail.endTime
@@ -97,6 +98,16 @@ export default function ChallengeDetails() {
       setPreloader(false)
     }
     getChallengeData()
+
+    const getsubmissions = async() => {
+      const submission = await axios.get(
+        `/submitchallenge/challenge/${challengeId}`
+      )
+      setSubmissions(submission.data)
+      console.log(submission.data)
+    }
+
+    getsubmissions()
   }, [challengeId])
 
   //get mentor
@@ -244,13 +255,18 @@ export default function ChallengeDetails() {
                 <Button variant="outlined" onClick={handleShare} size="large">
                   <ShareIcon />
                 </Button>
-                <div className="overlayChallenge">
+                <Link to={`/submitchallenge/${challengeDetail._id}`}>
+                  <Button variant="outlined" size="large">
+                    Take challenge
+                  </Button>
+                </Link>
+                {/* <div className="overlayChallenge">
                   <SubmitChallenge
                     // challengeText={challengeText}
                     title={challengeDetail.challengeName}
                     author={mentor.name}
                   />
-                </div>
+                </div> */}
               </div>
             )}
 
@@ -287,7 +303,7 @@ export default function ChallengeDetails() {
           </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <PostList />
+          <PostList itemData={submissions} />
         </TabPanel>
 
         {/* <TabPanel value={value} index={2}>

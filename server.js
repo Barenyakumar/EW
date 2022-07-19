@@ -13,6 +13,7 @@ const availabilityRoutes = require("./routes/availability")
 const challengeRoutes = require("./routes/challenge")
 const submitChallengeRoutes = require("./routes/submitChallenge")
 const Session = require("./models/oneSession")
+const  Challenge = require("./models/challenge")
 const fetch = require("node-fetch")
 const nodemailer = require('nodemailer')
 
@@ -44,30 +45,35 @@ const storage = multer.diskStorage({
         cb(null, "public/userImages");
     },
     filename: (req, file, cb) => {
-        cb(null, req.body.fileName);
+        cb(null, req.body.name);
     },
 });
 
 
-const upload = multer({
-    storage: storage,
-    limits: { fileSize: 1000000 }
-});
+// const upload = multer({
+//     storage: storage,
+//     // limits: { fileSize: 1000000 }
+// });
 
-// const upload = multer({storage});
-app.post("/upload", upload.single("file"), (req, res) => {
+const upload = multer({storage});
+app.post("/upload",upload.single("file"), (req, res) => {
     try {
-        console.log(req.body);
-        // pass file name as name(userId) and file as file in body for e.g..
-        // {
-        //     "name":"test.jpg"(this sould be userId of the user),
-        //     "file":"selected file"
-        // }
-        return res.status(200).json("file uploaded successfully.");
+        res.status(200).json("initiated upload ");
     } catch (error) {
         console.log(error);
     }
 })
+// return res.status(200).json("file uploaded successfully.");
+// try {
+//     console.log(req.body);
+//     // pass file name as name(userId) and file as file in body for e.g..
+//     // {
+//     //     "name":"test.jpg"(this sould be userId of the user),
+//     //     "file":"selected file"
+//     // }
+// } catch (error) {
+//     console.log(error);
+// }
 
 app.use("/auth", userAuth);
 app.use("/email", emailOtp);
@@ -89,6 +95,15 @@ setInterval(async () => {
             await s.save();
         }
     });
+
+     const challenge = await Challenge.find()
+     challenge.forEach(async (s) => {
+       const challengeDate = new Date(s.endDate + s.endTime)
+       if (challengeDate.getTime() < Date.now()) {
+         s.isActive = false
+         await s.save()
+       }
+     })
 }, 1000);
 
 
@@ -113,54 +128,54 @@ var mailFlag = false;
 var sessionDetails = {};
 
 // api to toggle mail flag for each request
-app.post("/send_mail_to_all", (req, res) => {
-    mailFlag = true;
-    sessionDetails = { ...req.body };
-    res.status(200).json("initiated");
-})
-setInterval(() => {
-    if (mailFlag)
-        sendMail();
-    // console.log(mailFlag)
-}, 10000);
-async function sendMail() {
-    const userList = await fetch("http://localhost:9000/users/all")
-        .then(res => res.json())
-        .then(userData => {
-            userData.forEach(element => {
-                const options = {
-                    from: "team@eduwarts.tech",
-                    to: element.email,
-                    subject: `A group session ${sessionDetails.sessionBody.sessionName} is being created by ${sessionDetails.mentorName}`,
-                    text: `Hi, ${userData.name}\n we hope you are doing well. We are happy to inform you that,\n\n\n\n
-                \nA group session is being created with following details...\n
-                Mentor:${sessionDetails.mentorName}\n
-                Session Name:${sessionDetails.sessionBody.sessionName}\n
-                Session Description: ${sessionDetails.sessionBody.description}\n
-                Category:${sessionDetails.sessionBody.category}\n
-                Session Type:${sessionDetails.sessionBody.sessionType}\n
-                \n\n\n
-                Date:${sessionDetails.sessionBody.date}\n
-                Time:${sessionDetails.sessionBody.startTime}\n\n\n
-                You can view and join session by following link\n\n
-                http://localhost:3000/session/${sessionDetails.sessionId}\n\n\n\n\n\n
+// app.post("/send_mail_to_all", (req, res) => {
+//     mailFlag = true;
+//     sessionDetails = { ...req.body };
+//     res.status(200).json("initiated");
+// })
+// setInterval(() => {
+//     if (mailFlag)
+//         sendMail();
+//     // console.log(mailFlag)
+// }, 10000);
+// async function sendMail() {
+//     const userList = await fetch("http://localhost:9000/users/all")
+//         .then(res => res.json())
+//         .then(userData => {
+//             userData.forEach(element => {
+//                 const options = {
+//                     from: "team@eduwarts.tech",
+//                     to: element.email,
+//                     subject: `A group session ${sessionDetails.sessionBody.sessionName} is being created by ${sessionDetails.mentorName}`,
+//                     text: `Hi, ${userData.name}\n we hope you are doing well. We are happy to inform you that,\n\n\n\n
+//                 \nA group session is being created with following details...\n
+//                 Mentor:${sessionDetails.mentorName}\n
+//                 Session Name:${sessionDetails.sessionBody.sessionName}\n
+//                 Session Description: ${sessionDetails.sessionBody.description}\n
+//                 Category:${sessionDetails.sessionBody.category}\n
+//                 Session Type:${sessionDetails.sessionBody.sessionType}\n
+//                 \n\n\n
+//                 Date:${sessionDetails.sessionBody.date}\n
+//                 Time:${sessionDetails.sessionBody.startTime}\n\n\n
+//                 You can view and join session by following link\n\n
+//                 http://localhost:3000/session/${sessionDetails.sessionId}\n\n\n\n\n\n
     
-                This is an automated mail. Please do not reply to this mail.\n\n\n
-                Team Eduwarts.`,
-                }
-                transporter.sendMail(options, function (err, info) {
-                    if (err) {
-                        console.log(err)
-                    }
-                    else
-                        console.log(info.response)
-                })
-            });
+//                 This is an automated mail. Please do not reply to this mail.\n\n\n
+//                 Team Eduwarts.`,
+//                 }
+//                 transporter.sendMail(options, function (err, info) {
+//                     if (err) {
+//                         console.log(err)
+//                     }
+//                     else
+//                         console.log(info.response)
+//                 })
+//             });
 
-        }).catch((err) => console.log(err))
-    mailFlag = false;
-    sessionDetails = {};
-}
+//         }).catch((err) => console.log(err))
+//     mailFlag = false;
+//     sessionDetails = {};
+// }
 
 
 

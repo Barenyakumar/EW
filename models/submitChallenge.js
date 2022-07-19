@@ -16,11 +16,11 @@ const ChallengeSubmitionSchema = new mongoose.Schema(
     // },
     solutionDesc: {
       type: String,
-      required: true,
+      default: "",
     },
     solutionImg: {
       type: String,
-      default: "",
+      required: true,
     },
     // solutionVideo: {
     //   type: String,

@@ -79,7 +79,8 @@ const challengeList = [
     description: "By Kumar Barenya",
     challengeImg: "m6.jfif",
   },
-]
+] 
+
 
 export default function Challenges() {
   const {user} = useContext(AuthContext)
@@ -88,6 +89,26 @@ export default function Challenges() {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
+
+  const [upcomingChallenges, setUpcomingChallenges] = useState([])
+  const [pastChallenges, setPastChallenges] = useState([])
+
+  useEffect(() => {
+    const upcomingChallengeList = async () => { 
+      const res = await axios.get("/challenge/activeChallenges")
+      setUpcomingChallenges(res.data)
+    }
+
+    const pastChallengeList = async () => {
+      const res = await axios.get("/challenge/pastChallenges")
+      setPastChallenges(res.data)
+    }
+
+    upcomingChallengeList()
+    pastChallengeList()
+    
+  }, [])
+  
 
   return (
     <div className="Challenges">
@@ -123,12 +144,12 @@ export default function Challenges() {
           </Box>
           <TabPanel value={value} index={0}>
             <div>
-              <SwiperChallenge arrayList={challengeList} />
+              <SwiperChallenge arrayList={upcomingChallenges} />
             </div>
           </TabPanel>
           <TabPanel value={value} index={1}>
             <div>
-              <h2>Recommended</h2>
+              <SwiperChallenge arrayList={pastChallenges} />
             </div>
           </TabPanel>
         </Box>

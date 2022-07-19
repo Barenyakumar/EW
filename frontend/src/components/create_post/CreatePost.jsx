@@ -1,56 +1,152 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from "react"
 import "./createPost.css"
-import Avatar from '@mui/material/Avatar';
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
-import Button from '@mui/material/Button';
-import CloseIcon from '@mui/icons-material/Close';
-
-
+import Avatar from "@mui/material/Avatar"
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate"
+import VideoCameraBackIcon from "@mui/icons-material/VideoCameraBack"
+import Button from "@mui/material/Button"
+import CloseIcon from "@mui/icons-material/Close"
+import { AuthContext } from "../../context/AuthContext"
+import axios from "axios"
+import Popup from "../popup-box/Popup"
+import { Navigate, useParams } from "react-router-dom"
 
 export const CreatePost = () => {
-    const imgFile = useRef();
-    const [imgData, setImgData] = useState("");
-    const imagePreview = (e) => {
-        console.log(e.target.files[0]);
-        var reader = new FileReader();
-        reader.onload = function (event) {
-            // The file's text will be printed here
-            setImgData(event.target.result);
+  const { challengeId } = useParams(); 
+  const [file, setFile] = useState(null)
 
-        };
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(false)
 
-        reader.readAsDataURL(e.target.files[0]);
+
+  const imgFile = useRef()
+  const [imgData, setImgData] = useState("")
+  const imagePreview = (e) => {
+    console.log(e.target.files[0])
+    var reader = new FileReader()
+    reader.onload = function (event) {
+      // The file's text will be printed here
+      setImgData(event.target.result)
     }
-    const removePreview = () => {
-        setImgData("");
-        imgFile.current.value = "";
-    }
 
-    console.log(imgFile.current ? console.log(imgFile.current.files) : "");
-    return (
-        <div className='createPostContainer' >
-            <div id="avatar">
-                <Avatar className='avatarBadge' sx={{ bgcolor: "#344CB7 " }}>P</Avatar>
+    reader.readAsDataURL(e.target.files[0])
+  }
+  const removePreview = () => {
+    setImgData("")
+    imgFile.current.value = ""
+  }
+  const desc = useRef()
+  const { user } = useContext(AuthContext)
+  const publicFolder = "http://localhost:9000/UserImages/"
+  // console.log(imgFile.current ? console.log(imgFile.current.files) : "")
+
+  const filechange = (e) => {
+    imagePreview(e)
+    setFile(e.target.files[0])
+  }
+  const handlePost = async () => {
+    if (file) {
+      const data = new FormData()
+      const fileName = Date.now() + file.name.replace(/ /g, "-")
+      data.append("name", fileName)
+      data.append("file", file)
+      try {
+        await axios.post("/upload", data)
+
+        const submissionBody = {
+          challengeId: challengeId,
+          participantId: user._id,
+          solutionDesc: desc.current.value,
+          solutionImg: fileName,
+        }
+        try {
+          console.log(submissionBody)
+          var challengeSubmission = await axios.post(
+            `/submitchallenge/create`,
+            submissionBody
+          )
+          window.location.replace(`/getchallenge/${challengeId}`)
+
+        } catch (error) {
+          setError(true)
+        }
+          
+      } catch (err) {
+        setError(true)
+
+      }
+    }
+  }
+  return (
+    <div className="createPostContainer">
+      <div id="avatar">
+        <Avatar
+          className="avatarBadge"
+          sx={{ bgcolor: "#344CB7 " }}
+          src={
+            user.profileImage
+              ? publicFolder + user.profileImage
+              : `/Avatars/${user.gender}/${user.defaultImage}`
+          }
+          alt={user.name}
+        ></Avatar>
+      </div>
+      <div className="postInput">
+        <textarea
+          name="postDesc"
+          id="postTextArea"
+          placeholder={`What's in your mind...`}
+          ref={desc}
+        ></textarea>
+        {imgData ? (
+          <div className="previewImg">
+            <div className="imgClose">
+              <CloseIcon onClick={removePreview} />
             </div>
-            <div className="postInput">
-                <textarea name="postDesc" id="postTextArea" placeholder={`What's in your mind...`}></textarea>
-                {imgData?<div className="previewImg">
-                    <div className="imgClose"><CloseIcon onClick={removePreview} /></div> 
-                    <img src={imgData} alt="" id='previewImg' />
-                </div>:""}
-                <div className="postBtn">
-                    <div className="uploadFiles">
-                        <label htmlFor="uploadImg">
-                            <AddPhotoAlternateIcon fontSize="large" /></label>
-                        <input type="file" ref={imgFile} name="postImg" id="uploadImg" accept='image/*' onChange={e => imagePreview(e)} />
-                        <label htmlFor="uploadVideo">
-                            <VideoCameraBackIcon fontSize="large" /></label>
-                        <input type="file" name="postImg" id="uploadVideo" accept='video/*' />
-                    </div>
-                    <Button variant="contained" className="createBtn">Post</Button>
-                </div>
-            </div>
+            <img src={imgData} alt="" id="previewImg" />
+          </div>
+        ) : (
+          ""
+        )}
+        <div className="postBtn">
+          <div className="uploadFiles">
+            <label htmlFor="uploadImg">
+              <AddPhotoAlternateIcon fontSize="large" />
+            </label>
+            <input
+              type="file"
+              ref={imgFile}
+              name="postImg"
+              id="uploadImg"
+              accept="image/*"
+              onChange={filechange}
+            />
+            <label htmlFor="uploadVideo">
+              <VideoCameraBackIcon fontSize="large" />
+            </label>
+            <input
+              type="file"
+              name="postImg"
+              id="uploadVideo"
+              accept="video/*"
+            />
+          </div>
+          <Button
+            variant="contained"
+            className="createBtn"
+            onClick={handlePost}
+          >
+            Post
+          </Button>
         </div>
-    )
+        {error ? (
+          <Popup
+            flag={true}
+            message={"Something went wrong while file upload. Please try again later."}
+          />
+        ) : (
+          ""
+        )}
+      </div>
+    </div>
+  )
 }

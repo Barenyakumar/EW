@@ -18,6 +18,7 @@ import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import { Link, useParams } from "react-router-dom"
 import Popup from "../popup-box/Popup"
+import { CreatePost } from "../create_post/CreatePost"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -63,6 +64,9 @@ export default function SubmitChallenge(props) {
   const [error, setError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [solutionDesc, setSolutionDesc] = useState("")
+  const descCallback = (data) => {
+    setSolutionDesc(data)
+  }
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -71,23 +75,31 @@ export default function SubmitChallenge(props) {
     setOpen(false)
   }
 
-  const [selectedImage, setSelectedImage] = useState()
-  const ImageCallback = (data) => setSelectedImage(data)
+  const [selectedImage, setSelectedImage] = useState("")
+  const ImageCallback = (data) => setSelectedImage(data);
 
   const {user : currentUser} = useContext(AuthContext)
   const challengeId = useParams().id 
 
-  const handleSubmitChallenge = async(e) => {
-    e.preventDefault()
+  const handleSubmitChallenge = async() => {
     const submissionBody = {
       challengeId: challengeId,
       participantId: currentUser._id,
       solutionDesc: solutionDesc,
     }
 
+    if (selectedImage !== "") {
+      submissionBody.solutionImg =
+        selectedImage;
+    }
+
+    console.log(submissionBody)
     try {
       setIsLoading(true)
-      var challengeSubmission = await axios.post(`/submitchallenge/create`, submissionBody)
+      var challengeSubmission = await axios.post(
+        `/submitchallenge/create`,
+        submissionBody
+      )
       console.log(challengeSubmission.data)
     } catch (error) { 
       setIsLoading(false)
@@ -97,9 +109,10 @@ export default function SubmitChallenge(props) {
 
     setIsLoading(false)
     setOpen(false)
-    window.location.replace(
-      `/submittedchallenge/${challengeSubmission.data._id}`
-    )
+    // window.location.replace(
+    //   `/submittedchallenge/${challengeSubmission.data._id}`
+    // )
+    console.log("done")
   }
 
   const [submissionPost, setSubmissionPost] = useState([])
@@ -136,9 +149,9 @@ export default function SubmitChallenge(props) {
             hosted by : {props.author}
           </BootstrapDialogTitle>
           <DialogContent dividers>
-            <textarea id="txtid" name="txtname" className="textarea">
+            {/* <textarea id="txtid" name="txtname" className="textarea">
               Caption was here!
-            </textarea>
+            </textarea> */}
             {/* <div className="upload">
             <label htmlFor="uploadImg">
               <AddPhotoAlternateIcon fontSize="large" />
@@ -147,13 +160,15 @@ export default function SubmitChallenge(props) {
             <input type="file" name="uploadImg" id="uploadImg" />
           </div> */}
 
-            <PreviewImg ImageCallback={ImageCallback} text="upload Image" />
+            {/* <PreviewImg ImageCallback={ImageCallback} text="upload Image" /> */}
+
+            <CreatePost
+              ImageCallback={ImageCallback}
+              handleSubmitChallenge={handleSubmitChallenge}
+              descCallback={descCallback}
+            />
           </DialogContent>
-          <DialogActions>
-            <Button autoFocus onClick={handleSubmitChallenge}>
-              Post
-            </Button>
-          </DialogActions>
+
           {error ? (
             <Popup
               flag={true}

@@ -41,6 +41,7 @@ import InvalidURL from "../../components/invalidURL/InvalidURL"
 import CreateChallenge from "../../components/challenges/CreateChallenge"
 import ChallengeDetails from "../../components/challenges/ChallengeDetails"
 import SolutionDetails from "../../components/submission/SolutionDetails"
+import { CreatePost } from "../../components/create_post/CreatePost"
 
 export const Home = () => {
   const { user } = useContext(AuthContext)
@@ -219,8 +220,12 @@ export const Home = () => {
         element: <ChallengeDetails />,
       },
       {
-        path: `/submittedchallenge/:id`,
+        path: `/challengeposts/:id`,
         element: <SolutionDetails />,
+      },
+      {
+        path: `/submitchallenge/:challengeId`,
+        element: <CreatePost />,
       },
     ])
     return routes
