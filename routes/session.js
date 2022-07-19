@@ -8,6 +8,11 @@ const fetch = require("node-fetch");
 var app_access_key = '62a5e852b873787aa2709787';
 var app_secret = 'ADM7Q7WkDeJSAIvu-gijRM27381cfXsjZH_eMZjxG0XM1DlAr7kQ6X4Vyc7pgj0x2fEiNOAYBDXwe4vtmBCkFQn9diy8TArRev_Q5pQUdwqGp40tH-ORzlC7f6mNmcIWCKr1aWioVrXWJsi-teGGFfiQa6EBP9upirTEfCVpz0M=';
 
+var jwt = require("jsonwebtoken")
+var uuid4 = require("uuid4")
+var app_access_key = "62a5e852b873787aa2709787"
+var app_secret =
+  "ADM7Q7WkDeJSAIvu-gijRM27381cfXsjZH_eMZjxG0XM1DlAr7kQ6X4Vyc7pgj0x2fEiNOAYBDXwe4vtmBCkFQn9diy8TArRev_Q5pQUdwqGp40tH-ORzlC7f6mNmcIWCKr1aWioVrXWJsi-teGGFfiQa6EBP9upirTEfCVpz0M="
 
 router.post("/createroom", async (req, res) => {
   try {
@@ -116,8 +121,8 @@ router.get("/pastgroup", async (req, res)=>{
   }
 })
 
-
-//create session
+ 
+//create session for oneto one session
 router.post("/:mid", async (req, res) => {
   const menteeID = req.params.mid
   try {

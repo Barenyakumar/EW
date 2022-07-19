@@ -94,12 +94,22 @@ export default function SessionDetails() {
 
   const handleShare = () => {
     handleClickOpen()
-    setSessionLink(`http://localhost:3000/getsession/${sessionId}`)
+    setSessionLink(`http://eduwarts.me/getsession/${sessionId}`)
   }
 
   const [copied, setCopied] = useState(false)
 
   const public_folder = "http://localhost:9000/UserImages"
+
+  // useEffect(() => {
+  //   document.title =
+  //     sessionDetail && mentor
+  //       ? sessionDetail.sessionName + " by " + mentor.name + " | Eduwarts"
+  //       : "Eduwarts"
+
+  //   // document.getElementsByTagName("META")[2].content="Description"
+  // }, [sessionDetail,mentor])
+
   return (
     <div className="sessionContainer">
       <Helmet>

@@ -7,6 +7,8 @@
     font-weight: bolder;
     margin:0px .5rem;
     width: max-content;
+    color: #121212;
+    text-decoration: none;
 }
 
 @media only screen and (max-width: 900px){

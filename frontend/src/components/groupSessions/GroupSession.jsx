@@ -1,19 +1,13 @@
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import {
-  Tabs,
-  Tab,
-  Typography,
-  Box,
-  Button,
-} from "@mui/material"
+import { Tabs, Tab, Typography, Box, Button } from "@mui/material"
 // import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import MuiCardComplex from "../muiCard/MuiCardComplex"
-import {SwiperSession} from "../Swiper/Swiper"
+import { SwiperSession } from "../Swiper/Swiper"
 import axios from "axios"
 import { useContext } from "react"
-import {AuthContext} from "../../context/AuthContext"
-import { Link } from 'react-router-dom';
+import { AuthContext } from "../../context/AuthContext"
+import { Link } from "react-router-dom"
 
 // const card = (
 //   <React.Fragment>
@@ -87,9 +81,9 @@ function a11yProps(index) {
 }
 
 export default function GroupSession() {
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
-  const [UpcomingGroupSessions, setUpcomingGroupSessions] = useState([]);
+  const [UpcomingGroupSessions, setUpcomingGroupSessions] = useState([])
   const [pastGroupSession, setPastGroupSession] = useState([])
   useEffect(() => {
     async function getUpcomingData() {
@@ -103,8 +97,6 @@ export default function GroupSession() {
     getUpcomingData()
     getPastData()
   }, [UpcomingGroupSessions, pastGroupSession])
-  
-
 
   const [value, setValue] = React.useState(0)
 
@@ -150,14 +142,15 @@ export default function GroupSession() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className="MuiCardComplex">
-          {pastGroupSession.length > 0 ? pastGroupSession.map((elem) => (
-            <div className="singleComplexCard" key={elem._id}>
-              <MuiCardComplex element={elem} />
-            </div>
-          )) : "No sessions found..."}
+          {pastGroupSession.length > 0
+            ? pastGroupSession.map((elem) => (
+                <div className="singleComplexCard" key={elem._id}>
+                  <MuiCardComplex element={elem} />
+                </div>
+              ))
+            : "No sessions found..."}
         </div>
       </TabPanel>
     </div>
   )
 }
-
