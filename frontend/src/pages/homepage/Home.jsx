@@ -9,7 +9,7 @@ import { NavBar } from "../../components/navbar/NavBar"
 // import { MainContent } from "../../components/main_content/MainContent"
 // import { Sidebar } from "../../components/sidebar/Sidebar"
 import { BottomNav } from "../../components/bottom_Nav/BottomNav"
-// import { Feed } from "../../components/Feed/Feed"
+import { Feed } from "../../components/Feed/Feed"
 import Explore from "../Explore/Explore"
 import MenteeHome from "../Mentee/home/MenteeHome"
 import MentorList from "../Mentee/discoverMentor/MentorList"
@@ -147,6 +147,15 @@ export const Home = () => {
             <Navigate to="/login" />
           ) : (
             <MentorList />
+          ),
+      },
+      {
+        path: "/feed",
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <Feed />
           ),
       },
       {
