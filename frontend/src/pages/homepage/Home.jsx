@@ -42,6 +42,7 @@ import CreateChallenge from "../../components/challenges/CreateChallenge"
 import ChallengeDetails from "../../components/challenges/ChallengeDetails"
 import SolutionDetails from "../../components/submission/SolutionDetails"
 import { CreatePost } from "../../components/create_post/CreatePost"
+import { Feed } from "../../components/Feed/Feed"
 
 export const Home = () => {
   const { user } = useContext(AuthContext)

@@ -1,6 +1,20 @@
 const router = require("express").Router();
 const Post = require("../models/post");
 const User = require("../models/user");
+
+
+// get all posts
+
+router.get("/all", async(req, res)=>{
+    try {
+        const posts = await Post.find();
+        res.status(200).json(posts)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+
 // create a post 
 
 
@@ -118,6 +132,8 @@ router.get("/profile/:username", async (req, res) => {
         res.status(500).json(error)
     }
 })
+
+
 
 
 

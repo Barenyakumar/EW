@@ -1,6 +1,4 @@
 import React, { useState, useEffect,useContext } from "react"
-import { CreatePost } from "../create_post/CreatePost"
-import { PostCard } from "../post/Post"
 import Avatar from "@mui/material/Avatar"
 import EditIcon from "@mui/icons-material/Edit"
 import Fab from "@mui/material/Fab"
@@ -9,7 +7,7 @@ import Dialog from "@mui/material/Dialog"
 import CloseIcon from "@mui/icons-material/Close"
 import axios from "axios"
 import { AuthContext } from "../../context/AuthContext";
-import { Post } from "../post/Post"
+import {Post} from "../post/Post"
 import { Share } from "../share/Share"
 
 
@@ -35,22 +33,24 @@ export const Feed = (username) => {
     setOpen(false)
   }
 
-  const { user } = useContext(AuthContext)
-
   const [post, setPost] = useState([]);
 
 
   useEffect(() => {
     const fetchPost = async () => {
-      const res = username.username ?
-        await axios.get("/posts/profile/" + username.username) :
-        await axios.get("/posts/timeline/" + user._id);
+      // const res = username.username ?
+      //   await axios.get("/posts/profile/" + username.username) :
+      //   await axios.get("/posts/timeline/" + user._id);
+
+      const res = await axios.get("/posts/all");
       setPost(res.data.sort((p1, p2) => {
         return new Date(p2.createdAt) - new Date(p1.createdAt);
       }));
     }
     fetchPost();
-  }, [username, user._id, post])
+  }, [post])
+
+  console.log(post)
 
   return (
     <div className="feedContainer">

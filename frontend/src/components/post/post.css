@@ -1,69 +1,82 @@
-.createPostContainer{
-    padding: 2rem 1rem 1rem 1rem;
-    width: 100%;
-    height: max-content;
-    margin: 0px auto;
-    border-radius: 0.5rem;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+.postContainer{
+    box-shadow: 2px 2px 15px -6px rgba(0,0,0,1);
+    -webkit-box-shadow: 2px 2px 15px -6px rgba(0,0,0,1);
+    -moz-box-shadow: 2px 2px 15px -6px rgba(0,0,0,1);
+    margin: 30px 0px;
 }
-.postInput{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    height: 100%;
-    width: 85%;
-}
-#avatar{
-    width: 10%;
-    display: flex;
-    align-items: flex-start;
-}
-#postTextArea {
-    resize: none;
-    border-radius: 4px;
-    position: relative;
-    border: 1px solid #ced4da;
-    font-size: 16px;
-    padding: 10px 26px 10px 12px;
-    height: 15vh;
-    width: 100%;
-    outline: none;
-}
-.previewImg{
-    height: max-content;
-    max-height: 30vh;
-    max-width: 100%;
-}
-#previewImg{
-    max-height: 30vh;
-    max-width: 100%;
-    padding: 1rem 0px;
-}
-.imgClose{
-    position: relative;
-    top: 3rem;
-    z-index: 4;
+.postWrapper{
+    padding: 10px;
 }
 
-.postBtn {
+.postTop{
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
-    height: 30%;
-    width: 100%;
-    margin-top: 1rem;
 }
-.uploadFiles{
-    width: 30%;
+.postTopLeft{
+    display: flex;
+    align-items: center;
+}
+
+
+.postProfileImg{
+    width:32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.postUsername{
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0px 10px;
+}
+
+.postDate{
+    font-size: 12px;
+}
+
+.postImg{
+    margin-top: 20px;
+    width:100%;
+    max-height: 500px;
+    object-fit: cover;
+}
+
+.postBottom{
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-#uploadVideo {
-    display: none;
+.postBtnLeft{
+    display: flex;
+    align-items: center;
+}
+
+.likeIcon{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-right: 5px;
+    position: relative;
+    bottom: 0;
+}
+
+.heartIcon{
+    width: 28px ;
+    height: 28px;
+    cursor: pointer;
+    margin-right: 5px;
+    position: relative;
+    bottom: 0;
+}
+.postLikeCounter{
+    font-size: 15px;
+}
+
+.postCommentText{
+    cursor: pointer;
+    border-bottom:1px dashed gray ;
+    font-size: 15px;
 }

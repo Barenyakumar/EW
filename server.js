@@ -82,13 +82,10 @@ app.use("/session", sessionRoutes);
 app.use("/users", UserRoutes)
 app.use("/booking", sessionBooking)
 app.use("/availability", availabilityRoutes)
-<<<<<<< HEAD
-app.use("/posts",postRoute)
-=======
 app.use("/challenge", challengeRoutes)
 app.use("/submitchallenge", submitChallengeRoutes)
+app.use("/posts",postRoute)
 
->>>>>>> e1ab896d768b69e2a5f83e8da0f0b2084fbfc267
 
 // update group session DB for past and upcoming data
 setInterval(async () => {
