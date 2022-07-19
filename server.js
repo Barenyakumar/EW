@@ -13,6 +13,7 @@ const availabilityRoutes = require("./routes/availability")
 const Session = require("./models/oneSession")
 const fetch = require("node-fetch")
 const nodemailer = require('nodemailer')
+const postRoute = require('./routes/post')
 
 dotenv.config();
 
@@ -66,14 +67,14 @@ app.post("/upload", upload.single("file"), (req, res) => {
         console.log(error);
     }
 })
-
+ 
 app.use("/auth", userAuth);
 app.use("/email", emailOtp);
 app.use("/session", sessionRoutes);
 app.use("/users", UserRoutes)
 app.use("/booking", sessionBooking)
 app.use("/availability", availabilityRoutes)
-
+app.use("/posts",postRoute)
 
 // update group session DB for past and upcoming data
 setInterval(async () => {
