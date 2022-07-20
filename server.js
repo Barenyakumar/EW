@@ -16,6 +16,7 @@ const Session = require("./models/oneSession")
 const  Challenge = require("./models/challenge")
 const fetch = require("node-fetch")
 const nodemailer = require('nodemailer')
+const postRoute = require('./routes/post')
 
 dotenv.config();
 
@@ -83,6 +84,7 @@ app.use("/booking", sessionBooking)
 app.use("/availability", availabilityRoutes)
 app.use("/challenge", challengeRoutes)
 app.use("/submitchallenge", submitChallengeRoutes)
+app.use("/posts",postRoute)
 
 
 // update group session DB for past and upcoming data

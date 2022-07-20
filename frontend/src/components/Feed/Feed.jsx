@@ -7,7 +7,8 @@ import Dialog from "@mui/material/Dialog"
 import CloseIcon from "@mui/icons-material/Close"
 import axios from "axios"
 import { AuthContext } from "../../context/AuthContext"
-import { Post } from "../post/Post"
+// import { Post } from "../post/Post"
+import {Post} from "../post/post"
 import { Share } from "../share/Share"
 
 export const Feed = (username) => {

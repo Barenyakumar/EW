@@ -77,6 +77,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: `1.png`,
     },
+    
   },
 
   {

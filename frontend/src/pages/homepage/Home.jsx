@@ -173,6 +173,15 @@ export const Home = () => {
           ),
       },
       {
+        path: "/feed",
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <Feed />
+          ),
+      },
+      {
         path: `/createbooking/:id`,
         element:
           !user || user === undefined ? (

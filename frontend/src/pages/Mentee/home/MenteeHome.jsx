@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useState, useEffect } from "react"
 import { Helmet } from "react-helmet"
+// import Challe
 // import "./home.css"
 // import "../../App.css"
 
@@ -160,6 +161,7 @@ export default function MenteeHome() {
         </>
       )}
 
+        {/* <Challenges /> */}
       {/* <SwiperMentor arrayList={userList} /> */}
 
       {/* <h3 className="centerTitle">Explore Challenges</h3>
