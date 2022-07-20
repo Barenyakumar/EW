@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react"
+import React, { useState, useEffect } from "react"
 import Avatar from "@mui/material/Avatar"
 import EditIcon from "@mui/icons-material/Edit"
 import Fab from "@mui/material/Fab"
@@ -6,8 +6,7 @@ import "./feed.css"
 import Dialog from "@mui/material/Dialog"
 import CloseIcon from "@mui/icons-material/Close"
 import axios from "axios"
-import { AuthContext } from "../../context/AuthContext";
-import {Post} from "../post/Post"
+import {Post} from "../post/post"
 import { Share } from "../share/Share"
 
 
