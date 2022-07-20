@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react"
-import { CreatePost } from "../create_post/CreatePost"
-import { PostCard } from "../post/post"
+import React, { useState, useEffect, useContext } from "react"
 import Avatar from "@mui/material/Avatar"
 import EditIcon from "@mui/icons-material/Edit"
 import Fab from "@mui/material/Fab"
 import "./feed.css"
 import Dialog from "@mui/material/Dialog"
 import CloseIcon from "@mui/icons-material/Close"
+import axios from "axios"
+import { AuthContext } from "../../context/AuthContext"
+import { Post } from "../post/Post"
+import { Share } from "../share/Share"
 
-export const Feed = () => {
+export const Feed = (username) => {
   //adding responsiveness using inner width of device----------------------------------------------------
   const [width, setWidth] = useState(window.innerWidth)
   function widthset() {
@@ -28,6 +30,27 @@ export const Feed = () => {
   const handleClose = () => {
     setOpen(false)
   }
+
+  const [post, setPost] = useState([])
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      // const res = username.username ?
+      //   await axios.get("/posts/profile/" + username.username) :
+      //   await axios.get("/posts/timeline/" + user._id);
+
+      const res = await axios.get("/posts/all")
+      setPost(
+        res.data.sort((p1, p2) => {
+          return new Date(p2.createdAt) - new Date(p1.createdAt)
+        })
+      )
+    }
+    fetchPost()
+  }, [post])
+
+  console.log(post)
+
   return (
     <div className="feedContainer">
       {width <= 900 ? (
@@ -50,42 +73,17 @@ export const Feed = () => {
               sx={{ position: "absolute", right: "0", marginBottom: "1rem" }}
               onClick={handleClose}
             />
-            <CreatePost />
+            <Share />
           </Dialog>
         </div>
       ) : (
         <div className="card">
-          <CreatePost />
+          <Share />
         </div>
       )}
-
-      <div className="card">
-        <PostCard />
-      </div>
-      <div className="card">
-        <PostCard />
-      </div>
-      <div className="card">
-        <PostCard />
-      </div>
-      <div className="card">
-        <PostCard />
-      </div>
-      <div className="card">
-        <PostCard />
-      </div>
-      <div className="card">
-        <PostCard />
-      </div>
-      <div className="card">
-        <PostCard />
-      </div>
-      <div className="card">
-        <PostCard />
-      </div>
-      <div className="card">
-        <PostCard />
-      </div>
+      {post.map((p) => {
+        return <Post key={p._id} post={p} />
+      })}
     </div>
   )
 }
