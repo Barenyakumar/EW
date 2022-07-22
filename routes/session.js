@@ -14,6 +14,43 @@ var app_access_key = "62a5e852b873787aa2709787"
 var app_secret =
   "ADM7Q7WkDeJSAIvu-gijRM27381cfXsjZH_eMZjxG0XM1DlAr7kQ6X4Vyc7pgj0x2fEiNOAYBDXwe4vtmBCkFQn9diy8TArRev_Q5pQUdwqGp40tH-ORzlC7f6mNmcIWCKr1aWioVrXWJsi-teGGFfiQa6EBP9upirTEfCVpz0M="
 
+// RSVP group session
+
+router.post("/rsvp/:sessionId",async (req, res) =>{
+  const sessionId = req.params.sessionId;
+  try {
+    const session = await Session.findById(sessionId);
+    if(!session.members.includes(req.body.userId)){
+      session.members.push(req.body.userId);
+      await session.save();
+      return res.status(200).json("registered for the session!");
+    }
+    else
+      return res.status(200).json("you have already registered");
+  } catch (error) {
+    res.status(500).json(error);
+  }
+})
+
+
+// cancel RSVP group session
+
+router.post("/rsvp/cancel/:sessionId",async (req, res) =>{
+  const sessionId = req.params.sessionId;
+  try {
+    const session = await Session.findById(sessionId);
+    if(session.members.includes(req.body.userId)){
+      session.members.pull(req.body.userId);
+      await session.save();
+      return res.status(200).json("unregistered for the session!");
+    }
+    else
+      return res.status(200).json("you can not register");
+  } catch (error) {
+    res.status(500).json(error);
+  }
+})
+
 router.post("/createroom", async (req, res) => {
   try {
     const response = await fetch("https://prod-in2.100ms.live/api/v2/rooms", {
