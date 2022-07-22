@@ -36,6 +36,7 @@ export default function SessionDetails() {
   const sessionDate = new Date(sessionDetail.date + sessionDetail.startTime)
 
   const [open, setOpen] = React.useState(false)
+  const [open1, setOpen1] = React.useState(false)
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -44,16 +45,32 @@ export default function SessionDetails() {
   const handleClose = () => {
     setOpen(false)
   }
+  const handleClickOpen1 = () => {
+    setOpen1(true)
+  }
 
+  const handleClose1 = () => {
+    setOpen1(false)
+  }
+
+
+  useEffect(()=>{
+    
+  },[])
   useEffect(() => {
     const getSessionData = async () => {
       SetPreloader(true)
       const res = await axios.get(`/session/${sessionId}`)
       setSessionDetail(res.data)
+      if (res.data.members.includes(user._id))
+          setRegistered(true);
+      else
+        setRegistered(false)
       SetPreloader(false)
     }
     getSessionData()
-  }, [sessionId])
+    
+  }, [sessionId, registered])
   useEffect(() => {
     SetPreloader(true)
     const getMentor = async () => {
@@ -91,7 +108,8 @@ export default function SessionDetails() {
       const res = await axios.post(`/session/rsvp/cancel/${sessionId}`, {
         userId: user._id
       })
-      handleClickOpen();
+      handleClickOpen1();
+      setRegistered(true);
 
     } catch (error) {
 
@@ -99,10 +117,13 @@ export default function SessionDetails() {
   }
 
   const handleremoveRSVP = async ()=>{
+    console.log("unenrolled");
     try {
       const res = await axios.post(`/session/rsvp/${sessionId}`, {
         userId: user._id
       })
+      handleClickOpen1();
+      setRegistered(false);
     } catch (error) {
       
     }
@@ -243,15 +264,15 @@ export default function SessionDetails() {
                 >
                   you've registered!
                 </Button> <br />
-                <span style={{ color: "red", cursor:"pointer" }} onClick={{ handleremoveRSVP }}>Cancel registration</span>
+                <span style={{ color: "red", cursor:"pointer" }} onClick={handleremoveRSVP}>Cancel registration</span>
               </>
           }
 
           <Dialog
-            open={open}
+            open={open1}
             TransitionComponent={Transition}
             keepMounted
-            onClose={handleClose}
+            onClose={handleClose1}
             aria-describedby="alert-dialog-slide-description"
           >
             <DialogTitle>{"🎊🎉Congratulations! 🎉🎊"}</DialogTitle>
@@ -259,7 +280,7 @@ export default function SessionDetails() {
               You have registered for the session!!!
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleClose}>ok</Button>
+              <Button onClick={handleClose1}>ok</Button>
             </DialogActions>
           </Dialog>
 
