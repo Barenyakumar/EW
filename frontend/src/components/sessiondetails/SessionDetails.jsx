@@ -24,22 +24,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />
 })
 
-// const sessionDetail =
-//   {
-//     sessionName: "Switching to Freelancing by Barenya Kumar Panda",
-//     date: "Jun 30",
-//     time: " 8:00pm",
-//     sessionImg: "images/1.jpg",
-//     sessionLink:"123@ffd",
-//     description:
-//       " If you have ever wondered what switching to freelancing feels like or if you are one of those brave souls to switch to an independent lifestyle, this session is for you. As the world sees freelancers are lucky souls, I am sure most of you know it's not as easy as it looks.",
-//     category: "WEB3",
-//     mentor: "12333",
-//     coHosts: [
-//       "123","234","235","236"
-//     ],
-//   }
-
 export default function SessionDetails() {
   const { user } = useContext(AuthContext)
   const sessionId = useParams().id
@@ -47,6 +31,7 @@ export default function SessionDetails() {
   const [mentor, setMentor] = useState({})
   const [sessionLink, setSessionLink] = useState("")
   const [preloader, SetPreloader] = useState(false)
+  const [registered, setRegistered] = useState(false)
 
   const sessionDate = new Date(sessionDetail.date + sessionDetail.startTime)
 
@@ -76,6 +61,8 @@ export default function SessionDetails() {
         const mentor = await axios.get(`/users/${sessionDetail.mentor}`)
         setMentor(mentor.data)
         SetPreloader(false)
+        if (sessionDetail.members.includes(user._id))
+          setRegistered(true);
       }
     }
     getMentor()
@@ -98,6 +85,28 @@ export default function SessionDetails() {
   }
 
   const [copied, setCopied] = useState(false)
+
+  const handleRegistration = async () => {
+    try {
+      const res = await axios.post(`/session/rsvp/cancel/${sessionId}`, {
+        userId: user._id
+      })
+      handleClickOpen();
+
+    } catch (error) {
+
+    }
+  }
+
+  const handleremoveRSVP = async ()=>{
+    try {
+      const res = await axios.post(`/session/rsvp/${sessionId}`, {
+        userId: user._id
+      })
+    } catch (error) {
+      
+    }
+  }
 
   const public_folder = "http://localhost:9000/UserImages"
   return (
@@ -184,14 +193,22 @@ export default function SessionDetails() {
       </div>
 
       {!user || user === undefined ? (
-        <div className="joinButtonS" style={{ display: "flex", alignItems: "center", justifyContent:"center" }}>
-          <Button
+        <div className="joinButtonS" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+          {/* <Button
             variant="outlined"
             component={Link}
             to={"/login"}
             size="large"
           >
             join
+          </Button> */}
+          <Button
+            variant="outlined"
+            component={Link}
+            to={"/login"}
+            size="large"
+          >
+            RSVP
           </Button>
         </div>
       ) : (
@@ -208,6 +225,45 @@ export default function SessionDetails() {
             </span>
             <GroupsIcon />
           </Button>
+          {
+            !registered ?
+              <Button
+                variant="contained"
+                onClick={handleRegistration}
+                to={"/login"}
+                size="large"
+              >
+                RSVP
+              </Button> :
+              <>
+                <Button
+                  variant="outlined"
+                  disabled
+                  size="large"
+                >
+                  you've registered!
+                </Button> <br />
+                <span style={{ color: "red", cursor:"pointer" }} onClick={{ handleremoveRSVP }}>Cancel registration</span>
+              </>
+          }
+
+          <Dialog
+            open={open}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleClose}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle>{"🎊🎉Congratulations! 🎉🎊"}</DialogTitle>
+            <DialogContent>
+              You have registered for the session!!!
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>ok</Button>
+            </DialogActions>
+          </Dialog>
+
+
         </div>
       )}
 
