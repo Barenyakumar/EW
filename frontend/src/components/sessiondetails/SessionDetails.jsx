@@ -53,23 +53,17 @@ export default function SessionDetails() {
     setOpen1(false)
   }
 
-
-  useEffect(()=>{
-    
-  },[])
+  useEffect(() => {}, [])
   useEffect(() => {
     const getSessionData = async () => {
       SetPreloader(true)
       const res = await axios.get(`/session/${sessionId}`)
       setSessionDetail(res.data)
-      if (res.data.members.includes(user._id))
-          setRegistered(true);
-      else
-        setRegistered(false)
+      if (res.data.members.includes(user._id)) setRegistered(true)
+      else setRegistered(false)
       SetPreloader(false)
     }
     getSessionData()
-    
   }, [sessionId, registered])
   useEffect(() => {
     SetPreloader(true)
@@ -78,8 +72,7 @@ export default function SessionDetails() {
         const mentor = await axios.get(`/users/${sessionDetail.mentor}`)
         setMentor(mentor.data)
         SetPreloader(false)
-        if (sessionDetail.members.includes(user._id))
-          setRegistered(true);
+        if (sessionDetail.members.includes(user._id)) setRegistered(true)
       }
     }
     getMentor()
@@ -105,27 +98,28 @@ export default function SessionDetails() {
 
   const handleRegistration = async () => {
     try {
-      const res = await axios.post(`/session/rsvp/cancel/${sessionId}`, {
-        userId: user._id
+      const res = await axios.post(`/session/rsvp/${sessionId}`, {
+        userId: user._id,
       })
-      handleClickOpen1();
-      setRegistered(true);
-
+      handleClickOpen1()
+      setRegistered(true)
+      console.log(res.data)
     } catch (error) {
-
+      console.log(error)
     }
   }
 
-  const handleremoveRSVP = async ()=>{
-    console.log("unenrolled");
+  const handleremoveRSVP = async () => {
+    console.log("unenrolled")
     try {
-      const res = await axios.post(`/session/rsvp/${sessionId}`, {
-        userId: user._id
+      const res = await axios.post(`/session/rsvp/cancel/${sessionId}`, {
+        userId: user._id,
       })
-      handleClickOpen1();
-      setRegistered(false);
+      handleClickOpen1()
+      setRegistered(false)
+      console.log(res.data)
     } catch (error) {
-      
+      console.log(error)
     }
   }
 
@@ -139,7 +133,10 @@ export default function SessionDetails() {
 
   //   // document.getElementsByTagName("META")[2].content="Description"
   // }, [sessionDetail,mentor])
-
+  console.log(
+    new Date(sessionDetail.date + sessionDetail.startTime).getTime() - 1800000 <
+      Date.now()
+  )
   return (
     <div className="sessionContainer">
       <Helmet>
@@ -224,7 +221,14 @@ export default function SessionDetails() {
       </div>
 
       {!user || user === undefined ? (
-        <div className="joinButtonS" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div
+          className="joinButtonS"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           {/* <Button
             variant="outlined"
             component={Link}
@@ -250,14 +254,19 @@ export default function SessionDetails() {
           <Button variant="outlined" onClick={handleShare} size="large">
             <ShareIcon />
           </Button>
-          <Button variant="contained" size="large">
-            <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
-              Join
-            </span>
-            <GroupsIcon />
-          </Button>
-          {
-            !registered ?
+          {/* {new Date(sessionDetail.date + sessionDetail.startTime).getTime() -
+            1800000 < Date.now() ? (
+            <Button variant="contained" size="large">
+              <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
+                Join
+              </span>
+              <GroupsIcon />
+            </Button>
+          ) : (
+            ""
+          )} */}
+          {sessionDetail.mentor !== user._id ? (
+            !registered ? (
               <Button
                 variant="contained"
                 onClick={handleRegistration}
@@ -265,18 +274,50 @@ export default function SessionDetails() {
                 size="large"
               >
                 RSVP
-              </Button> :
+              </Button>
+            ) : new Date(
+                sessionDetail.date + sessionDetail.startTime
+              ).getTime() -
+                1800000 <
+              Date.now() ? (
+              <Button variant="contained" size="large">
+                <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
+                  Join
+                </span>
+                <GroupsIcon />
+              </Button>
+            ) : (
               <>
-                <Button
-                  variant="outlined"
-                  disabled
-                  size="large"
-                >
+                <Button variant="outlined" disabled size="large">
                   you've registered!
-                </Button> <br />
-                <span style={{ color: "red", cursor:"pointer" }} onClick={handleremoveRSVP}>Cancel registration</span>
+                </Button>{" "}
+                <br />
+                <span
+                  style={{ color: "red", cursor: "pointer" }}
+                  onClick={handleremoveRSVP}
+                >
+                  Cancel registration
+                </span>
               </>
-          }
+            )
+          ) :new Date(
+                sessionDetail.date + sessionDetail.startTime
+              ).getTime() -
+                1800000 <
+              Date.now() ? (
+              <Button variant="contained" size="large">
+                <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
+                  Join
+                </span>
+                <GroupsIcon />
+              </Button>
+            ) : 
+                <span
+                  style={{ color: "red", cursor: "pointer" }}
+                >
+                  *Join button will be active, 30 mins before the session time.
+                </span>
+              }
 
           <Dialog
             open={open1}
@@ -293,8 +334,6 @@ export default function SessionDetails() {
               <Button onClick={handleClose1}>ok</Button>
             </DialogActions>
           </Dialog>
-
-
         </div>
       )}
 

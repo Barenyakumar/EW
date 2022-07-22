@@ -55,17 +55,10 @@ router.get('/search', async (req, res) => {
     if (isMentor) {
       queryObject.isMentor = true
     }
-    queryObject.username = { $regex: s, $options: "i" }
+    queryObject.name = { $regex: s, $options: "i" }
     let result1 = await User.find(queryObject)
     queryObject = {}
-    if (isMentor) {
-      queryObject.isMentor = isMentor
-    }
-    queryObject.name = { $regex: s, $options: "i" }
-    let result2 = await User.find(queryObject)
-    let user = [...result1]
-    result2 =result2.filter((item, result1) => result1.indexOf(item) === -1);
-    user.concat(result2);
+    
     // result2.forEach((elem, i) => {
     //   console.log(elem)
     //   if (user.indexOf(elem)===-1) {
@@ -73,7 +66,7 @@ router.get('/search', async (req, res) => {
     //   }
     // })
     // if (user.length > 1)
-      res.status(200).json(user)
+      res.status(200).json(result1)
     // else
     //   res.status(200).json(["No user found. Try again... !!!"])
   } catch (error) {

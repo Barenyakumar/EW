@@ -1,68 +1,66 @@
-const express = require('express')
-const mongoose = require('mongoose')
+const express = require("express")
+const mongoose = require("mongoose")
 const path = require("path")
 const dotenv = require("dotenv")
 const multer = require("multer")
-const userAuth = require("./routes/userAuth");
+const userAuth = require("./routes/userAuth")
 const emailOtp = require("./routes/emailOtp")
-const app = express();
-const sessionRoutes = require("./routes/session");
-const UserRoutes = require("./routes/users");
+const app = express()
+const sessionRoutes = require("./routes/session")
+const UserRoutes = require("./routes/users")
 const sessionBooking = require("./routes/booking")
 const availabilityRoutes = require("./routes/availability")
 const challengeRoutes = require("./routes/challenge")
 const submitChallengeRoutes = require("./routes/submitChallenge")
 const Session = require("./models/oneSession")
-const  Challenge = require("./models/challenge")
+const Challenge = require("./models/challenge")
 const fetch = require("node-fetch")
-const nodemailer = require('nodemailer')
-const postRoute = require('./routes/post')
+const nodemailer = require("nodemailer")
+const postRoute = require("./routes/post")
 
-dotenv.config();
+dotenv.config()
 
 mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
 })
 
 mongoose.connection.on("connected", () => {
-    console.log("Eduwats_DB is connected...")
+  console.log("Eduwats_DB is connected...")
 })
 
-
 // setting up public dir
-app.use(express.static('public'));
-app.use("/UserImages", express.static(path.join(__dirname, "public/userImages")));
+app.use(express.static("public"))
+app.use(
+  "/UserImages",
+  express.static(path.join(__dirname, "public/userImages"))
+)
 
-app.use(express.json());
-
-
-
+app.use(express.json())
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "public/userImages");
-    },
-    filename: (req, file, cb) => {
-        cb(null, req.body.name);
-    },
-});
-
+  destination: (req, file, cb) => {
+    cb(null, "public/userImages")
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.body.name)
+  },
+})
 
 // const upload = multer({
 //     storage: storage,
 //     // limits: { fileSize: 1000000 }
 // });
 
-const upload = multer({storage});
-app.post("/upload",upload.single("file"), (req, res) => {
-    try {
-        res.status(200).json("initiated upload ");
-    } catch (error) {
-        console.log(error);
-    }
+const upload = multer({ storage })
+app.post("/upload", upload.single("file"), (req, res) => {
+  try {
+    res.status(200).json("initiated upload ")
+  } catch (error) {
+    console.log(error)
+  }
 })
 // return res.status(200).json("file uploaded successfully.");
 // try {
@@ -76,58 +74,82 @@ app.post("/upload",upload.single("file"), (req, res) => {
 //     console.log(error);
 // }
 
-app.use("/auth", userAuth);
-app.use("/email", emailOtp);
-app.use("/session", sessionRoutes);
+app.use("/auth", userAuth)
+app.use("/email", emailOtp)
+app.use("/session", sessionRoutes)
 app.use("/users", UserRoutes)
 app.use("/booking", sessionBooking)
 app.use("/availability", availabilityRoutes)
 app.use("/challenge", challengeRoutes)
 app.use("/submitchallenge", submitChallengeRoutes)
-app.use("/posts",postRoute)
+app.use("/posts", postRoute)
 
+// // update group session DB for past and upcoming data
+// setInterval(async () => {
+//   const session = await Session.find()
+//   //   session.forEach(async (s) => {
+//   //   const sessionDate = new Date(s.date + s.startTime);
 
-// update group session DB for past and upcoming data
-setInterval(async () => {
-    const session = await Session.find();
-    session.forEach(async s => {
-        const sessionDate = new Date(s.date + s.startTime);
-        if (sessionDate.getTime() < Date.now()) {
-            s.isActive = false;
-            await s.save();
-        }
-    });
+//   //   const timeDiff = Date.now() - sessionDate.getTime()
+//   //   console.log(timeDiff)
+//   // console.log(Math.abs( s.duration * 60000))
 
-     const challenge = await Challenge.find()
-     challenge.forEach(async (s) => {
-       const challengeDate = new Date(s.endDate + s.endTime)
-       if (challengeDate.getTime() < Date.now()) {
-         s.isActive = false
-         await s.save()
-       }
-     })
-}, 1000);
+//   // if (3517671 > 3600000) {
+//   //   s.isActive = false
+//   //   await s.save()
+//   // }
 
+//   // const sessionDate = new Date(s.date + s.startTime)
+//   //    console.log(sessionDate.getTime())
+//   //   console.log(s)
 
+//   for (let i = 0; i < session; i++) {
+//     console.log(session[i])
+//   }
+
+//   //   const challenge = await Challenge.find()
+//   //   challenge.forEach(async (s) => {
+//   //     const challengeDate = new Date(s.endDate + s.endTime)
+//   //     if (challengeDate.getTime() < Date.now()) {
+//   //       s.isActive = false
+//   //       await s.save()
+//   //     }
+//   //   })
+// }, 10000)
+
+setInterval(async()=> {
+  const session = await Session.find()
+  session.forEach(async(s) => {
+      const sessionDate = new Date(s.date + s.startTime)
+      const endTime = sessionDate.getTime() + s.duration * 60000
+    //   console.log(endTime)
+    //   console.log(Date.now())
+      if (endTime < Date.now()) {
+        //   console.log("false")
+          s.isActive = false
+          await s.save()
+      }
+  })
+}, 1000)
 // send mail to all the user's from array
 
 const transporter = nodemailer.createTransport({
-    // service:"webmail",
-    host: "smtp.eduwarts.tech",
-    port: 587,
-    secure: false,
-    auth: {
-        user: "team@eduwarts.tech",
-        pass: "tgxSUrp6",
-    },
-    tls: {
-        rejectUnauthorized: false,
-    },
+  // service:"webmail",
+  host: "smtp.eduwarts.tech",
+  port: 587,
+  secure: false,
+  auth: {
+    user: "team@eduwarts.tech",
+    pass: "tgxSUrp6",
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
 })
 
 // interval logic for repeating the call every 10 sec
-var mailFlag = false;
-var sessionDetails = {};
+// var mailFlag = false;
+// var sessionDetails = {};
 
 // api to toggle mail flag for each request
 // app.post("/send_mail_to_all", (req, res) => {
@@ -161,7 +183,7 @@ var sessionDetails = {};
 //                 Time:${sessionDetails.sessionBody.startTime}\n\n\n
 //                 You can view and join session by following link\n\n
 //                 http://localhost:3000/session/${sessionDetails.sessionId}\n\n\n\n\n\n
-    
+
 //                 This is an automated mail. Please do not reply to this mail.\n\n\n
 //                 Team Eduwarts.`,
 //                 }
@@ -179,19 +201,16 @@ var sessionDetails = {};
 //     sessionDetails = {};
 // }
 
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static("frontend/build"))
 
-
-
-if (process.env.NODE_ENV == 'production') {
-    app.use(express.static("frontend/build"))
-
-    app.get("*", (req, res) => {
-        res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
-    })
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+  })
 }
 
 // const PORT =process.env.PORT || 9000
 
 app.listen(process.env.PORT, () => {
-    console.log("Server listening on port " + process.env.PORT)
+  console.log("Server listening on port " + process.env.PORT)
 })
