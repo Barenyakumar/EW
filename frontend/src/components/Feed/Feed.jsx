@@ -50,7 +50,7 @@ export const Feed = (username) => {
     fetchPost()
   }, [post])
 
-  console.log(post)
+  // console.log(post)
 
   return (
     <div className="feedContainer">

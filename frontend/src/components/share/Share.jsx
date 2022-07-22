@@ -17,7 +17,6 @@ export const Share = () => {
     const imgFile = useRef()
     const [imgData, setImgData] = useState("")
     const imagePreview = (e) => {
-        console.log(e.target.files[0])
         var reader = new FileReader()
         reader.onload = function (event) {
             // The file's text will be printed here
@@ -39,7 +38,13 @@ export const Share = () => {
         imagePreview(e)
         setFile(e.target.files[0])
     }
+
     const handlePost = async () => {
+         const submissionBody = {
+           userId: user._id,
+           postDesc: desc.current.value,
+         }
+                
         if (file) {
             const data = new FormData()
             const fileName = Date.now() + file.name.replace(/ /g, "-")
@@ -47,26 +52,19 @@ export const Share = () => {
             data.append("file", file)
             try {
                 await axios.post("/upload", data)
-
-                const submissionBody = {
-                    userId: user._id,
-                    postDesc: desc.current.value,
-                    postImg: fileName,
-                }
-                try {
-                    var challengeSubmission = await axios.post(
-                        `/posts/`,
-                        submissionBody
-                    )
-
-                } catch (error) {
-                    setError(true)
-                }
-
+                submissionBody.postImg = fileName
             } catch (err) {
                 setError(true)
 
             }
+        }
+        try {
+            await axios.post(`/posts/`, submissionBody)
+            desc.current.value = "";
+            removePreview();
+            
+        } catch (error) {
+          setError(true)
         }
     }
     return (

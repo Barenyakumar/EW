@@ -113,6 +113,7 @@
 //     </Card>
 //   )
 // }
+
 import "./post.css"
 import DeleteIcon from "@mui/icons-material/Delete"
 import React, { useState, useEffect, useContext } from "react"
@@ -121,6 +122,8 @@ import { format } from "timeago.js"
 import { Link } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext"
 import { maxHeight } from "@mui/system"
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
+import { Avatar } from "@mui/material"
 
 export const Post = ({ post }) => {
   const [like, setLike] = useState(post.likes.length)
@@ -135,7 +138,7 @@ export const Post = ({ post }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`/users?userId=${post.userId}`)
+      const res = await axios.get(`users/${post.userId}`)
       setUser(res.data)
     }
     fetchUser()
@@ -164,56 +167,74 @@ export const Post = ({ post }) => {
     }
   }
 
-  const publicFolder = process.env.REACT_APP_PUBLIC_FOLDER
+  const publicFolder = "http://localhost:9000/UserImages/"
   return (
     <div className=" postContainer" id="postContainer">
       <div className="postWrapper">
         <div className="postTop">
-          <div className="postTopLeft">
-            <Link
-              to={`profile/${user.username}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <img
+          <Link
+            to={`/profile/${user.username}`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <div className="postTopLeft">
+              <Avatar
+                className="avatarBadge"
+                sx={{ bgcolor: "#344CB7 " }}
                 src={
-                  user.profilePicture
-                    ? publicFolder + user.profilePicture
-                    : publicFolder + "/avatar.jpg"
+                  user.profileImage
+                    ? publicFolder + user.profileImage
+                    : `/Avatars/${user.gender}/${user.defaultImage}`
                 }
-                alt=""
-                className="postProfileImg"
-              />
-              <span className="postUsername">{user.username}</span>
-              <span className="postDate">{format(post.createdAt)}</span>
-            </Link>
-          </div>
-          <div className="postTopRight" id="postTopRight">
+                alt={user.name}
+              ></Avatar>
+
+              <div className="userDetailsPost">
+                <span className="postUsername">{user.username}</span>
+                <span className="postDate">{format(post.createdAt)}</span>
+              </div>
+            </div>
+          </Link>
+          {/* <div className="postTopRight" id="postTopRight">
             <DeleteIcon className="MoreBtn" onClick={deletePost} />
+          </div> */}
+          <div className="postCenter">
+            {post.postImg ? (
+              <img
+                src={publicFolder + post.postImg}
+                alt=""
+                className="postImg"
+              />
+            ) : (
+              ""
+            )}
+            <span className="postText">{post?.postDesc}</span>
           </div>
         </div>
-        <div className="postCenter">
-          <span className="postText">{post?.desc}</span>
-          <img src={publicFolder + post.img} alt="" className="postImg" />
-        </div>
+
         <div className="postBottom">
           <div className="postBtnLeft">
-            <img
+            <FavoriteBorderIcon
+              onClick={likeHandler}
+              className="likeIcon"
+              style={{ color: "red" }}
+            />
+            {/* <img
               src="/assets/like.png"
               alt=""
               onClick={likeHandler}
               className="likeIcon"
-            />
-            <img
+            /> */}
+            {/* <img
               src="/assets/heart.png"
               alt=""
               onClick={likeHandler}
               className="heartIcon"
-            />
+            /> */}
             <span className="postLikeCounter">{like} people like it</span>
           </div>
-          <div className="postBtnRight">
+          {/* <div className="postBtnRight">
             <span className="postCommentText">{post.comments} comments</span>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
