@@ -15,7 +15,7 @@ export default function SearchPage() {
     }
     getSearchResult()
   }, [searchText])
-  // console.log(searchResult)
+  console.log(searchResult)
 
   const containerHeight = useRef()
   const [height, setHeight] = useState(0)

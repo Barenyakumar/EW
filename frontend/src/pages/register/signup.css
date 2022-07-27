@@ -5,6 +5,7 @@
     justify-content: space-between;
     /* border: 2px solid red; */
     height: 80vh;
+    margin-top: 1rem;
     /* height: max-content; */
 }
 .signupPageWrapper{

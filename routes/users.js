@@ -1,53 +1,74 @@
 const express = require("express")
 const router = express.Router()
 const User = require("../models/user")
-const bcrypt = require('bcrypt')
-
+const bcrypt = require("bcrypt")
 
 // get all mentors
 
-router.get("/mentors", async (req, res)=>{
+router.get("/mentors", async (req, res) => {
   try {
-    const users = await User.find({isMentor:true});
+    const users = await User.find({ isMentor: true })
     res.status(200).json(users)
   } catch (error) {
     res.status(500).json(error)
   }
 })
 
-
 // search User
-router.get('/search', async (req, res) => {
-  const { s, isMentor } = req.query;
+// router.get('/search', async (req, res) => {
+//   const { s, isMentor } = req.query;
+//   try {
+//     if (isMentor===true) {
+//      const user = await User.find({name:{$regex: s , $options: "i" }, isMentor:true})
+//      return res.status(200).json(user);
+//     }
+//     else{
+//       const user = await User.find({name:{ $regex: s, $options: "i" }})
+//       // if(user.length>1)
+//         return res.status(200).json(user);
+//       // else
+//       //   return res.status(200).json(["No user found. Try again... !!!"])
+//     }
+//     // if (user.length > 1)
+//       // res.status(200).json(user)
+//     // else
+//     //   res.status(200).json(["No user found. Try again... !!!"])
+//   } catch (error) {
+//     res.status(500).json({ msg: "Something went wrong!!!" })
+//   }
+// })
+
+function getunique(arr1, arr2) {
+  arr1.forEach((e) => {
+    if (arr2.indexOf(e) === -1) return e
+  })
+}
+
+router.get("/search", async (req, res) => {
+  const { s, isMentor } = req.query
   try {
-    let queryObject = {};
+    let queryObject = {}
     if (isMentor) {
       queryObject.isMentor = true
     }
-    queryObject.username = { $regex: s, $options: "i" }
+    queryObject.name = { $regex: s, $options: "i" }
     let result1 = await User.find(queryObject)
     queryObject = {}
-    if (isMentor) {
-      queryObject.isMentor = isMentor
-    }
-    queryObject.name = { $regex: s, $options: "i" }
-    let result2 = await User.find(queryObject)
-    let user = [...result1]
-    result2.forEach(elem => {
-      if (!result1.includes(elem)) {
-        user.concat([elem])
-      }
-    })
-    if (user.length > 1)
-      res.status(200).json(user)
-    else
-      res.status(200).json(["No user found. Try again... !!!"])
+
+    // result2.forEach((elem, i) => {
+    //   console.log(elem)
+    //   if (user.indexOf(elem)===-1) {
+    //     user.concat([elem])
+    //   }
+    // })
+    // if (user.length > 1)
+    res.status(200).json(result1)
+    // else
+    //   res.status(200).json(["No user found. Try again... !!!"])
   } catch (error) {
     res.status(500).json({ msg: "Something went wrong!!!" })
   }
 })
-
-
 
 // get user
 router.get("/", async (req, res) => {
@@ -76,7 +97,7 @@ router.get("/all", async (req, res) => {
         Name: element.name,
         id: element._id,
         username: element.username,
-        email: element.email
+        email: element.email,
       }
     })
     return res.status(200).json(result)
@@ -84,9 +105,6 @@ router.get("/all", async (req, res) => {
     return res.status(500).json(error)
   }
 })
-
-
-
 
 // update profile
 
@@ -129,9 +147,7 @@ router.put("/:id", async (req, res) => {
 
       await user.save()
       const { password, updatedAt, createdAt, isAdmin, ...other } = user._doc
-      res
-        .status(200)
-        .json({ msg: "Account successfully updated", user: other })
+      res.status(200).json({ msg: "Account successfully updated", user: other })
     } catch (error) {
       return res.status(500).json(error)
     }
@@ -160,19 +176,15 @@ router.post("/:id/updatemail", async (req, res) => {
       const user = await User.findById(req.params.id)
       let flag = await bcrypt.compare(req.body.password, user.password)
       if (flag) {
-        user.email = req.body.email;
+        user.email = req.body.email
         await user.save()
 
         res.status(200).send("Email updated")
-
-      }
-      else
-        res.status(200).json("wrong password")
+      } else res.status(200).json("wrong password")
     } catch (e) {
       return res.status(500).json(e)
     }
-  }
-  else {
+  } else {
     res.status(200).json("not a user")
   }
 })
@@ -221,7 +233,6 @@ router.get("/:id", async (req, res) => {
 //   }
 // })
 
-// 
-
+//
 
 module.exports = router
