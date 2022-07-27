@@ -167,7 +167,7 @@ export default function MenteeHome() {
       {/* <h3 className="centerTitle">Explore Challenges</h3>
       <SwiperMentor arrayList={challengeList} /> */}
 
-      <Challenges/>
+      {/* <Challenges/> */}
       
       {/* <div style={{ marginTop: "30px" }}>
         <h2 className="centerTitle">Join group mentoring </h2>

@@ -125,7 +125,7 @@ export default function ChallengeDetails() {
 
   const handleShare = () => {
     handleClickOpen()
-    setChallengeLink(`http://localhost:3000/getchallenge/${challengeId}`)
+    setChallengeLink(`http://eduwarts.com/getchallenge/${challengeId}`)
   }
 
   const [copied, setCopied] = useState(false)

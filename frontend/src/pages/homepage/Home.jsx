@@ -88,24 +88,24 @@ export const Home = () => {
       //   path: "/mentor",
       //   element: !user || user === undefined? <Navigate to="/login" /> : <MentorList />,
       // },
-      {
-        path: "/challanges",
-        element:
-          !user || user === undefined ? (
-            <Navigate to="/login" />
-          ) : (
-            <Challenges />
-          ),
-      },
-      {
-        path: "/feed",
-        element:
-          !user || user === undefined ? (
-            <Navigate to="/login" />
-          ) : (
-            <Feed/>
-          ),
-      },
+      // {
+      //   path: "/challanges",
+      //   element:
+      //     !user || user === undefined ? (
+      //       <Navigate to="/login" />
+      //     ) : (
+      //       <Challenges />
+      //     ),
+      // },
+      // {
+      //   path: "/feed",
+      //   element:
+      //     !user || user === undefined ? (
+      //       <Navigate to="/login" />
+      //     ) : (
+      //       <Feed/>
+      //     ),
+      // },
       // {
       //   path: "/singlechallange",
       //   element:
@@ -172,15 +172,15 @@ export const Home = () => {
             <MentorList />
           ),
       },
-      {
-        path: "/feed",
-        element:
-          !user || user === undefined ? (
-            <Navigate to="/login" />
-          ) : (
-            <Feed />
-          ),
-      },
+      // {
+      //   path: "/feed",
+      //   element:
+      //     !user || user === undefined ? (
+      //       <Navigate to="/login" />
+      //     ) : (
+      //       <Feed />
+      //     ),
+      // },
       {
         path: `/createbooking/:id`,
         element:
@@ -224,27 +224,27 @@ export const Home = () => {
         path: `*`,
         element: <InvalidURL />,
       },
-      {
-        path: `/createnewchallenge`,
-        element:
-          !user || user === undefined ? (
-            <Navigate to="/login" />
-          ) : (
-            <CreateChallenge />
-          ),
-      },
-      {
-        path: `/getchallenge/:id`,
-        element: <ChallengeDetails />,
-      },
-      {
-        path: `/challengeposts/:id`,
-        element: <SolutionDetails />,
-      },
-      {
-        path: `/submitchallenge/:challengeId`,
-        element: <CreatePost />,
-      },
+      // {
+      //   path: `/createnewchallenge`,
+      //   element:
+      //     !user || user === undefined ? (
+      //       <Navigate to="/login" />
+      //     ) : (
+      //       <CreateChallenge />
+      //     ),
+      // },
+      // {
+      //   path: `/getchallenge/:id`,
+      //   element: <ChallengeDetails />,
+      // },
+      // {
+      //   path: `/challengeposts/:id`,
+      //   element: <SolutionDetails />,
+      // },
+      // {
+      //   path: `/submitchallenge/:challengeId`,
+      //   element: <CreatePost />,
+      // },
     ])
     return routes
   }
