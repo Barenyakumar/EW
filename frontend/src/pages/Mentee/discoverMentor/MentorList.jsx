@@ -23,7 +23,7 @@ const MentorList = () => {
     }
     getSearchResult()
   }, [searchText])
-  // console.log(searchResult)
+  console.log(searchResult)
 
   const containerHeight = useRef()
   const [height, setHeight] = useState(0)
@@ -33,7 +33,7 @@ const MentorList = () => {
   const containerStyle = {
     maxHeight: (2 * height).toString() + "px",
   }
-  // console.log(containerStyle)
+  console.log(containerStyle)
   return (
     <div className="MentorsWrapper">
       <Helmet>

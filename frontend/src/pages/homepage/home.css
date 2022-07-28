@@ -1,23 +1,27 @@
 .homeContainer{
     height: 100vh;
     overflow-y: auto;
+    padding: 0px 0.2rem;
 }
 .homeContainer::-webkit-scrollbar{
-    width: 5px;
+    width: 7px;
 }
 .homeContainer::-webkit-scrollbar-track{
     background: transparent;
 }
 .homeContainer::-webkit-scrollbar-thumb{
-    background: rgba(199, 199, 199, 0.29);
+    background: rgba(150, 150, 150, 0.29);
     height: 10px;
     border-radius: 10px;
 }
 .homeContainer::-webkit-scrollbar-thumb:hover{
-    background: rgba(199, 199, 199, 0.57);
+    background: rgba(107, 107, 107, 0.29);
     height: 10px;
     border-radius: 10px;
+    width: 9px;
+
 }
+
 .sideBar{
     height:100%;
     width: 20%;
@@ -71,4 +75,9 @@
     .homeContainer{
         height: 95vh;
     }
+    
+    .homeContainer::-webkit-scrollbar {
+  display: none;
+}
+
 }
