@@ -213,9 +213,9 @@ export const NavBar = (props) => {
                           <span className="listValue">My Profile</span>
                         </li>{" "}
                       </Link>
-                      {/* <Link
+                      <Link
                         onClick={toggleDrawer(false)}
-                        to="/"
+                        to="/feed"
                         style={{ textDecoration: "none", color: "black" }}
                       >
                         <li className="navValues">
@@ -224,9 +224,9 @@ export const NavBar = (props) => {
                           >
                             <BookRoundedIcon />
                           </Avatar>
-                          <span className="listValue">Wishlist</span>
+                          <span className="listValue">Feed</span>
                         </li>{" "}
-                      </Link> */}
+                      </Link>
                       {/* <Link
                         onClick={toggleDrawer(false)}
                         to="/"
@@ -238,7 +238,7 @@ export const NavBar = (props) => {
                           >
                             <WorkspacePremiumRoundedIcon />
                           </Avatar>{" "}
-                          <span className="listValue">Become a Mentor</span>
+                          <span className="listValue">Challenges</span>
                         </li>{" "}
                       </Link> */}
                     </ul>
