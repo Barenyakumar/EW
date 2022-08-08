@@ -24,22 +24,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />
 })
 
-// const sessionDetail =
-//   {
-//     sessionName: "Switching to Freelancing by Barenya Kumar Panda",
-//     date: "Jun 30",
-//     time: " 8:00pm",
-//     sessionImg: "images/1.jpg",
-//     sessionLink:"123@ffd",
-//     description:
-//       " If you have ever wondered what switching to freelancing feels like or if you are one of those brave souls to switch to an independent lifestyle, this session is for you. As the world sees freelancers are lucky souls, I am sure most of you know it's not as easy as it looks.",
-//     category: "WEB3",
-//     mentor: "12333",
-//     coHosts: [
-//       "123","234","235","236"
-//     ],
-//   }
-
 export default function SessionDetails() {
   const { user } = useContext(AuthContext)
   const sessionId = useParams().id
@@ -47,10 +31,12 @@ export default function SessionDetails() {
   const [mentor, setMentor] = useState({})
   const [sessionLink, setSessionLink] = useState("")
   const [preloader, SetPreloader] = useState(false)
+  const [registered, setRegistered] = useState(false)
 
   const sessionDate = new Date(sessionDetail.date + sessionDetail.startTime)
 
   const [open, setOpen] = React.useState(false)
+  const [open1, setOpen1] = React.useState(false)
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -59,16 +45,26 @@ export default function SessionDetails() {
   const handleClose = () => {
     setOpen(false)
   }
+  const handleClickOpen1 = () => {
+    setOpen1(true)
+  }
 
+  const handleClose1 = () => {
+    setOpen1(false)
+  }
+
+  useEffect(() => {}, [])
   useEffect(() => {
     const getSessionData = async () => {
       SetPreloader(true)
       const res = await axios.get(`/session/${sessionId}`)
       setSessionDetail(res.data)
+      if (res.data.members.includes(user._id)) setRegistered(true)
+      else setRegistered(false)
       SetPreloader(false)
     }
     getSessionData()
-  }, [sessionId])
+  }, [sessionId, registered])
   useEffect(() => {
     SetPreloader(true)
     const getMentor = async () => {
@@ -76,6 +72,7 @@ export default function SessionDetails() {
         const mentor = await axios.get(`/users/${sessionDetail.mentor}`)
         setMentor(mentor.data)
         SetPreloader(false)
+        if (sessionDetail.members.includes(user._id)) setRegistered(true)
       }
     }
     getMentor()
@@ -94,12 +91,52 @@ export default function SessionDetails() {
 
   const handleShare = () => {
     handleClickOpen()
-    setSessionLink(`http://localhost:3000/getsession/${sessionId}`)
+    setSessionLink(`http://eduwarts.com/getsession/${sessionId}`)
   }
 
   const [copied, setCopied] = useState(false)
 
+  const handleRegistration = async () => {
+    try {
+      const res = await axios.post(`/session/rsvp/${sessionId}`, {
+        userId: user._id,
+      })
+      handleClickOpen1()
+      setRegistered(true)
+      console.log(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleremoveRSVP = async () => {
+    console.log("unenrolled")
+    try {
+      const res = await axios.post(`/session/rsvp/cancel/${sessionId}`, {
+        userId: user._id,
+      })
+      handleClickOpen1()
+      setRegistered(false)
+      console.log(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const public_folder = "http://localhost:9000/UserImages"
+
+  // useEffect(() => {
+  //   document.title =
+  //     sessionDetail && mentor
+  //       ? sessionDetail.sessionName + " by " + mentor.name + " | Eduwarts"
+  //       : "Eduwarts"
+
+  //   // document.getElementsByTagName("META")[2].content="Description"
+  // }, [sessionDetail,mentor])
+  console.log(
+    new Date(sessionDetail.date + sessionDetail.startTime).getTime() - 1800000 <
+      Date.now()
+  )
   return (
     <div className="sessionContainer">
       <Helmet>
@@ -133,7 +170,7 @@ export default function SessionDetails() {
           <img
             src={
               sessionDetail.sessionImg
-                ? public_folder + sessionDetail.sessionImg
+                ? sessionDetail.sessionImg
                 : "/images/default-cover.jpg"
             }
             alt={sessionDetail.title}
@@ -184,14 +221,29 @@ export default function SessionDetails() {
       </div>
 
       {!user || user === undefined ? (
-        <div className="joinButtonS" style={{ display: "flex", alignItems: "center", justifyContent:"center" }}>
-          <Button
+        <div
+          className="joinButtonS"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {/* <Button
             variant="outlined"
             component={Link}
             to={"/login"}
             size="large"
           >
             join
+          </Button> */}
+          <Button
+            variant="outlined"
+            component={Link}
+            to={"/login"}
+            size="large"
+          >
+            RSVP
           </Button>
         </div>
       ) : (
@@ -202,12 +254,84 @@ export default function SessionDetails() {
           <Button variant="outlined" onClick={handleShare} size="large">
             <ShareIcon />
           </Button>
-          <Button variant="contained" size="large">
-            <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
-              Join
+          {/* {new Date(sessionDetail.date + sessionDetail.startTime).getTime() -
+            1800000 < Date.now() ? (
+            <Button variant="contained" size="large">
+              <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
+                Join
+              </span>
+              <GroupsIcon />
+            </Button>
+          ) : (
+            ""
+          )} */}
+          {sessionDetail.mentor !== user._id ? (
+            !registered ? (
+              <Button
+                variant="contained"
+                onClick={handleRegistration}
+                to={"/login"}
+                size="large"
+              >
+                RSVP
+              </Button>
+            ) : new Date(
+                sessionDetail.date + sessionDetail.startTime
+              ).getTime() -
+                1800000 <
+              Date.now() ? (
+              sessionDetail.isActive && (
+                <Button variant="contained" size="large">
+                  <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
+                    Join
+                  </span>
+                  <GroupsIcon />
+                </Button>
+              )
+            ) : (
+              <>
+                <Button variant="outlined" disabled size="large">
+                  you've registered!
+                </Button>{" "}
+                <br />
+                <span
+                  style={{ color: "red", cursor: "pointer" }}
+                  onClick={handleremoveRSVP}
+                >
+                  Cancel registration
+                </span>
+              </>
+            )
+          ) : new Date(sessionDetail.date + sessionDetail.startTime).getTime() -
+              1800000 <
+            Date.now() ? (
+            <Button variant="contained" size="large">
+              <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
+                Join
+              </span>
+              <GroupsIcon />
+            </Button>
+          ) : (
+            <span style={{ color: "red", cursor: "pointer" }}>
+              *Join button will be active, 30 mins before the session time.
             </span>
-            <GroupsIcon />
-          </Button>
+          )}
+
+          <Dialog
+            open={open1}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleClose1}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle>{"🎊🎉Congratulations! 🎉🎊"}</DialogTitle>
+            <DialogContent>
+              You have registered for the session!!!
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose1}>ok</Button>
+            </DialogActions>
+          </Dialog>
         </div>
       )}
 

@@ -7,21 +7,19 @@ import "swiper/css"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
 import SingleCard from "../Card/Card"
-import {SessionCard} from "../Card/Card"
+import { SessionCard } from "../Card/Card"
 import "./Swiperstyles.css"
- 
+
 // import required modules
 import { Pagination, Navigation } from "swiper"
- 
-export default function SwiperMentor({arrayList}) {
+
+export default function SwiperMentor({ arrayList }) {
   const [width, setWidth] = useState(window.innerWidth)
   // setWidth(window.innerWidth);
   const setSlide = (width) => {
     if (width <= 600) {
       return 1
-    }
-    else if(width<=990)
-      return 2;
+    } else if (width <= 990) return 2
     else if (width <= 1200) {
       return 3
     } else return 3
@@ -54,25 +52,23 @@ export default function SwiperMentor({arrayList}) {
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-        
-        {arrayList.map(element=><SwiperSlide key={element._id}><SingleCard element={element} /></SwiperSlide>)}
+        {arrayList.map((element) => (
+          <SwiperSlide key={element._id}>
+            <SingleCard element={element} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </>
   )
 }
 
-
-
-
-export function SwiperSession({arrayList}) {
+export function SwiperSession({ arrayList }) {
   const [width, setWidth] = useState(window.innerWidth)
   // setWidth(window.innerWidth);
   const setSlide = (width) => {
     if (width <= 600) {
       return 1
-    }
-    else if(width<=990)
-      return 2;
+    } else if (width <= 990) return 2
     else if (width <= 1200) {
       return 3
     } else return 3
@@ -105,7 +101,11 @@ export function SwiperSession({arrayList}) {
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-        {arrayList.map(element => <SwiperSlide key={element._id}><SessionCard element={element}/></SwiperSlide>)}
+        {arrayList.map((element) => (
+          <SwiperSlide key={element._id}>
+            <SessionCard element={element} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </>
   )

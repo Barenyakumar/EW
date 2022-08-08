@@ -22,6 +22,7 @@
   align-items: center;
   justify-content: space-between;
   margin: 2rem 0px;
+  flex-wrap: wrap;
 }
 .host_name{
   display: flex;

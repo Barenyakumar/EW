@@ -1,16 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from "react"
 import SearchBar from "../../../components/searchBar/SearchBar"
 import SearchIcon from "@mui/icons-material/Search"
-import SingleCard from '../../../components/Card/Card'
-import { Button } from '@mui/material'
-import './MentorList.css'
-import axios from 'axios'
-import Preloader from '../../../components/PreLoader/Preloader'
+import SingleCard from "../../../components/Card/Card"
+import { Button } from "@mui/material"
+import "./MentorList.css"
+import axios from "axios"
+import Preloader from "../../../components/PreLoader/Preloader"
 import { Helmet } from "react-helmet"
-
-
-
-
 
 const MentorList = () => {
   const [preloader, setPreloader] = useState(false)
@@ -29,11 +25,8 @@ const MentorList = () => {
   }, [searchText])
   console.log(searchResult)
 
-
-
-
-  const containerHeight = useRef();
-  const [height, setHeight] = useState(0);
+  const containerHeight = useRef()
+  const [height, setHeight] = useState(0)
   function changeHeight() {
     setHeight(containerHeight.current.getBoundingClientRect().height)
   }
@@ -89,4 +82,4 @@ const MentorList = () => {
   )
 }
 
-export default MentorList;
+export default MentorList

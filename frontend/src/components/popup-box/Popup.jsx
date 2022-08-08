@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -20,7 +20,9 @@ export default function Popup(props) {
 
   const handleClose = () => {
     setOpen(false);
+    props.errCallback();
   };
+  
 
   return (
     <div className='popupContainer'>

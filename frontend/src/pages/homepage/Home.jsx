@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useContext } from "react"
 import "./home.css"
-import {
-  Navigate,
-  useRoutes,
-} from "react-router-dom"
+import { Navigate, useRoutes } from "react-router-dom"
 import { NavBar } from "../../components/navbar/NavBar"
 // import { MenuBar } from "../../components/navbar/menuBar"
 // import { MainContent } from "../../components/main_content/MainContent"
@@ -13,8 +10,8 @@ import { BottomNav } from "../../components/bottom_Nav/BottomNav"
 import Explore from "../Explore/Explore"
 import MenteeHome from "../Mentee/home/MenteeHome"
 import MentorList from "../Mentee/discoverMentor/MentorList"
-// import SingleChallenge from "../Mentee/discoverChallenges/SingleChallenge"
-// import Challenges from "../Mentee/discoverChallenges/Challenges"
+// import SingleChallenge from "../../components/challenges/SingleChallenge"
+// import Challenges from "../../components/challenges/Challenges"
 // import Booking from "../../components/bookings/Booking"
 // import MyProfile from "../../components/myprofile/MyProfile"
 // import GroupSession from "../../components/groupSessions/GroupSession"
@@ -23,21 +20,25 @@ import MentorList from "../Mentee/discoverMentor/MentorList"
 // import MentorForm from "../../components/mentorForm/MentorForm"
 import Profile from "../profile/Profile"
 import Login from "../../components/Auth/Login"
-import SignUp from "../../components/Auth/Signup"
+import SignUp from "../../pages/register/Signup"
 import { AuthContext } from "../../context/AuthContext"
 // import EmailNotification from "../../components/Email-notification/EmailNotification"
 // import Faq from "../../components/FAQ/Faq"
 import Setting from "../Setting/Setting"
 import Availability from "../../components/availability/Availability"
 // import SearchPage from "../Search/Search"
-import BookingSessionPage from "../BookingSession/BookingSessionPage"
+// import BookingSessionPage from "../BookingSession/BookingSessionPage"
 import Createsession from "../../components/groupSessions/CreateSession"
 import SessionDetails from "../../components/sessiondetails/SessionDetails"
 // import Footer from "../../components/footer/Footer"
-import Preloader from "../../components/PreLoader/Preloader"
+// import Preloader from "../../components/PreLoader/Preloader"
 import SignupWelcome from "../../components/emailTemplates/SignupWelcome"
-import AvatarSelect from "../../components/Auth/AvatarSelect"
+// import AvatarSelect from "../../components/Auth/AvatarSelect"
 import InvalidURL from "../../components/invalidURL/InvalidURL"
+// import CreateChallenge from "../../components/challenges/CreateChallenge"
+// import ChallengeDetails from "../../components/challenges/ChallengeDetails"
+// import SolutionDetails from "../../components/submission/SolutionDetails"
+// import { CreatePost } from "../../components/create_post/CreatePost"
 
 export const Home = () => {
   const { user } = useContext(AuthContext)
@@ -86,11 +87,30 @@ export const Home = () => {
       // },
       // {
       //   path: "/challanges",
-      //   element: !user || user === undefined? <Navigate to="/login" /> : <Challenges />,
+      //   element:
+      //     !user || user === undefined ? (
+      //       <Navigate to="/login" />
+      //     ) : (
+      //       <Challenges />
+      //     ),
+      // },
+      // {
+      //   path: "/feed",
+      //   element:
+      //     !user || user === undefined ? (
+      //       <Navigate to="/login" />
+      //     ) : (
+      //       <Feed/>
+      //     ),
       // },
       // {
       //   path: "/singlechallange",
-      //   element: !user || user === undefined? <Navigate to="/login" /> : <SingleChallenge />,
+      //   element:
+      //     !user || user === undefined ? (
+      //       <Navigate to="/login" />
+      //     ) : (
+      //       <SingleChallenge />
+      //     ),
       // },
       // {
       //   path: "/booking",
@@ -149,15 +169,24 @@ export const Home = () => {
             <MentorList />
           ),
       },
-      {
-        path: `/createbooking/:id`,
-        element:
-          !user || user === undefined ? (
-            <Navigate to="/login" />
-          ) : (
-            <BookingSessionPage />
-          ),
-      },
+      // {
+      //   path: "/feed",
+      //   element:
+      //     !user || user === undefined ? (
+      //       <Navigate to="/login" />
+      //     ) : (
+      //       <Feed />
+      //     ),
+      // },
+      // {
+      //   path: `/createbooking/:id`,
+      //   element:
+      //     !user || user === undefined ? (
+      //       <Navigate to="/login" />
+      //     ) : (
+      //       <BookingSessionPage />
+      //     ),
+      // },
       {
         path: `/getsession/:id`,
         element: <SessionDetails />,
@@ -171,10 +200,10 @@ export const Home = () => {
             <Createsession />
           ),
       },
-      {
-        path: `/prelaoder`,
-        element: <Preloader />,
-      },
+      // {
+      //   path: `/prelaoder`,
+      //   element: <Preloader />,
+      // },
       {
         path: `/signupwelcome`,
         element:
@@ -184,14 +213,35 @@ export const Home = () => {
             <SignupWelcome />
           ),
       },
-      {
-        path: `/avatar`,
-        element: <AvatarSelect />,
-      },
+      // {
+      //   path: `/avatar`,
+      //   element: <AvatarSelect />,
+      // },
       {
         path: `*`,
-        element: <InvalidURL /> ,
+        element: <InvalidURL />,
       },
+      // {
+      //   path: `/createnewchallenge`,
+      //   element:
+      //     !user || user === undefined ? (
+      //       <Navigate to="/login" />
+      //     ) : (
+      //       <CreateChallenge />
+      //     ),
+      // },
+      // {
+      //   path: `/getchallenge/:id`,
+      //   element: <ChallengeDetails />,
+      // },
+      // {
+      //   path: `/challengeposts/:id`,
+      //   element: <SolutionDetails />,
+      // },
+      // {
+      //   path: `/submitchallenge/:challengeId`,
+      //   element: <CreatePost />,
+      // },
     ])
     return routes
   }
@@ -201,7 +251,7 @@ export const Home = () => {
 
   const [loginFlag, setLoginFlag] = useState(false)
 
-// console.log(loginFlag)
+  // console.log(loginFlag)
   const loginCallback = (data) => setLoginFlag(data)
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -227,7 +277,7 @@ export const Home = () => {
     <>
       <div
         className="homeContainer"
-        style={{ maxWidth: "55rem", margin: "0px auto", width:"98%" }}
+        style={{ maxWidth: "55rem", margin: "0px auto", width: "98%" }}
       >
         {!loginFlag ? <NavBar /> : ""}
         <AppRoutes />

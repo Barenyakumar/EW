@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 
+//oneSession is for both one-oneSession and group session
 const onesessionSchema = new mongoose.Schema(
   {
     mentor: {
@@ -24,7 +25,7 @@ const onesessionSchema = new mongoose.Schema(
     },
     endTime: {
       type: String,
-      default:""
+      default: "",
     },
     date: {
       type: String,
@@ -35,29 +36,29 @@ const onesessionSchema = new mongoose.Schema(
       default: "",
     },
     members: {
-      type: [{type: mongoose.Types.ObjectId}],
-      default:[],
+      type: [{ type: mongoose.Types.ObjectId }],
+      default: [],
     },
     sessionLink: {
       type: String,
       default: "",
     },
-    sessionImg:{
-      type:String,
-      default:"",
+    sessionImg: {
+      type: String,
+      default: "",
     },
-    coHosts:{
-      type:Array,
-      default:[]
+    coHosts: {
+      type: Array,
+      default: [],
     },
-    duration:{
-      type:String,
-      default:"30 mins"
+    duration: {
+      type: String,
+      default: "30 mins",
     },
-    isActive:{
-      type:Boolean,
-      default:true
-    }
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,
