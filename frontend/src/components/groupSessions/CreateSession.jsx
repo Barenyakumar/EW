@@ -17,7 +17,6 @@ import Popup from "../popup-box/Popup"
 import Preloader from "../PreLoader/Preloader"
 import { Helmet } from "react-helmet"
 
-
 // import DatePickers from '../DatePicker/DatePicker'
 
 const names = [
@@ -26,7 +25,8 @@ const names = [
   "Music",
   "Photography & Film making",
   "Blockchain",
-  "UI/UX",
+  "Cloud Computing",
+  "UI and UX",
   "Data Science",
   "Web Development",
   "Buisness Analytics",
@@ -39,12 +39,34 @@ const names = [
   "Software Engineering",
   "Interview Preparation",
   "DevOps",
+  "Hackathons",
+  "Others",
+]
+
+const categoryVar = [
+  "Art_&_Graphic_Design",
+  "Dance",
+  "Music",
+  "Photography_&_Film_making",
+  "Blockchain",
+  "Cloud_Computing",
+  "UI_and_UX",
+  "Data_Science",
+  "Web_Development",
+  "Buisness_Analytics",
+  "Content_Writing_&_SEO",
+  "Digital_Marketing",
+  "Information_Security",
+  "Product_Management",
+  "Event_Management",
+  "Competitive_Coding",
+  "Software_Engineering",
+  "Interview_Preparation",
+  "DevOps",
+  "Hackathons",
   "Others",
 ]
 export default function Createsession() {
-
-  
-
   const minDate = new Date()
   // console.log(
   //   minDate
@@ -56,12 +78,14 @@ export default function Createsession() {
 
   const [error, setError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-const newDateTomorrow = new Date(dateObj).toString().substring(0,15)
+  const newDateTomorrow = new Date(dateObj).toString().substring(0, 15)
   const [category, setCategory] = useState("")
   const [sessionName, setSessionName] = useState("")
   const [sessionDesc, setSessionDesc] = useState("")
   // new Date("Tue Jul 05 2022 00:00 AM")
-  const [dateTime, setDateTime] = useState(new Date(newDateTomorrow + " 00:00 AM"))
+  const [dateTime, setDateTime] = useState(
+    new Date(newDateTomorrow + " 00:00 AM")
+  )
 
   const [selectedImage, setSelectedImage] = useState()
   const [duration, setDuration] = useState(60)
@@ -71,7 +95,7 @@ const newDateTomorrow = new Date(dateObj).toString().substring(0,15)
 
   // console.log(new Date().setDate(new Date()+1));
   // console.log(minDate.setDate(minDate.getDate()+1))
-  console.log(dateTime)
+  // console.log(dateTime)
   const handleGroupSession = async (e) => {
     e.preventDefault()
     try {
@@ -106,6 +130,7 @@ const newDateTomorrow = new Date(dateObj).toString().substring(0,15)
       sessionName: sessionName,
       sessionType: "Group",
       category: category,
+      sessionImg: `/groupSession/${category}.jpg`,
       description: sessionDesc,
       sessionLink: `/${room.data.id}`,
       duration: duration,
@@ -213,8 +238,8 @@ const newDateTomorrow = new Date(dateObj).toString().substring(0,15)
                 onChange={(e) => setCategory(e.target.value)}
                 style={{ width: "100%" }}
               >
-                {names.map((element) => (
-                  <MenuItem key={element} value={element}>
+                {names.map((element, i) => (
+                  <MenuItem key={element} value={categoryVar[i]}>
                     {element}
                   </MenuItem>
                 ))}

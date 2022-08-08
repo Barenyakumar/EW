@@ -12,7 +12,7 @@ const BookingSchema = new mongoose.Schema(
     },
     isApproved: {
       type: Boolean,
-      default:false
+      default: false,
     },
   },
   {

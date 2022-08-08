@@ -91,7 +91,7 @@ export default function SessionDetails() {
 
   const handleShare = () => {
     handleClickOpen()
-    setSessionLink(`http://eduwarts.me/getsession/${sessionId}`)
+    setSessionLink(`https://eduwarts.me/getsession/${sessionId}`)
   }
 
   const [copied, setCopied] = useState(false)
@@ -123,7 +123,7 @@ export default function SessionDetails() {
     }
   }
 
-  const public_folder = "http://localhost:9000/UserImages"
+  const public_folder = "https://eduwarts.me/UserImages/"
 
   // useEffect(() => {
   //   document.title =
@@ -170,7 +170,7 @@ export default function SessionDetails() {
           <img
             src={
               sessionDetail.sessionImg
-                ? public_folder + sessionDetail.sessionImg
+                ? sessionDetail.sessionImg
                 : "/images/default-cover.jpg"
             }
             alt={sessionDetail.title}
@@ -280,12 +280,14 @@ export default function SessionDetails() {
               ).getTime() -
                 1800000 <
               Date.now() ? (
-              <Button variant="contained" size="large">
-                <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
-                  Join
-                </span>
-                <GroupsIcon />
-              </Button>
+              sessionDetail.isActive && (
+                <Button variant="contained" size="large">
+                  <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
+                    Join
+                  </span>
+                  <GroupsIcon />
+                </Button>
+              )
             ) : (
               <>
                 <Button variant="outlined" disabled size="large">
@@ -300,24 +302,20 @@ export default function SessionDetails() {
                 </span>
               </>
             )
-          ) :new Date(
-                sessionDetail.date + sessionDetail.startTime
-              ).getTime() -
-                1800000 <
-              Date.now() ? (
-              <Button variant="contained" size="large">
-                <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
-                  Join
-                </span>
-                <GroupsIcon />
-              </Button>
-            ) : 
-                <span
-                  style={{ color: "red", cursor: "pointer" }}
-                >
-                  *Join button will be active, 30 mins before the session time.
-                </span>
-              }
+          ) : new Date(sessionDetail.date + sessionDetail.startTime).getTime() -
+              1800000 <
+            Date.now() ? (
+            <Button variant="contained" size="large">
+              <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
+                Join
+              </span>
+              <GroupsIcon />
+            </Button>
+          ) : (
+            <span style={{ color: "red", cursor: "pointer" }}>
+              *Join button will be active, 30 mins before the session time.
+            </span>
+          )}
 
           <Dialog
             open={open1}

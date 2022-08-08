@@ -37,7 +37,7 @@ export default function MuiCardComplex(props) {
 
   return (
     <Link
-      to={`/session/${props.element._id}`}
+      to={`/getsession/${props.element._id}`}
       style={{ textDecoration: "none" }}
     >
       <Card sx={{ maxWidth: 345, textDecoration: "none" }}>

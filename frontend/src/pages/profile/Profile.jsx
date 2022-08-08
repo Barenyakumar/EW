@@ -5,7 +5,7 @@ import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box"
-import { Avatar, Button} from "@mui/material"
+import { Avatar, Button } from "@mui/material"
 import "./Profile.css"
 // import SingleCard from "../../components/Card/Card"
 import { AuthContext } from "../../context/AuthContext"
@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom"
 import { MenteeBadge, MentorBadge } from "../../components/badges/MentorBadge"
 // import ViewAvailability from "../../components/availability/viewAvailability"
 import Availability from "../../components/availability/Availability"
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 import Preloader from "../../components/PreLoader/Preloader"
 import { Helmet } from "react-helmet"
 
@@ -53,23 +53,21 @@ function a11yProps(index) {
 
 export default function Profile() {
   const [preloader, setpreloader] = useState(false)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const [availibility, setAvailibility] = useState([]);
+  const [availibility, setAvailibility] = useState([])
   const { user: CurrentUser } = useContext(AuthContext)
-  useEffect(()=>{
-    async function getAvailability (){
+  useEffect(() => {
+    async function getAvailability() {
       setpreloader(true)
       const res = await axios.get(`/availability/${CurrentUser._id}`)
-      setAvailibility(res.data);
+      setAvailibility(res.data)
       setpreloader(false)
     }
     getAvailability()
-  },[])
+  }, [])
 
-console.log(availibility);
-
-
+  // console.log(availibility)
 
   const [value, setValue] = useState(0)
   const [userProfile, setUserProfile] = useState({})
@@ -80,17 +78,16 @@ console.log(availibility);
     //   setUserProfile(CurrentUser)
     //   setpreloader(false)
     // } else {
-      const fetchUser = async () => {
-        try {
-          const res = await axios.get(`/users/?username=${username}`)
-          setUserProfile(res.data)
-          setpreloader(false)
-        } catch (error) {
-          navigate(-1)
-        }
-        
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(`/users/?username=${username}`)
+        setUserProfile(res.data)
+        setpreloader(false)
+      } catch (error) {
+        navigate(-1)
       }
-      fetchUser()
+    }
+    fetchUser()
     // }
   }, [username, CurrentUser])
 
@@ -98,7 +95,7 @@ console.log(availibility);
     setValue(newValue)
   }
   const publicFolder = "http://localhost:9000/UserImages/"
-  console.log(publicFolder + userProfile.profileImage)
+  // console.log(publicFolder + userProfile.profileImage)
   return (
     <>
       <div className="Profile">

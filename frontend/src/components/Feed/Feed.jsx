@@ -16,11 +16,11 @@ export const Feed = (username) => {
     setWidth(window.innerWidth)
   }
 
-  useEffect(() => {
-    window.addEventListener("resize", widthset)
-  })
+//   useEffect(() => {
+//     window.addEventListener("resize", widthset)
+//   })
 
-  // dialog box opening function -------------------------------------------------------------------------
+//   // dialog box opening function -------------------------------------------------------------------------
   const [open, setOpen] = React.useState(false)
   const handleClickOpen = () => {
     setOpen(true)

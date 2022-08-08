@@ -28,25 +28,25 @@ export default function Footer() {
       <div
         style={{
           display: "flex",
-          flexDirection: "row",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           width: "100%",
         }}
       >
-        <Logo />
+        <Logo color={"white"} />
+
+        <p
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
+          <CopyrightIcon /> 2022 Eduwarts | All rights reserved.</p>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "100%",
-        }}
-      >
-        <CopyrightIcon /> 2022 Eduwarts | All rights reserved.
-      </div>
-    </div>
+    </div >
   )
 }

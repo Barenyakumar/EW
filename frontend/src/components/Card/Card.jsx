@@ -59,7 +59,7 @@ export default function SingleCard(props) {
               >
                 <span className="role element">{props.element.username}</span>
                 {props.element.isMentor ? (
-                  <div className="mentor_Badge element">
+                  <div className="mentor_Badge">
                     <MentorBadge />
                     <span className="role element">
                       {props.element.expertise}
@@ -112,7 +112,7 @@ export function SessionCard(props) {
           <img
             src={
               props.element.sessionImg
-                ? publicFolder + props.element.sessionImg
+                ? props.element.sessionImg
                 : "/images/default-cover.jpg"
             }
             alt=""
@@ -137,16 +137,6 @@ export function SessionCard(props) {
                 <span className="role element">
                   {props.element.duration} mins
                 </span>
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    window.location.replace(
-                      `https://62bd7a31d93831765b61385f--eduwartsmeet.netlify.app${props.element.sessionLink}/${role}`
-                    )
-                  }}
-                >
-                  join
-                </Button>
               </div>
             </div>
           </div>

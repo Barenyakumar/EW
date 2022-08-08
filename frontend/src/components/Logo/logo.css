@@ -10,11 +10,27 @@
     color: #121212;
     text-decoration: none;
 }
+.logoImg{
+    height: 2rem;
+    width: 8rem;
+}
+.beta_logo{
+    color: #607dff;
+    font-size: 15px;
+    font-weight: bolder;
+    position: relative;
+    left: -15px;
+}
 
 @media only screen and (max-width: 900px){
     .logo{
         font-size: 25px;
         letter-spacing: 3px;
         width: max-content;
+    }
+    .beta_logo{
+        font-size: 12px;
+        position: relative;
+         left: -10px;
     }
 }

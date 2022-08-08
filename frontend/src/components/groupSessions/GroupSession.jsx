@@ -6,8 +6,10 @@ import MuiCardComplex from "../muiCard/MuiCardComplex"
 import { SwiperSession } from "../Swiper/Swiper"
 import axios from "axios"
 import { useContext } from "react"
-import { AuthContext } from "../../context/AuthContext"
-import { Link } from "react-router-dom"
+import {AuthContext} from "../../context/AuthContext"
+import { Link } from 'react-router-dom';
+import Preloader from "../PreLoader/Preloader"
+import "./groupsession.css"
 
 // const card = (
 //   <React.Fragment>
@@ -81,22 +83,31 @@ function a11yProps(index) {
 }
 
 export default function GroupSession() {
-  const { user } = useContext(AuthContext)
+  const {user} = useContext(AuthContext)
+  const [preloader, setpreloader] = useState(false)
 
   const [UpcomingGroupSessions, setUpcomingGroupSessions] = useState([])
   const [pastGroupSession, setPastGroupSession] = useState([])
   useEffect(() => {
+    
     async function getUpcomingData() {
+      setpreloader(true)
       const res = await axios.get("/session/activegroup")
       setUpcomingGroupSessions(res.data)
+      setpreloader(false)
     }
     async function getPastData() {
       const res = await axios.get("/session/pastgroup")
       setPastGroupSession(res.data)
     }
     getUpcomingData()
+
     getPastData()
-  }, [UpcomingGroupSessions, pastGroupSession])
+
+
+  }, [])
+  
+
 
   const [value, setValue] = React.useState(0)
 
@@ -151,6 +162,7 @@ export default function GroupSession() {
             : "No sessions found..."}
         </div>
       </TabPanel>
+      {preloader ? <Preloader /> : ""}
     </div>
   )
 }
