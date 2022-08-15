@@ -1,41 +1,3 @@
-/* .sessionContainer {
-  width: 90%;
-  margin: 0px auto;
-  border: 1px solid grey;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  box-shadow: 1px 2px 8px grey;
-}
-
-.group_session_time {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.group_session_desc {
-  color: #0A243F;
-  font-size: 1rem;
-}
-.sessionButtons{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 2rem 0px;
-  flex-wrap: wrap;
-}
-.host_name{
-  display: flex;
-  align-items: center;
-  width: 35%;
-  min-width: 20rem;
-}
-
-@media only screen and (max-width: 500px) {
-
-} */
-
-
 .sessionContainer {
   width: 90%;
   height: calc(90vh - 13px);
@@ -105,11 +67,8 @@
   position: relative;
 }
  .group_session_title{
-  /* width: 6%;
-  position: absolute;
-  top:0px;*/
   background-image: linear-gradient(to top,rgb(255, 255, 255),95%, transparent);
-  padding: 1rem;
+  padding: 0 1rem;
   width: 100%;
 }
 
@@ -127,6 +86,8 @@
   display: flex;
   flex-direction: row-reverse; 
   margin-right: 10px;
+  color: red;
+  font-weight: 600;
 }
 
 @media only screen and (max-width: 990px) {
@@ -135,5 +96,20 @@
       margin-left: 0;
       margin-right: 0;
     }
-
+    .group_session_title{
+    position: absolute;
+    padding-bottom: 4rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    top: 20vh;
+    }
+    .group_session_title {
+    background-image: linear-gradient(to top,rgb(255, 255, 255),95%, transparent);
+    padding: 4rem 0.5rem;
+    width: 100%;
+}
+.group_session_title {
+    background-image: linear-gradient(to top,rgb(255, 255, 255),95%, transparent);
+    width: 100%;
+}
 }

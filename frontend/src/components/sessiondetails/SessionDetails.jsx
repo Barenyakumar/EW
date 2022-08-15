@@ -38,6 +38,7 @@ export default function SessionDetails() {
   const [userDetails, setUserDetails] = useState([])
   const [sessionDetail, setSessionDetail] = useState({})
   const [mentor, setMentor] = useState({})
+  const [cohost, setHost] = useState({})
   const [sessionLink, setSessionLink] = useState("")
   const [preloader, SetPreloader] = useState(false)
   const [registered, setRegistered] = useState(false)
@@ -107,6 +108,32 @@ export default function SessionDetails() {
     }
   }, [sessionDetail])
 
+  useEffect(() => {
+    SetPreloader(true)
+    const getHost = async () => {
+      if (sessionDetail.coHosts) {
+        const coHosts = await axios.get(`/users/${sessionDetail.coHosts[0]}`)
+        console.log(coHosts.data)
+        setHost(coHosts.data)
+        SetPreloader(false)
+      }
+    }
+    getHost()
+  }, [sessionDetail])
+
+  useEffect(() => {
+    SetPreloader(true)
+    const getHost = async () => {
+      if (sessionDetail.coHosts) {
+        const coHosts = await axios.get(`/users/${sessionDetail.coHosts[0]}`)
+        console.log(coHosts.data)
+        setHost(coHosts.data)
+        SetPreloader(false)
+      }
+    }
+    getHost()
+  }, [sessionDetail])
+
   let Image = userDetails.map((userDetails) => (
     <GetDetails category={userDetails}></GetDetails>
   ))
@@ -120,7 +147,7 @@ export default function SessionDetails() {
       role
     console.log(sessionLink)
     // window.location.replace(sessionLink)
-    window.open(sessionLink,'_blank')
+    window.open(sessionLink, "_blank")
   }
 
   const handleShare = () => {
@@ -164,6 +191,7 @@ export default function SessionDetails() {
     })`,
 
     backgroundSize: "contain",
+    backgroundRepeat: "no-repeat",
   }
 
   const public_folder = "http://localhost:9000/UserImages"
@@ -180,6 +208,32 @@ export default function SessionDetails() {
     new Date(sessionDetail.date + sessionDetail.startTime).getTime() - 1800000 <
       Date.now()
   )
+
+  const coHost1 = cohost.name ? (
+    <div className="host_name">
+      <CardHeader
+        avatar={
+          <div className="avatar">
+            <p style={{ paddingRight: "10px" }}>Speaker:{"  "}</p>
+            <Avatar
+              alt={cohost.name}
+              sx={{ bgcolor: "#344CB7 ", margin: "0px", padding: "0px" }}
+              src={
+                cohost.profileImage
+                  ? public_folder + cohost.profileImage
+                  : `/Avatars/${cohost.gender}/${cohost.defaultImage}`
+              }
+            />
+          </div>
+        }
+        title={cohost.name}
+        subheader={cohost.expertise}
+      />
+    </div>
+  ) : (
+    <></>
+  )
+
   return (
     <div className="sessionContainer" style={container_background}>
       <Helmet>
@@ -237,30 +291,7 @@ export default function SessionDetails() {
                   subheader={mentor.expertise}
                 />
               </div>
-              <div className="host_name">
-                <CardHeader
-                  avatar={
-                    <div className="avatar">
-                      <p style={{ paddingRight: "10px" }}>Speaker:</p>
-                      <Avatar
-                        alt={mentor.name}
-                        sx={{
-                          bgcolor: "#344CB7 ",
-                          margin: "0px",
-                          padding: "0px",
-                        }}
-                        src={
-                          mentor.profileImage
-                            ? public_folder + mentor.profileImage
-                            : `/Avatars/${mentor.gender}/${mentor.defaultImage}`
-                        }
-                      />
-                    </div>
-                  }
-                  title={mentor.name}
-                  subheader={mentor.expertise}
-                />
-              </div>
+              {coHost1}
             </div>
 
             <div className="group_session_desc">
