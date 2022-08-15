@@ -81,18 +81,17 @@ app.use("/users", UserRoutes)
 setInterval(async () => {
   const session = await Session.find()
   session.forEach(async (s) => {
-    const sessionDate = new Date(s.date + s.startTime)
-    const endTime = sessionDate.getTime() + s.duration * 60000
-    //   console.log(endTime)
+    const sessionDate = new Date(s.date + s.endTime)
+    // const endTime = sessionDate.getTime() + s.duration * 60000
+      // console.log(endTime)
     //   console.log(Date.now())
-    if (endTime < Date.now()) {
+    if (sessionDate.getTime() < Date.now()) {
       //   console.log("false")
       s.isActive = false
       await s.save()
     }
   })
 }, 1000)
-
 
 
 

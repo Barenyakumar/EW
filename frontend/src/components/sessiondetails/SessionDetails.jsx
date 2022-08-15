@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "./sessiondetail.css"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
-import { Button } from "@mui/material"
+import { Button, AvatarGroup } from "@mui/material"
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace"
 import GroupsIcon from "@mui/icons-material/Groups"
 import { Link, useParams } from "react-router-dom"
@@ -24,9 +24,18 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />
 })
 
+function GetDetails({ category }) {
+  const public_folder = "https://eduwarts.me/UserImages/"
+  let src = category.data.profileImage
+    ? public_folder + category.data.profileImage
+    : `/Avatars/${category.data.gender}/${category.data.defaultImage}`
+  return <Avatar alt={category.data.name} src={src}></Avatar>
+}
+
 export default function SessionDetails() {
   const { user } = useContext(AuthContext)
   const sessionId = useParams().id
+  const [userDetails, setUserDetails] = useState([])
   const [sessionDetail, setSessionDetail] = useState({})
   const [mentor, setMentor] = useState({})
   const [sessionLink, setSessionLink] = useState("")
@@ -37,6 +46,7 @@ export default function SessionDetails() {
 
   const [open, setOpen] = React.useState(false)
   const [open1, setOpen1] = React.useState(false)
+  const [open2, setOpen2] = React.useState(false)
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -48,12 +58,19 @@ export default function SessionDetails() {
   const handleClickOpen1 = () => {
     setOpen1(true)
   }
+  const handleClickOpen2 = () => {
+    setOpen2(true)
+  }
 
   const handleClose1 = () => {
     setOpen1(false)
   }
+  const handleClose2 = () => {
+    setOpen2(false)
+  }
 
-  useEffect(() => {}, [])
+  // useEffect(() => {}, [])
+
   useEffect(() => {
     const getSessionData = async () => {
       SetPreloader(true)
@@ -65,6 +82,7 @@ export default function SessionDetails() {
     }
     getSessionData()
   }, [sessionId, registered])
+
   useEffect(() => {
     SetPreloader(true)
     const getMentor = async () => {
@@ -78,6 +96,21 @@ export default function SessionDetails() {
     getMentor()
   }, [sessionDetail])
 
+  useEffect(() => {
+    if (sessionDetail.members) {
+      const res = axios
+        .all(sessionDetail.members.map((m) => axios.get(`/users/${m}`)))
+        .then((data) => {
+          setUserDetails(data)
+          console.log(data)
+        })
+    }
+  }, [sessionDetail])
+
+  let Image = userDetails.map((userDetails) => (
+    <GetDetails category={userDetails}></GetDetails>
+  ))
+
   const handlejoin = async () => {
     const role = user._id === sessionDetail.mentor ? "host" : "guest"
     const sessionLink =
@@ -86,7 +119,8 @@ export default function SessionDetails() {
       "/" +
       role
     console.log(sessionLink)
-    window.location.replace(sessionLink)
+    // window.location.replace(sessionLink)
+    window.open(sessionLink,'_blank')
   }
 
   const handleShare = () => {
@@ -110,17 +144,26 @@ export default function SessionDetails() {
   }
 
   const handleremoveRSVP = async () => {
-    console.log("unenrolled")
     try {
       const res = await axios.post(`/session/rsvp/cancel/${sessionId}`, {
         userId: user._id,
       })
-      handleClickOpen1()
+      handleClickOpen2()
       setRegistered(false)
-      console.log(res.data)
+      // console.log(res.data)
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const container_background = {
+    backgroundImage: `url(${
+      sessionDetail.sessionImg
+        ? sessionDetail.sessionImg
+        : "/images/default-cover.jpg"
+    })`,
+
+    backgroundSize: "contain",
   }
 
   const public_folder = "http://localhost:9000/UserImages"
@@ -138,7 +181,7 @@ export default function SessionDetails() {
       Date.now()
   )
   return (
-    <div className="sessionContainer">
+    <div className="sessionContainer" style={container_background}>
       <Helmet>
         <meta charSet="utf-8" />
         {sessionDetail.sessionName ? (
@@ -151,9 +194,10 @@ export default function SessionDetails() {
           content="Learn and grow with help from your own skilled seniors"
         />
       </Helmet>
-      <div className="group_session_title" style={{ marginTop: "1rem" }}>
+
+      <div className="group_session_title">
         <h1>{sessionDetail.sessionName}</h1>
-        <div className="group_session_time" style={{ marginTop: "1rem" }}>
+        <div className="group_session_time">
           <span>
             {" "}
             <CalendarMonthIcon />
@@ -166,44 +210,67 @@ export default function SessionDetails() {
             })}
           </span>
         </div>
-        <div className="group_session_img" style={{ marginTop: "1rem" }}>
-          <img
-            src={
-              sessionDetail.sessionImg
-                ? sessionDetail.sessionImg
-                : "/images/default-cover.jpg"
-            }
-            alt={sessionDetail.title}
-            loading="lazy"
-            style={{ width: "100%", maxHeight: "50vh" }}
-          />
-        </div>
-        <div className="group_session_desc" style={{ marginTop: "1rem" }}>
-          <p>{sessionDetail.description}</p>
-        </div>
-        <div className="host_name" style={{ marginTop: "1rem" }}>
-          <h3>
-            <b>Hosted by : </b>
-          </h3>
-          <CardHeader
-            avatar={
-              <div className="avatar">
-                <Avatar
-                  alt="Remy Sharp"
-                  sx={{ bgcolor: "#344CB7 " }}
-                  src={
-                    mentor.profileImage
-                      ? public_folder + mentor.profileImage
-                      : `/Avatars/${mentor.gender}/${mentor.defaultImage}`
+        <div className="group_details_all">
+          <div className="group_details">
+            <div className="host_name_out">
+              <div className="host_name">
+                <CardHeader
+                  avatar={
+                    <div className="avatar">
+                      <p style={{ paddingRight: "10px" }}>Host:</p>
+                      <Avatar
+                        alt={mentor.name}
+                        sx={{
+                          bgcolor: "#344CB7 ",
+                          margin: "0px",
+                          padding: "0px",
+                        }}
+                        src={
+                          mentor.profileImage
+                            ? public_folder + mentor.profileImage
+                            : `/Avatars/${mentor.gender}/${mentor.defaultImage}`
+                        }
+                      />
+                    </div>
                   }
+                  title={mentor.name}
+                  subheader={mentor.expertise}
                 />
               </div>
-            }
-            title={mentor.name}
-            subheader={mentor.expertise}
-          />
-        </div>
-        {/* <div className="cohost_name" style={{ marginTop: "0.5rem" }}>
+              <div className="host_name">
+                <CardHeader
+                  avatar={
+                    <div className="avatar">
+                      <p style={{ paddingRight: "10px" }}>Speaker:</p>
+                      <Avatar
+                        alt={mentor.name}
+                        sx={{
+                          bgcolor: "#344CB7 ",
+                          margin: "0px",
+                          padding: "0px",
+                        }}
+                        src={
+                          mentor.profileImage
+                            ? public_folder + mentor.profileImage
+                            : `/Avatars/${mentor.gender}/${mentor.defaultImage}`
+                        }
+                      />
+                    </div>
+                  }
+                  title={mentor.name}
+                  subheader={mentor.expertise}
+                />
+              </div>
+            </div>
+
+            <div className="group_session_desc">
+              <p>{sessionDetail.description}</p>
+              <p className="group_session_desc_p">
+                {userDetails.length} peoples already registered{" "}
+              </p>
+              <AvatarGroup max={4}>{Image}</AvatarGroup>
+            </div>
+            {/* <div className="cohost_name" style={{ marginTop: "0.5rem" }}>
           <h3>
             <b>Cohosted by : </b>
             {sessionDetail.coHosts.map((cohost) => {
@@ -211,25 +278,25 @@ export default function SessionDetails() {
               })}
           </h3>
         </div> */}
-        <div className="group_topic_of_disc">
-          <h3>
-            <b>Topic of discussion : </b>
-            {sessionDetail.category}
-          </h3>
+            <div className="group_topic_of_disc">
+              <h3>
+                <b>Topic of discussion : </b>
+                {sessionDetail.category}
+              </h3>
+            </div>
+            {/* sessionDetail.cohost ? <h3>Hosted by: {sessionDetail.host}</h3> : "" */}
+          </div>
         </div>
-        {/* sessionDetail.cohost ? <h3>Hosted by: {sessionDetail.host}</h3> : "" */}
-      </div>
-
-      {!user || user === undefined ? (
-        <div
-          className="joinButtonS"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {/* <Button
+        {!user || user === undefined ? (
+          <div
+            className="joinButtonS"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {/* <Button
             variant="outlined"
             component={Link}
             to={"/login"}
@@ -237,24 +304,29 @@ export default function SessionDetails() {
           >
             join
           </Button> */}
-          <Button
-            variant="outlined"
-            component={Link}
-            to={"/login"}
-            size="large"
-          >
-            RSVP
-          </Button>
-        </div>
-      ) : (
-        <div className="sessionButtons">
-          <Button variant="outlined" component={Link} to={"/home"} size="large">
-            <KeyboardBackspaceIcon />
-          </Button>
-          <Button variant="outlined" onClick={handleShare} size="large">
-            <ShareIcon />
-          </Button>
-          {/* {new Date(sessionDetail.date + sessionDetail.startTime).getTime() -
+            <Button
+              variant="outlined"
+              component={Link}
+              to={"/login"}
+              size="large"
+            >
+              RSVP
+            </Button>
+          </div>
+        ) : (
+          <div className="sessionButtons">
+            <Button
+              variant="outlined"
+              component={Link}
+              to={"/home"}
+              size="large"
+            >
+              <KeyboardBackspaceIcon />
+            </Button>
+            <Button variant="outlined" onClick={handleShare} size="large">
+              <ShareIcon />
+            </Button>
+            {/* {new Date(sessionDetail.date + sessionDetail.startTime).getTime() -
             1800000 < Date.now() ? (
             <Button variant="contained" size="large">
               <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
@@ -265,75 +337,93 @@ export default function SessionDetails() {
           ) : (
             ""
           )} */}
-          {sessionDetail.mentor !== user._id ? (
-            !registered ? (
-              <Button
-                variant="contained"
-                onClick={handleRegistration}
-                to={"/login"}
-                size="large"
-              >
-                RSVP
-              </Button>
+            {sessionDetail.mentor !== user._id ? (
+              !registered ? (
+                <Button
+                  variant="contained"
+                  onClick={handleRegistration}
+                  to={"/login"}
+                  size="large"
+                >
+                  RSVP
+                </Button>
+              ) : new Date(
+                  sessionDetail.date + sessionDetail.startTime
+                ).getTime() -
+                  1800000 <
+                Date.now() ? (
+                sessionDetail.isActive && (
+                  <Button variant="contained" size="large">
+                    <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
+                      Join
+                    </span>
+                    <GroupsIcon />
+                  </Button>
+                )
+              ) : (
+                <>
+                  <Button variant="outlined" disabled size="large">
+                    you've registered!
+                  </Button>{" "}
+                  <br />
+                  <span
+                    style={{ color: "red", cursor: "pointer" }}
+                    onClick={handleremoveRSVP}
+                  >
+                    Cancel registration
+                  </span>
+                </>
+              )
             ) : new Date(
                 sessionDetail.date + sessionDetail.startTime
               ).getTime() -
                 1800000 <
               Date.now() ? (
-              sessionDetail.isActive && (
-                <Button variant="contained" size="large">
-                  <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
-                    Join
-                  </span>
-                  <GroupsIcon />
-                </Button>
-              )
-            ) : (
-              <>
-                <Button variant="outlined" disabled size="large">
-                  you've registered!
-                </Button>{" "}
-                <br />
-                <span
-                  style={{ color: "red", cursor: "pointer" }}
-                  onClick={handleremoveRSVP}
-                >
-                  Cancel registration
+              <Button variant="contained" size="large">
+                <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
+                  Join
                 </span>
-              </>
-            )
-          ) : new Date(sessionDetail.date + sessionDetail.startTime).getTime() -
-              1800000 <
-            Date.now() ? (
-            <Button variant="contained" size="large">
-              <span style={{ margin: "0px .5rem" }} onClick={handlejoin}>
-                Join
+                <GroupsIcon />
+              </Button>
+            ) : (
+              <span style={{ color: "red", cursor: "pointer" }}>
+                *Join button will be active, 30 mins before the session time.
               </span>
-              <GroupsIcon />
-            </Button>
-          ) : (
-            <span style={{ color: "red", cursor: "pointer" }}>
-              *Join button will be active, 30 mins before the session time.
-            </span>
-          )}
+            )}
 
-          <Dialog
-            open={open1}
-            TransitionComponent={Transition}
-            keepMounted
-            onClose={handleClose1}
-            aria-describedby="alert-dialog-slide-description"
-          >
-            <DialogTitle>{"🎊🎉Congratulations! 🎉🎊"}</DialogTitle>
-            <DialogContent>
-              You have registered for the session!!!
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose1}>ok</Button>
-            </DialogActions>
-          </Dialog>
-        </div>
-      )}
+            <Dialog
+              open={open1}
+              TransitionComponent={Transition}
+              keepMounted
+              onClose={handleClose1}
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle>{"🎊🎉Congratulations! 🎉🎊"}</DialogTitle>
+              <DialogContent>
+                You have registered for the session!!!
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose1}>ok</Button>
+              </DialogActions>
+            </Dialog>
+            <Dialog
+              open={open2}
+              TransitionComponent={Transition}
+              keepMounted
+              onClose={handleClose2}
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle>{"Registration cancelled..."}</DialogTitle>
+              <DialogContent>
+                You have unregistered for the session!!!
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose2}>ok</Button>
+              </DialogActions>
+            </Dialog>
+          </div>
+        )}
+      </div>
 
       <Dialog
         open={open}
