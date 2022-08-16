@@ -139,15 +139,31 @@ export default function SessionDetails() {
   ))
 
   const handlejoin = async () => {
-    const role = user._id === sessionDetail.mentor ? "host" : "guest"
-    const sessionLink =
-      "https://62bd7a31d93831765b61385f--eduwartsmeet.netlify.app" +
-      sessionDetail.sessionLink +
-      "/" +
-      role
-    console.log(sessionLink)
-    // window.location.replace(sessionLink)
-    window.open(sessionLink, "_blank")
+
+
+    //commented for 100ms meet link
+
+
+    
+    // const role = user._id === sessionDetail.mentor ? "host" : "guest"
+    // const sessionLink =
+    //   "https://62bd7a31d93831765b61385f--eduwartsmeet.netlify.app" +
+    //   sessionDetail.sessionLink +
+    //   "/" +
+    //   role
+    // console.log(sessionLink)
+    // // window.location.replace(sessionLink)
+    // window.open(sessionLink, "_blank")
+
+
+    //------------------------------------------------------------------------------------------
+    //hardcoded gmeet link
+    console.log("meet link")
+    // "https://meet.google.com/ytj-rmtf-qij"
+    // window.location.replace("https://meet.google.com/ytj-rmtf-qij", "_blank")
+    window.open("https://meet.google.com/ytj-rmtf-qij?authuser=0", "_blank")
+
+
   }
 
   const handleShare = () => {
@@ -297,7 +313,7 @@ export default function SessionDetails() {
             <div className="group_session_desc">
               <p>{sessionDetail.description}</p>
               <p className="group_session_desc_p">
-                {userDetails.length} peoples already registered{" "}
+                {userDetails.length}+ people registered{" "}
               </p>
               <AvatarGroup max={4}>{Image}</AvatarGroup>
             </div>
@@ -369,7 +385,7 @@ export default function SessionDetails() {
             ""
           )} */}
             {sessionDetail.mentor !== user._id ? (
-              !registered ? (
+              !registered && sessionDetail.isActive ? (
                 <Button
                   variant="contained"
                   onClick={handleRegistration}
