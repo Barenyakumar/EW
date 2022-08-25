@@ -40,6 +40,8 @@ import CreateChallenge from "../../components/challenges/CreateChallenge"
 import ChallengeDetails from "../../components/challenges/ChallengeDetails"
 import SolutionDetails from "../../components/submission/SolutionDetails"
 import { CreatePost } from "../../components/create_post/CreatePost"
+import ViewAvailability from "../../components/availability/viewAvailability"
+import AvailableDay from "../../components/availability/AvailableDay"
 
 export const Home = () => {
   const { user } = useContext(AuthContext)
@@ -113,11 +115,11 @@ export const Home = () => {
       //       <SingleChallenge />
       //     ),
       // },
-      // {
-      //   path: "/booking",
-      //   element:
-      //     !user || user === undefined ? <Navigate to="/login" /> : <Booking />,
-      // },
+      {
+        path: "/booking",
+        element:
+          !user || user === undefined ? <Navigate to="/login" /> : <BookingSessionPage />,
+      },
       // {
       //   path: "/myprofile",
       //   element: !user || user === undefined? <Navigate to="/login" /> : <MyProfile />,
@@ -159,6 +161,15 @@ export const Home = () => {
             <Navigate to="/login" />
           ) : (
             <Availability />
+          ),
+      },
+      {
+        path: "/view",
+        element:
+          !user || user === undefined ? (
+            <Navigate to="/login" />
+          ) : (
+            <ViewAvailability availabilityCallback={true}  />
           ),
       },
       {

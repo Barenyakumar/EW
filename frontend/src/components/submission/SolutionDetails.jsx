@@ -1,4 +1,5 @@
 import { Avatar, CardHeader } from "@mui/material"
+import './submitchallenge.css'
 import React, { useContext } from "react"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"

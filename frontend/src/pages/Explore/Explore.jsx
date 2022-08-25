@@ -87,7 +87,7 @@ export default function Explore(props) {
   }
 
   const classes = useStyles()
-  
+
   //dynamic call of mentorlist
   const [mentorList, setMentorList] = useState([])
 
@@ -101,15 +101,15 @@ export default function Explore(props) {
   }, [])
 
   //dynamic data of group session
-   const [UpcomingGroupSessions, setUpcomingGroupSessions] = useState([])
-   useEffect(() => {
-     async function getUpcomingData() {
-       const res = await axios.get("/session/activegroup")
-       setUpcomingGroupSessions(res.data)
-     }
-    
-     getUpcomingData()
-   }, [])
+  const [UpcomingGroupSessions, setUpcomingGroupSessions] = useState([])
+  useEffect(() => {
+    async function getUpcomingData() {
+      const res = await axios.get("/session/activegroup")
+      setUpcomingGroupSessions(res.data)
+    }
+
+    getUpcomingData()
+  }, [])
 
   return (
     <>
@@ -218,8 +218,18 @@ export default function Explore(props) {
               Build yourself as a leader, expand your network, and establish
               your legacy.
             </h1>
-            <ThemeProvider theme={theme}>
+            {/* <ThemeProvider theme={theme}>
               <Button variant="contained" style={{ margin: "1rem 0px" }}>
+                Become a Mentor
+              </Button>
+            </ThemeProvider> */}
+            <ThemeProvider theme={theme}>
+              <Button variant="contained"
+                style={{ margin: "1rem 0px" }}
+                onClick={() => {
+                  window.location.replace("https://forms.gle/VG3r3FH9Qp5szoQ38","_blank")
+                }}
+              >
                 Become a Mentor
               </Button>
             </ThemeProvider>

@@ -200,11 +200,11 @@ export default function Profile() {
               aria-label="basic tabs example"
             >
               <Tab label="Overview" {...a11yProps(0)} />
-              {/* {CurrentUser.username == username || userProfile.isMentor ? (
+              {CurrentUser.username == username || userProfile.isMentor ? (
                 <Tab label="Week's Availability" {...a11yProps(1)} />
               ) : (
                 ""
-              )} */}
+              )}
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
@@ -258,7 +258,7 @@ export default function Profile() {
               ) : (
                 ""
               )}
-              {/* <div className="educationContainer">
+              <div className="educationContainer">
                 <h3 style={{ margin: "1rem 0px" }}>Experience </h3>
                 <div className="experienceProfile">
                   <div className="expertiseProfile">
@@ -277,7 +277,7 @@ export default function Profile() {
                   </div>
                   <Button variant="outlined">Present</Button>
                 </div>
-              </div> */}
+              </div>
             </div>
           </TabPanel>
           <TabPanel value={value} index={1}>

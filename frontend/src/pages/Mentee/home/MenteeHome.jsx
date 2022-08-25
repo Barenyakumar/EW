@@ -143,7 +143,7 @@ export default function MenteeHome() {
         of various skill sets in our community.
       </h3>
 
-      {/* <SearchBar /> */}
+      <SearchBar />
       <br></br>
       <br></br>
 

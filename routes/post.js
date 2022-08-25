@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
     const newPost = new Post(req.body);
     try {
         const savedPost = await newPost.save();
-        console.log(req.body);
+        // console.log(req.body);
         res.status(200).json(savedPost);
     } catch (error) {
         res.send(500).json(error);

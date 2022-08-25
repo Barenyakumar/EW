@@ -77,7 +77,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: `1.png`,
     },
-    
+    expertise:{
+      type:String,
+      default:"",
+    }
   },
 
   {

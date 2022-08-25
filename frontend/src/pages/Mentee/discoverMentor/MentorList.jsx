@@ -65,16 +65,16 @@ const MentorList = () => {
         {searchResult[0] === "No user found. Try again... !!!"
           ? "No user found. Try again... !!!"
           : searchResult.map((elem) => {
-              return (
-                // <div style={{height:'30rem', width:"15rem", border:"2px solid green"}}>
-                <SingleCard
-                  element={elem}
-                  height={"16rem"}
-                  width={"16rem"}
-                  key={elem._id}
-                />
-              )
-            })}
+            return (
+              // <div style={{height:'30rem', width:"15rem", border:"2px solid green"}}>
+              <SingleCard
+                element={elem}
+                height={"16rem"}
+                width={"16rem"}
+                key={elem._id}
+              />
+            )
+          })}
       </div>
       {/* <Button variant="outlined" className='LoadBtn' onClick={changeHeight}>Load More ...</Button> */}
       {preloader ? <Preloader /> : ""}
@@ -83,3 +83,25 @@ const MentorList = () => {
 }
 
 export default MentorList
+
+
+// export function MentorListBox() {
+//   return (
+//     <div ref={containerHeight} className="MentorList">
+//       {searchResult[0] === "No user found. Try again... !!!"
+//         ? "No user found. Try again... !!!"
+//         : searchResult.map((elem) => {
+//           return (
+//             // <div style={{height:'30rem', width:"15rem", border:"2px solid green"}}>
+//             <SingleCard
+//               element={elem}
+//               height={"16rem"}
+//               width={"16rem"}
+//               key={elem._id}
+//             />
+//           )
+//         })}
+//     </div>
+//   )
+// }
+
