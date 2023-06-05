@@ -1,0 +1,131 @@
+/* .bdContainer{
+
+} */
+.wrapper{
+    display: flex;
+    flex-direction: column;
+}
+h1{
+    
+    font-size: var(--h1-font-size);
+    font-weight: var(--fw-heading);
+    font-family: var(--heading-font);
+    color: var( --title-color);
+    
+}
+.highLight{
+    background-color: #F6BD3C; 
+    padding: 0.3px 5px;
+}
+h3{
+    font-family: var(--sub-heading-font);
+    font-size: var(--h3-font-size);
+    font-weight: var(--fw-sub-heading);
+    
+}
+label{
+    font-family: var(--heading-font);
+    font-size: var(--h3-font-size);
+    font-weight: var(--fw-sub-heading);
+}
+/* .css-19kzrtu{
+    padding: 0;
+} */
+
+.centerTitle{
+    margin: 1.5rem 0px;
+    text-align: center;
+    text-decoration: underline;
+    
+}
+.workingSection{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.pic{
+    width: 15rem;
+    height: 100%;
+    min-height: 20rem;
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 10px;
+    box-shadow: 4px 7px 15px rgb(128 128 128 / 59%);
+    margin: 1rem 0px;
+}
+
+.picBlack{
+    width: 90%;
+    max-width: 17rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.hostSessionImg > img{
+    width: 25rem;
+}
+
+.blackContent{
+    width: 100%;
+    text-align: justify;
+    padding: 0px 1rem;
+}
+
+.pic> img{
+    width: 100%;
+    height: 100%;
+    /* border-radius: .5rem; */
+}
+.helpImg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.helpImg >img{
+    width: 280px;
+    justify-self: center;
+    margin: 0px auto;
+}
+
+
+/*========== MEDIA QUERIES ==========*/
+
+/* For full-screen images on small screens */
+@media screen and (max-width: 359px){
+    .home__img
+    {
+      width: 100%;
+    }
+  }
+
+  @media screen and (min-width: 576px){
+    .home__img{
+        order: 1;
+        width: 100%;
+      }
+  }
+
+  @media screen and (min-width: 968px){
+    .home__img{
+    width: 469px;
+    }
+  }
+
+
+  .loginBtncontainer{
+      float: right;
+      width: 10rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+  }

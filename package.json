@@ -1,0 +1,32 @@
+{
+  "name": "eduwarts",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "author": "Eduwarts Admin",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.17.1",
+    "html-to-text": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "juice": "^8.0.0",
+    "mongodb": "^3.7.3",
+    "mongoose": "^5.9.13",
+    "multer": "^1.4.4",
+    "node-fetch": "^2.6.7",
+    "nodemailer": "^6.7.5",
+    "uuid4": "^2.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
+  "keywords": [],
+  "description": ""
+}

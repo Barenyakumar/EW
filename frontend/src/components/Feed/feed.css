@@ -1,0 +1,17 @@
+
+.feedContainer{
+    height: 100%;
+    width: 100%;
+}
+.card{
+    margin: .5rem auto;
+    width: 95%;
+    border-radius: .5rem;
+}
+.addPost{
+    position: fixed;
+    bottom: 4rem;
+    right: 2rem;
+    width: max-content;
+    height: max-content;
+}
